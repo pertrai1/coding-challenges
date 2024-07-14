@@ -1,0 +1,14 @@
+{
+  "posts": [
+    {
+      "title": "Hello world blog post",
+      "summary": "This is the first blog post",
+      "post": "This is the first blog post. It's not very long, but it's a start."
+    },
+    {
+      "title": "Yet another blog post",
+      "summary": "This is the second blog post",
+      "post": "This is the second blog post. It's not very long, but it's a start."
+    }
+  ]
+}
