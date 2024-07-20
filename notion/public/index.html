@@ -19,7 +19,7 @@
     <main>
       <h1>Think it. Make it.</h1>
       <h2>Log in to your Notion account</h2>
-      <form>
+      <div id="otp-request">
         <label for="email-input">Email</label>
         <input
           type="email"
@@ -34,10 +34,13 @@
         <button type="button" id="btn-generate-otp" onclick="generateOTP()">
           Continue
         </button>
+      </div>
+      <div id="otp-verification" style="display: none">
         <label for="verification-code">Verification code</label>
         <input type="text" id="verification-code" name="verification-code" />
         <span>We sent a code to your email inbox</span>
-      </form>
+        <button type="button" onclick="verifyOTP()">Continue</button>
+      </div>
     </main>
   </body>
 </html>
