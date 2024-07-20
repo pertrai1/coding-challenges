@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "title": "Hello world blog post",
-      "summary": "This is the first blog post",
-      "file": "hello-world.md"
-    },
-    {
-      "title": "Yet another blog post",
-      "summary": "This is the second blog post",
-      "file": "yet-another.md"
-    },
-    {
       "title": "Rob First Posts",
       "summary": "This is my first post",
       "file": "rob-first-posts.md"
