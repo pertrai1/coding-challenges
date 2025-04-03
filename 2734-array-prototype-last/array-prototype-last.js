@@ -1,11 +1,10 @@
-Object.defineProperty(Array.prototype, 'last', {
-    value: function() {
-        const n = this.length;
-        return n ? this[n - 1] : -1
-    },
-    enumerable: false
-  });
-
+Array.prototype.last = function() {
+  const n = this.length;
+  if (n === 0) {
+    return -1;
+  }
+  return this[n - 1];
+};
 
 /**
  * const arr = [1, 2, 3];
