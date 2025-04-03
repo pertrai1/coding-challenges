@@ -1,8 +1,9 @@
 Array.prototype.last = function() {
+  const n = this.length;
   if (this.length === 0) {
     return -1;
   }
-  return this.pop();
+  return this[n - 1];
 };
 
 /**
