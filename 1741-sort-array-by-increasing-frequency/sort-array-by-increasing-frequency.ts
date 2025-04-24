@@ -3,17 +3,13 @@ function frequencySort(nums: number[]): number[] {
     for (const num of nums) {
         frequencyMap.set(num, (frequencyMap.get(num) || 0) + 1);
     }
-    const sortedMap = Array.from(frequencyMap).sort((a, b) => {
-        if (a[1] === b[1]) {
-            return b[0] - a[0];
+    nums.sort((a, b) => {
+        const freqA = frequencyMap.get(a);
+        const freqB = frequencyMap.get(b);
+        if (freqA === freqB) {
+            return b - a;
         }
-        return a[1] - b[1]
+            return freqA - freqB;
     });
-    const result = [];
-    for (let i = 0; i < sortedMap.length; i++) {
-        for (let j = 0; j < sortedMap[i][1]; j++) {
-            result.push(sortedMap[i][0]);
-        }
-    }
-    return result;
+    return nums;
 };
