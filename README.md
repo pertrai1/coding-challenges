@@ -65,6 +65,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0762 - Find Anagram Mappings](./0762-find-anagram-mappings) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1074 - High Five](./1074-high-five) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1082 - Sum of Digits in the Minimum Number](./1082-sum-of-digits-in-the-minimum-number) ![Easy](https://img.shields.io/badge/Easy-green)
+- [2442 - Number of Arithmetic Triplets](./2442-number-of-arithmetic-triplets) ![Easy](https://img.shields.io/badge/Easy-green)
 
 ### JavaScript/TypeScript
 
