@@ -45,6 +45,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [3207 - Make Three Strings Equal](./3207-make-three-strings-equal) ![Easy](https://img.shields.io/badge/Easy-green)
 - [3429 - Special Array I](./3429-special-array-i) ![Easy](https://img.shields.io/badge/Easy-green)
 - [3581 - The Two Sneaky Numbers of Digitville](./3581-the-two-sneaky-numbers-of-digitville) ![Easy](https://img.shields.io/badge/Easy-green)
+- [1127 - Last Stone Weight](./1127-last-stone-weight) ![Easy](https://img.shields.io/badge/Easy-green)
 
 ### Tree Problems
 
