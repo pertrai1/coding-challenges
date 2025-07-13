@@ -7,7 +7,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - **Total Problems**: 50+ solved
 - **Easy**: 30+ problems
 - **Medium**: 15+ problems
-- **Hard**: 0 problems
+- **Hard**: 1 problem
 
 ## 🟢 Easy Problems
 
@@ -107,6 +107,12 @@ This repository contains my solutions to various LeetCode problems, organized by
 ### JavaScript/TypeScript
 
 - [2745 - Convert Object to JSON String](./2745-convert-object-to-json-string) ![Medium](https://img.shields.io/badge/Medium-orange)
+
+## 🔴 Hard Problems
+
+### Graph Problems
+
+- [2439 - Longest Cycle in a Graph](./2439-longest-cycle-in-a-graph) ![Hard](https://img.shields.io/badge/Hard-red)
 
 ## 🔧 Other Projects
 
