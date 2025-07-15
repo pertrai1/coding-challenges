@@ -59,6 +59,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0476 - Number Complement](./0476-number-complement) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1289 - Day of the Week](./1289-day-of-the-week) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1920 - Determine Color of a Chessboard Square](./1920-determine-color-of-a-chessboard-square) ![Easy](https://img.shields.io/badge/Easy-green)
+- [3055 - Maximum Odd Binary Number](./3055-maximum-odd-binary-number) ![Easy](https://img.shields.io/badge/Easy-green)
 - [3371 - Harshad Number](./3371-harshad-number) ![Easy](https://img.shields.io/badge/Easy-green)
 
 ### Hash Table & Map
