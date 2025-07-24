@@ -6,7 +6,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 - **Total Problems**: 50+ solved
 - **Easy**: 30+ problems
-- **Medium**: 15+ problems
+- **Medium**: 16+ problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -98,6 +98,10 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0616 - Add Bold Tag in String](./0616-add-bold-tag-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0760 - Bold Words in String](./0760-bold-words-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2487 - Optimal Partition of String](./2487-optimal-partition-of-string) ![Medium](https://img.shields.io/badge/Medium-orange)
+
+### Dynamic Programming
+
+- [0198 - House Robber](./0198-house-robber) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Math & Number Theory
 
