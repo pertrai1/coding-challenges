@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 50+ solved
-- **Easy**: 30+ problems
-- **Medium**: 16+ problems
+- **Total Problems**: 70+ solved
+- **Easy**: 55 problems
+- **Medium**: 17+ problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -90,6 +90,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0034 - Find First and Last Position of Element in Sorted Array](./0034-find-first-and-last-position-of-element-in-sorted-array) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0090 - Subsets II](./0090-subsets-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0287 - Find the Duplicate Number](./0287-find-the-duplicate-number) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [2868 - Continuous Subarrays](./2868-continuous-subarrays) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [3241 - Divide Array Into Arrays With Max Difference](./3241-divide-array-into-arrays-with-max-difference) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### String Manipulation
