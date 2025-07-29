@@ -4,8 +4,8 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 70+ solved
-- **Easy**: 55 problems
+- **Total Problems**: 71+ solved
+- **Easy**: 56 problems
 - **Medium**: 17+ problems
 - **Hard**: 1 problem
 
@@ -49,6 +49,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [2902 - Max Pair Sum in an Array](./2902-max-pair-sum-in-an-array) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1127 - Last Stone Weight](./1127-last-stone-weight) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2316 - Count Hills and Valleys in an Array](./2316-count-hills-and-valleys-in-an-array) ![Easy](https://img.shields.io/badge/Easy-green)
+- [1241 - Decompress Run-Length Encoded List](./1241-decompress-run-length-encoded-list) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1302 - Delete Characters to Make Fancy String](./1302-delete-characters-to-make-fancy-string) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2542 - Average Value of Even Numbers That Are Divisible by Three](./2542-average-value-of-even-numbers-that-are-divisible-by-three) ![Easy](https://img.shields.io/badge/Easy-green)
 
