@@ -4,8 +4,8 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 72+ solved
-- **Easy**: 57 problems
+- **Total Problems**: 73+ solved
+- **Easy**: 58 problems
 - **Medium**: 17+ problems
 - **Hard**: 1 problem
 
@@ -63,6 +63,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 ### Math & Bit Manipulation
 
 - [0070 - Climbing Stairs](./0070-climbing-stairs) ![Easy](https://img.shields.io/badge/Easy-green)
+- [0171 - Excel Sheet Column Number](./0171-excel-sheet-column-number) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0476 - Number Complement](./0476-number-complement) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1289 - Day of the Week](./1289-day-of-the-week) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1920 - Determine Color of a Chessboard Square](./1920-determine-color-of-a-chessboard-square) ![Easy](https://img.shields.io/badge/Easy-green)
