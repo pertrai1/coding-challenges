@@ -278,13 +278,13 @@ function runTests(): void {
   });
 }
 
-// Uncomment the line below to run the tests
-// runTests();
+// Run the full test suite
+runTests();
 
 // Simple test to demonstrate the algorithm
 console.log("🧪 WIGGLE SORT II DEMONSTRATION 🧪\n");
 
 const testArray = [1, 5, 1, 1, 6, 4];
-console.log(`Testing with array: [${testArray.join(', ')}]`);
+console.log(`Testing with array: [${testArray.join(", ")}]`);
 demonstrateIndexMapping(testArray.length);
 wiggleSort(testArray, true);

@@ -1,0 +1,29 @@
+{
+  "name": "coding-challenges",
+  "version": "1.0.0",
+  "description": "This repository contains my solutions to various LeetCode problems, organized by difficulty and topic.",
+  "homepage": "https://github.com/pertrai1/coding-challenges#readme",
+  "bugs": {
+    "url": "https://github.com/pertrai1/coding-challenges/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pertrai1/coding-challenges.git"
+  },
+  "license": "ISC",
+  "author": "Rob Simpson",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node",
+    "build": "tsc",
+    "start": "node",
+    "run-ts": "ts-node"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}
