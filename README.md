@@ -4,8 +4,8 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 76+ solved
-- **Easy**: 60 problems
+- **Total Problems**: 77+ solved
+- **Easy**: 61 problems
 - **Medium**: 18+ problems
 - **Hard**: 1 problem
 
@@ -16,6 +16,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0001 - Two Sum](./0001-two-sum) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0009 - Palindrome Number](./0009-palindrome-number) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0020 - Valid Parentheses](./0020-valid-parentheses) ![Easy](https://img.shields.io/badge/Easy-green)
+- [0266 - Palindrome Permutation](./0266-palindrome-permutation) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0205 - Isomorphic Strings](./0205-isomorphic-strings) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0383 - Ransom Note](./0383-ransom-note) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0551 - Student Attendance Record I](./0551-student-attendance-record-i) ![Easy](https://img.shields.io/badge/Easy-green)
