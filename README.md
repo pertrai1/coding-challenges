@@ -4,8 +4,8 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 77+ solved
-- **Easy**: 61 problems
+- **Total Problems**: 78+ solved
+- **Easy**: 62 problems
 - **Medium**: 18+ problems
 - **Hard**: 1 problem
 
@@ -18,6 +18,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0020 - Valid Parentheses](./0020-valid-parentheses) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0266 - Palindrome Permutation](./0266-palindrome-permutation) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0205 - Isomorphic Strings](./0205-isomorphic-strings) ![Easy](https://img.shields.io/badge/Easy-green)
+- [2168 - Check if Numbers Are Ascending in a Sentence](./2168-check-if-numbers-are-ascending-in-a-sentence) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0383 - Ransom Note](./0383-ransom-note) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0551 - Student Attendance Record I](./0551-student-attendance-record-i) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0598 - Range Addition II](./0598-range-addition-ii) ![Easy](https://img.shields.io/badge/Easy-green)
