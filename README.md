@@ -4,8 +4,8 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 78+ solved
-- **Easy**: 62 problems
+- **Total Problems**: 79+ solved
+- **Easy**: 63 problems
 - **Medium**: 18+ problems
 - **Hard**: 1 problem
 
@@ -43,6 +43,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [2614 - Maximum Count of Positive Integer and Negative Integer](./2614-maximum-count-of-positive-integer-and-negative-integer) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2624 - Difference Between Element Sum and Digit Sum of an Array](./2624-difference-between-element-sum-and-digit-sum-of-an-array) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2634 - Minimum Common Value](./2634-minimum-common-value) ![Easy](https://img.shields.io/badge/Easy-green)
+- [2654 - Count the Number of Vowel Strings in Range](./2654-count-the-number-of-vowel-strings-in-range) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2737 - Row With Maximum Ones](./2737-row-with-maximum-ones) ![Easy](https://img.shields.io/badge/Easy-green)
 - [3034 - Points That Intersect With Cars](./3034-points-that-intersect-with-cars) ![Easy](https://img.shields.io/badge/Easy-green)
 - [3207 - Make Three Strings Equal](./3207-make-three-strings-equal) ![Easy](https://img.shields.io/badge/Easy-green)
