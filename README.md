@@ -4,8 +4,8 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 79+ solved
-- **Easy**: 63 problems
+- **Total Problems**: 80+ solved
+- **Easy**: 64 problems
 - **Medium**: 18+ problems
 - **Hard**: 1 problem
 
@@ -16,6 +16,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0001 - Two Sum](./0001-two-sum) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0009 - Palindrome Number](./0009-palindrome-number) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0020 - Valid Parentheses](./0020-valid-parentheses) ![Easy](https://img.shields.io/badge/Easy-green)
+- [0169 - Majority Element](./0169-majority-element) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0266 - Palindrome Permutation](./0266-palindrome-permutation) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0205 - Isomorphic Strings](./0205-isomorphic-strings) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2168 - Check if Numbers Are Ascending in a Sentence](./2168-check-if-numbers-are-ascending-in-a-sentence) ![Easy](https://img.shields.io/badge/Easy-green)
