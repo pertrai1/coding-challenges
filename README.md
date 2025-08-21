@@ -5,7 +5,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 ## 📊 Statistics
 
 - **Total Problems**: 80+ solved
-- **Easy**: 64 problems
+- **Easy**: 65 problems
 - **Medium**: 18+ problems
 - **Hard**: 1 problem
 
@@ -59,6 +59,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [2032 - Largest Odd Number in String](./2032-largest-odd-number-in-string) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2542 - Average Value of Even Numbers That Are Divisible by Three](./2542-average-value-of-even-numbers-that-are-divisible-by-three) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2767 - Maximum Sum With Exactly K Elements](./2767-maximum-sum-with-exactly-k-elements) ![Easy](https://img.shields.io/badge/Easy-green)
+- [2361 - Calculate Digit Sum of a String](./2361-calculate-digit-sum-of-a-string) ![Easy](https://img.shields.io/badge/Easy-green)
 
 ### Tree Problems
 
