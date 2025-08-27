@@ -6,7 +6,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 - **Total Problems**: 80+ solved
 - **Easy**: 68 problems
-- **Medium**: 18+ problems
+- **Medium**: 19+ problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -106,6 +106,10 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0324 - Wiggle Sort II](./0324-wiggle-sort-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2868 - Continuous Subarrays](./2868-continuous-subarrays) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [3241 - Divide Array Into Arrays With Max Difference](./3241-divide-array-into-arrays-with-max-difference) ![Medium](https://img.shields.io/badge/Medium-orange)
+
+### Linked List
+
+- [0019 - Remove Nth Node From End of List](./0019-remove-nth-node-from-end-of-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### String Manipulation
 
