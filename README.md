@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 80+ solved
+- **Total Problems**: 90 solved
 - **Easy**: 68 problems
-- **Medium**: 19+ problems
+- **Medium**: 21 problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -109,6 +109,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ### Linked List
 
+- [0002 - Add Two Numbers](./0002-add-two-numbers) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0019 - Remove Nth Node From End of List](./0019-remove-nth-node-from-end-of-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### String Manipulation
