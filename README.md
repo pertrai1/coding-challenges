@@ -4,8 +4,8 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 92 solved
-- **Easy**: 69 problems
+- **Total Problems**: 93 solved
+- **Easy**: 70 problems
 - **Medium**: 22 problems
 - **Hard**: 1 problem
 
@@ -64,6 +64,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [2756 - Buy Two Chocolates](./2756-buy-two-chocolates) ![Easy](https://img.shields.io/badge/Easy-green)
 - [3172 - Divisible and Non-divisible Sums Difference](./3172-divisible-and-non-divisible-sums-difference) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1039 - Find the Town Judge](./1039-find-the-town-judge) ![Easy](https://img.shields.io/badge/Easy-green)
+- [1916 - Find Center of Star Graph](./1916-find-center-of-star-graph) ![Easy](https://img.shields.io/badge/Easy-green)
 
 ### Tree Problems
 
