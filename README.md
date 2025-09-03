@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 95 solved
+- **Total Problems**: 96 solved
 - **Easy**: 71 problems
-- **Medium**: 23 problems
+- **Medium**: 24 problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -135,6 +135,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ### Graph & Grid Problems
 
+- [0133 - Clone Graph](./0133-clone-graph) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0207 - Course Schedule](./0207-course-schedule) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2035 - Count Sub Islands](./2035-count-sub-islands) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [3677 - Maximum Amount of Money Robot Can Earn](./3677-maximum-amount-of-money-robot-can-earn) ![Medium](https://img.shields.io/badge/Medium-orange)
