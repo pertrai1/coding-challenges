@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 98 solved
+- **Total Problems**: 99 solved
 - **Easy**: 71 problems
-- **Medium**: 26 problems
+- **Medium**: 27 problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -138,6 +138,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0133 - Clone Graph](./0133-clone-graph) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0207 - Course Schedule](./0207-course-schedule) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0210 - Course Schedule II](./0210-course-schedule-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0323 - Number of Connected Components in an Undirected Graph](./0323-number-of-connected-components-in-an-undirected-graph) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1442 - Number of Operations to Make Network Connected](./1442-number-of-operations-to-make-network-connected) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2035 - Count Sub Islands](./2035-count-sub-islands) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [3677 - Maximum Amount of Money Robot Can Earn](./3677-maximum-amount-of-money-robot-can-earn) ![Medium](https://img.shields.io/badge/Medium-orange)
