@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 101 solved
+- **Total Problems**: 102 solved
 - **Easy**: 71 problems
-- **Medium**: 29 problems
+- **Medium**: 30 problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -143,6 +143,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0744 - Network Delay Time](./0744-network-delay-time) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1442 - Number of Operations to Make Network Connected](./1442-number-of-operations-to-make-network-connected) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2035 - Count Sub Islands](./2035-count-sub-islands) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [2090 - Number of Ways to Arrive at Destination](./2090-number-of-ways-to-arrive-at-destination) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [3677 - Maximum Amount of Money Robot Can Earn](./3677-maximum-amount-of-money-robot-can-earn) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### JavaScript/TypeScript
