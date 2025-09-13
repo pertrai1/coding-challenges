@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 102 solved
+- **Total Problems**: 103 solved
 - **Easy**: 71 problems
-- **Medium**: 30 problems
+- **Medium**: 31 problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -140,6 +140,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0210 - Course Schedule II](./0210-course-schedule-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0261 - Graph Valid Tree](./0261-graph-valid-tree) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0323 - Number of Connected Components in an Undirected Graph](./0323-number-of-connected-components-in-an-undirected-graph) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0684 - Redundant Connection](./0684-redundant-connection) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0744 - Network Delay Time](./0744-network-delay-time) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1442 - Number of Operations to Make Network Connected](./1442-number-of-operations-to-make-network-connected) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2035 - Count Sub Islands](./2035-count-sub-islands) ![Medium](https://img.shields.io/badge/Medium-orange)
