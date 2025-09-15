@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 104 solved
+- **Total Problems**: 105 solved
 - **Easy**: 72 problems
-- **Medium**: 31 problems
+- **Medium**: 32 problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -140,6 +140,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0207 - Course Schedule](./0207-course-schedule) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0210 - Course Schedule II](./0210-course-schedule-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0261 - Graph Valid Tree](./0261-graph-valid-tree) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0310 - Minimum Height Trees](./0310-minimum-height-trees) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0323 - Number of Connected Components in an Undirected Graph](./0323-number-of-connected-components-in-an-undirected-graph) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0684 - Redundant Connection](./0684-redundant-connection) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0744 - Network Delay Time](./0744-network-delay-time) ![Medium](https://img.shields.io/badge/Medium-orange)
