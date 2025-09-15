@@ -4,8 +4,8 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 103 solved
-- **Easy**: 71 problems
+- **Total Problems**: 104 solved
+- **Easy**: 72 problems
 - **Medium**: 31 problems
 - **Hard**: 1 problem
 
@@ -24,6 +24,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0551 - Student Attendance Record I](./0551-student-attendance-record-i) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0598 - Range Addition II](./0598-range-addition-ii) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0628 - Maximum Product of Three Numbers](./0628-maximum-product-of-three-numbers) ![Easy](https://img.shields.io/badge/Easy-green)
+- [0645 - Set Mismatch](./0645-set-mismatch) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0724 - Find Pivot Index](./0724-find-pivot-index) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0777 - Toeplitz Matrix](./0777-toeplitz-matrix) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0837 - Most Common Word](./0837-most-common-word) ![Easy](https://img.shields.io/badge/Easy-green)
