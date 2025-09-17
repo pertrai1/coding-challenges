@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 107 solved
+- **Total Problems**: 108 solved
 - **Easy**: 72 problems
-- **Medium**: 34 problems
+- **Medium**: 35 problems
 - **Hard**: 1 problem
 
 ## 🟢 Easy Problems
@@ -126,6 +126,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ### Dynamic Programming
 
+- [0053 - Maximum Subarray](./0053-maximum-subarray) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0198 - House Robber](./0198-house-robber) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Math & Number Theory
