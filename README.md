@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 114 solved
+- **Total Problems**: 115 solved
 - **Easy**: 72 problems
-- **Medium**: 37 problems
+- **Medium**: 38 problems
 - **Hard**: 5 problems
 
 ## 🟢 Easy Problems
@@ -143,6 +143,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0261 - Graph Valid Tree](./0261-graph-valid-tree) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0310 - Minimum Height Trees](./0310-minimum-height-trees) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0323 - Number of Connected Components in an Undirected Graph](./0323-number-of-connected-components-in-an-undirected-graph) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0505 - The Maze II](./0505-the-maze-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0684 - Redundant Connection](./0684-redundant-connection) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0744 - Network Delay Time](./0744-network-delay-time) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0803 - Cheapest Flights Within K Stops](./0803-cheapest-flights-within-k-stops) ![Medium](https://img.shields.io/badge/Medium-orange)
