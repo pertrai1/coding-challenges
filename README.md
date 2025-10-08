@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 115 solved
+- **Total Problems**: 116 solved
 - **Easy**: 72 problems
-- **Medium**: 38 problems
+- **Medium**: 39 problems
 - **Hard**: 5 problems
 
 ## 🟢 Easy Problems
@@ -141,14 +141,15 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0207 - Course Schedule](./0207-course-schedule) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0210 - Course Schedule II](./0210-course-schedule-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0261 - Graph Valid Tree](./0261-graph-valid-tree) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0277 - Find the Celebrity](./0277-find-the-celebrity) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0310 - Minimum Height Trees](./0310-minimum-height-trees) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0323 - Number of Connected Components in an Undirected Graph](./0323-number-of-connected-components-in-an-undirected-graph) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0444 - Sequence Reconstruction](./0444-sequence-reconstruction) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0505 - The Maze II](./0505-the-maze-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0684 - Redundant Connection](./0684-redundant-connection) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0744 - Network Delay Time](./0744-network-delay-time) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0803 - Cheapest Flights Within K Stops](./0803-cheapest-flights-within-k-stops) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0813 - All Paths From Source to Target](./0813-all-paths-from-source-to-target) ![Medium](https://img.shields.io/badge/Medium-orange)
-- [0277 - Find the Celebrity](./0277-find-the-celebrity) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0871 - Keys and Rooms](./0871-keys-and-rooms) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1442 - Number of Operations to Make Network Connected](./1442-number-of-operations-to-make-network-connected) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2035 - Count Sub Islands](./2035-count-sub-islands) ![Medium](https://img.shields.io/badge/Medium-orange)
