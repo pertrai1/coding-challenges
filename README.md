@@ -4,10 +4,10 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 116 solved
+- **Total Problems**: 117 solved
 - **Easy**: 72 problems
 - **Medium**: 39 problems
-- **Hard**: 5 problems
+- **Hard**: 6 problems
 
 ## 🟢 Easy Problems
 
@@ -167,6 +167,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0269 - Alien Dictionary](./0269-alien-dictionary) ![Hard](https://img.shields.io/badge/Hard-red)
 - [0329 - Longest Increasing Path in a Matrix](./0329-longest-increasing-path-in-a-matrix) ![Hard](https://img.shields.io/badge/Hard-red)
 - [0332 - Reconstruct Itinerary](./0332-reconstruct-itinerary) ![Hard](https://img.shields.io/badge/Hard-red)
+- [0499 - The Maze III](./0499-the-maze-iii) ![Hard](https://img.shields.io/badge/Hard-red)
 - [0685 - Redundant Connection II](./0685-redundant-connection-ii) ![Hard](https://img.shields.io/badge/Hard-red)
 - [2439 - Longest Cycle in a Graph](./2439-longest-cycle-in-a-graph) ![Hard](https://img.shields.io/badge/Hard-red)
 
