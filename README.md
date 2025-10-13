@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 118 solved
+- **Total Problems**: 119 solved
 - **Easy**: 72 problems
-- **Medium**: 39 problems
+- **Medium**: 40 problems
 - **Hard**: 7 problems
 
 ## 🟢 Easy Problems
@@ -150,6 +150,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0744 - Network Delay Time](./0744-network-delay-time) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0803 - Cheapest Flights Within K Stops](./0803-cheapest-flights-within-k-stops) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0813 - All Paths From Source to Target](./0813-all-paths-from-source-to-target) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0820 - Find Eventual Safe States](./0820-find-eventual-safe-states) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0871 - Keys and Rooms](./0871-keys-and-rooms) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1442 - Number of Operations to Make Network Connected](./1442-number-of-operations-to-make-network-connected) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2035 - Count Sub Islands](./2035-count-sub-islands) ![Medium](https://img.shields.io/badge/Medium-orange)
