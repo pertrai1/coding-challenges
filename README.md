@@ -4,10 +4,10 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 120 solved
+- **Total Problems**: 121 solved
 - **Easy**: 72 problems
 - **Medium**: 40 problems
-- **Hard**: 8 problems
+- **Hard**: 9 problems
 
 ## 🟢 Easy Problems
 
@@ -171,6 +171,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0499 - The Maze III](./0499-the-maze-iii) ![Hard](https://img.shields.io/badge/Hard-red)
 - [0685 - Redundant Connection II](./0685-redundant-connection-ii) ![Hard](https://img.shields.io/badge/Hard-red)
 - [0754 - Cracking the Safe](./0754-cracking-the-safe) ![Hard](https://img.shields.io/badge/Hard-red)
+- [0863 - Sum of Distances in Tree](./0863-sum-of-distances-in-tree) ![Hard](https://img.shields.io/badge/Hard-red)
 - [0877 - Shortest Path Visiting All Nodes](./0877-shortest-path-visiting-all-nodes) ![Hard](https://img.shields.io/badge/Hard-red)
 - [2439 - Longest Cycle in a Graph](./2439-longest-cycle-in-a-graph) ![Hard](https://img.shields.io/badge/Hard-red)
 
