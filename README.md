@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 124 solved
+- **Total Problems**: 125 solved
 - **Easy**: 72 problems
-- **Medium**: 42 problems
+- **Medium**: 43 problems
 - **Hard**: 10 problems
 
 ## 🟢 Easy Problems
@@ -154,6 +154,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0871 - Keys and Rooms](./0871-keys-and-rooms) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0881 - Loud and Rich](./0881-loud-and-rich) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0922 - Possible Bipartition](./0922-possible-bipartition) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0984 - Most Stones Removed with Same Row or Column](./0984-most-stones-removed-with-same-row-or-column) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1442 - Number of Operations to Make Network Connected](./1442-number-of-operations-to-make-network-connected) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2035 - Count Sub Islands](./2035-count-sub-islands) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2090 - Number of Ways to Arrive at Destination](./2090-number-of-ways-to-arrive-at-destination) ![Medium](https://img.shields.io/badge/Medium-orange)
