@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 126 solved
+- **Total Problems**: 127 solved
 - **Easy**: 72 problems
-- **Medium**: 44 problems
+- **Medium**: 45 problems
 - **Hard**: 10 problems
 
 ## 🟢 Easy Problems
@@ -116,6 +116,10 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 - [0002 - Add Two Numbers](./0002-add-two-numbers) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0019 - Remove Nth Node From End of List](./0019-remove-nth-node-from-end-of-list) ![Medium](https://img.shields.io/badge/Medium-orange)
+
+### Tree Problems
+
+- [1008 - Construct Binary Search Tree from Preorder Traversal](./1050-construct-binary-search-tree-from-preorder-traversal) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### String Manipulation
 
