@@ -18,7 +18,7 @@ This repository contains solutions to various LeetCode problems and coding chall
 ### JavaScript Solutions
 
 - Use JSDoc comments for function signatures
-- Use `var` keyword for function expressions (LeetCode convention)
+- Use `var` keyword for function expressions or `function` declarations (LeetCode convention)
 - Use ES6+ features: `const`, `let`, arrow functions, Map, Set
 - Keep solutions concise and focused on the algorithm
 - Example:
@@ -115,7 +115,7 @@ These follow similar code quality standards but may have their own specific patt
 
 ## General Preferences
 
-- **Naming**: Use descriptive variable names (avoid single letters except for common iterators)
+- **Naming**: Use descriptive variable names (single letters like `i`, `j`, `k` are acceptable for loop iterators and standard mathematical contexts)
 - **Comments**: Add comments for complex logic, but prefer self-documenting code
 - **Formatting**: Consistent indentation (2 or 4 spaces)
 - **Imports**: Minimal external dependencies (solutions should be self-contained)
