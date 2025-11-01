@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 129 solved
+- **Total Problems**: 130 solved
 - **Easy**: 72 problems
-- **Medium**: 47 problems
+- **Medium**: 48 problems
 - **Hard**: 10 problems
 
 ## 🟢 Easy Problems
@@ -126,6 +126,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 - [0165 - Compare Version Numbers](./0165-compare-version-numbers) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0187 - Repeated DNA Sequences](./0187-repeated-dna-sequences) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0340 - Longest Substring with At Most K Distinct Characters](./0340-longest-substring-with-at-most-k-distinct-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0616 - Add Bold Tag in String](./0616-add-bold-tag-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0760 - Bold Words in String](./0760-bold-words-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2487 - Optimal Partition of String](./2487-optimal-partition-of-string) ![Medium](https://img.shields.io/badge/Medium-orange)
