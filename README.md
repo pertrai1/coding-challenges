@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 130 solved
+- **Total Problems**: 131 solved
 - **Easy**: 72 problems
-- **Medium**: 48 problems
+- **Medium**: 49 problems
 - **Hard**: 10 problems
 
 ## 🟢 Easy Problems
@@ -124,6 +124,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ### String Manipulation
 
+- [0159 - Longest Substring with At Most Two Distinct Characters](./leetcode/medium/0159-longest-substring-with-at-most-two-distinct-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0165 - Compare Version Numbers](./leetcode/medium/0165-compare-version-numbers) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0187 - Repeated DNA Sequences](./leetcode/medium/0187-repeated-dna-sequences) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0340 - Longest Substring with At Most K Distinct Characters](./leetcode/medium/0340-longest-substring-with-at-most-k-distinct-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
