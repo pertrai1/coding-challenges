@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 131 solved
+- **Total Problems**: 132 solved
 - **Easy**: 72 problems
-- **Medium**: 49 problems
+- **Medium**: 50 problems
 - **Hard**: 10 problems
 
 ## 🟢 Easy Problems
@@ -128,6 +128,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0165 - Compare Version Numbers](./leetcode/medium/0165-compare-version-numbers) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0187 - Repeated DNA Sequences](./leetcode/medium/0187-repeated-dna-sequences) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0340 - Longest Substring with At Most K Distinct Characters](./leetcode/medium/0340-longest-substring-with-at-most-k-distinct-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0395 - Longest Substring with At Least K Repeating Characters](./leetcode/medium/0395-longest-substring-with-at-least-k-repeating-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0616 - Add Bold Tag in String](./leetcode/medium/0616-add-bold-tag-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0760 - Bold Words in String](./leetcode/medium/0760-bold-words-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2487 - Optimal Partition of String](./leetcode/medium/2487-optimal-partition-of-string) ![Medium](https://img.shields.io/badge/Medium-orange)
