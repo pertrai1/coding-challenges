@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 132 solved
+- **Total Problems**: 133 solved
 - **Easy**: 72 problems
-- **Medium**: 50 problems
+- **Medium**: 51 problems
 - **Hard**: 10 problems
 
 ## 🟢 Easy Problems
@@ -153,6 +153,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0277 - Find the Celebrity](./leetcode/medium/0277-find-the-celebrity) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0310 - Minimum Height Trees](./leetcode/medium/0310-minimum-height-trees) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0323 - Number of Connected Components in an Undirected Graph](./leetcode/medium/0323-number-of-connected-components-in-an-undirected-graph) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0511 - All Paths from Source Lead to Destination](./leetcode/medium/0511-all-paths-from-source-lead-to-destination) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0444 - Sequence Reconstruction](./leetcode/medium/0444-sequence-reconstruction) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0505 - The Maze II](./leetcode/medium/0505-the-maze-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0684 - Redundant Connection](./leetcode/medium/0684-redundant-connection) ![Medium](https://img.shields.io/badge/Medium-orange)
