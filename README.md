@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 133 solved
+- **Total Problems**: 134 solved
 - **Easy**: 72 problems
-- **Medium**: 51 problems
+- **Medium**: 52 problems
 - **Hard**: 10 problems
 
 ## 🟢 Easy Problems
@@ -137,6 +137,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 - [0053 - Maximum Subarray](./leetcode/medium/0053-maximum-subarray) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0198 - House Robber](./leetcode/medium/0198-house-robber) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0413 - Arithmetic Slices](./leetcode/medium/0413-arithmetic-slices) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Math & Number Theory
 
