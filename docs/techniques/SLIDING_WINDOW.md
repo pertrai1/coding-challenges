@@ -89,16 +89,6 @@ const fixedWindowPattern = (arr, k) => {
 };
 ```
 
-### Flow Diagram
-
-```mermaid
-flowchart LR
-    A[Window: i to i+k-1] -->|Remove arr[i]| B[Window: i+1 to i+k]
-    B -->|Add arr[i+k]| C[Window: i+1 to i+k]
-    C -->|Update result| D[Move to next position]
-    D --> A
-```
-
 ### Example: Maximum Sum of Subarray of Size K
 
 ```javascript
