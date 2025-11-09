@@ -4,8 +4,8 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 135 solved
-- **Easy**: 72 problems
+- **Total Problems**: 136 solved
+- **Easy**: 73 problems
 - **Medium**: 53 problems
 - **Hard**: 10 problems
 
@@ -24,6 +24,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0551 - Student Attendance Record I](./leetcode/easy/0551-student-attendance-record-i) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0598 - Range Addition II](./leetcode/easy/0598-range-addition-ii) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0628 - Maximum Product of Three Numbers](./leetcode/easy/0628-maximum-product-of-three-numbers) ![Easy](https://img.shields.io/badge/Easy-green)
+- [0643 - Maximum Average Subarray I](./leetcode/easy/0643-maximum-average-subarray-i) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0645 - Set Mismatch](./leetcode/easy/0645-set-mismatch) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0724 - Find Pivot Index](./leetcode/easy/0724-find-pivot-index) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0777 - Toeplitz Matrix](./leetcode/easy/0777-toeplitz-matrix) ![Easy](https://img.shields.io/badge/Easy-green)
