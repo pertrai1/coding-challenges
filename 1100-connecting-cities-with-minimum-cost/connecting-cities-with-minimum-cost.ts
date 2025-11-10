@@ -11,8 +11,8 @@ function find(parent: number[], x: number): number {
 }
 // Union by rank
 function union(parent: number[], rank: number[], x: number, y: number): boolean {
-    let rootX = find(parent, x);
-    let rootY = find(parent, y);
+    const rootX = find(parent, x);
+    const rootY = find(parent, y);
     if (rootX === rootY) return false;
 
     if (rank[rootX] < rank[rootY]) {
