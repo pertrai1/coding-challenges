@@ -34,7 +34,6 @@ function minimumCost(n: number, connections: number[][]): number {
     return a[2] - b[2];
   }
   const sortedConnections = [...connections].sort(sortElements);
-  connections.sort(sortElements);
 
   // Disjoint Set Union setup
   const parent: number[] = Array(n + 1)
@@ -55,14 +54,3 @@ function minimumCost(n: number, connections: number[][]): number {
   }
   return edgesUsed === n - 1 ? totalCost : -1;
 }
-
-minimumCost(3, [
-  [1, 2, 5],
-  [1, 3, 6],
-  [2, 3, 1],
-]);
-minimumCost(4, [
-  [1, 2, 3],
-  [3, 4, 4],
-]);
-
