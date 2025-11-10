@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 136 solved
+- **Total Problems**: 137 solved
 - **Easy**: 73 problems
-- **Medium**: 53 problems
+- **Medium**: 54 problems
 - **Hard**: 10 problems
 
 ## 🟢 Easy Problems
@@ -168,6 +168,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0881 - Loud and Rich](./leetcode/medium/0881-loud-and-rich) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0922 - Possible Bipartition](./leetcode/medium/0922-possible-bipartition) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0984 - Most Stones Removed with Same Row or Column](./leetcode/medium/0984-most-stones-removed-with-same-row-or-column) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [1100 - Connecting Cities With Minimum Cost](./leetcode/medium/1100-connecting-cities-with-minimum-cost) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1120 - Flower Planting With No Adjacent](./leetcode/medium/1120-flower-planting-with-no-adjacent) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1442 - Number of Operations to Make Network Connected](./leetcode/medium/1442-number-of-operations-to-make-network-connected) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2035 - Count Sub Islands](./leetcode/medium/2035-count-sub-islands) ![Medium](https://img.shields.io/badge/Medium-orange)
