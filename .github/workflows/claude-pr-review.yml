@@ -13,11 +13,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+
       - name: Run Claude Code Review
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          custom_instructions: |
-            Review this PR for potential bugs, security issues,
-            and adherence to our coding standards.
+          track_progress: true
+
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Review this PR according to the guidelines in CLAUDE.md.
+            Focus on:
+            - Algorithm correctness and efficiency
+            - Time and space complexity
+            - Code quality and JavaScript best practices
+            - Potential bugs and edge cases
+
+            Provide detailed feedback using inline comments for specific issues.
+            Use top-level comments for general observations.
+
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
