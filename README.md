@@ -195,6 +195,15 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0877 - Shortest Path Visiting All Nodes](./leetcode/hard/0877-shortest-path-visiting-all-nodes) ![Hard](https://img.shields.io/badge/Hard-red)
 - [2439 - Longest Cycle in a Graph](./leetcode/hard/2439-longest-cycle-in-a-graph) ![Hard](https://img.shields.io/badge/Hard-red)
 
+## 📈 Progress Tracking
+
+Problems are organized by:
+
+- **Difficulty Level**: Easy, Medium, Hard
+- **Topic**: Arrays, Strings, Trees, Math, etc.
+- **Data Structures**: Hash Tables, Stacks, Queues, etc.
+- **Algorithms**: [Two Pointers](./docs/techniques/TWO_POINTERS.md), [Sliding Window](./docs/techniques/SLIDING_WINDOW.md), DFS, BFS, etc.
+
 ## 🔧 Other Projects
 
 - [Blog](./blog) - Blog-related coding challenges
@@ -211,12 +220,3 @@ Each problem directory contains:
 - Solution file(s) in various languages (JavaScript, Python, etc.)
 
 To run a solution, navigate to the problem directory and execute the appropriate file.
-
-## 📈 Progress Tracking
-
-Problems are organized by:
-
-- **Difficulty Level**: Easy, Medium, Hard
-- **Topic**: Arrays, Strings, Trees, Math, etc.
-- **Data Structures**: Hash Tables, Stacks, Queues, etc.
-- **Algorithms**: Two Pointers, Sliding Window, DFS, BFS, etc.
