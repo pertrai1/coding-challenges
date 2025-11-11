@@ -9,6 +9,15 @@ This repository contains my solutions to various LeetCode problems, organized by
 - **Medium**: 55 problems
 - **Hard**: 10 problems
 
+## 📈 Progress Tracking
+
+Problems are organized by:
+
+- **Difficulty Level**: Easy, Medium, Hard
+- **Topic**: Arrays, Strings, Trees, Math, etc.
+- **Data Structures**: Hash Tables, Stacks, Queues, etc.
+- **Algorithms**: [Two Pointers](./docs/techniques/TWO_POINTERS.md), [Sliding Window](./docs/techniques/SLIDING_WINDOW.md), DFS, BFS, etc.
+
 ## 🟢 Easy Problems
 
 ### Array & String
@@ -211,12 +220,3 @@ Each problem directory contains:
 - Solution file(s) in various languages (JavaScript, Python, etc.)
 
 To run a solution, navigate to the problem directory and execute the appropriate file.
-
-## 📈 Progress Tracking
-
-Problems are organized by:
-
-- **Difficulty Level**: Easy, Medium, Hard
-- **Topic**: Arrays, Strings, Trees, Math, etc.
-- **Data Structures**: Hash Tables, Stacks, Queues, etc.
-- **Algorithms**: Two Pointers, Sliding Window, DFS, BFS, etc.
