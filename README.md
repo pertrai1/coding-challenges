@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 137 solved
+- **Total Problems**: 138 solved
 - **Easy**: 73 problems
-- **Medium**: 54 problems
+- **Medium**: 55 problems
 - **Hard**: 10 problems
 
 ## 🟢 Easy Problems
@@ -111,6 +111,7 @@ This repository contains my solutions to various LeetCode problems, organized by
 - [0209 - Minimum Size Subarray Sum](./leetcode/medium/0209-minimum-size-subarray-sum) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0287 - Find the Duplicate Number](./leetcode/medium/0287-find-the-duplicate-number) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0324 - Wiggle Sort II](./leetcode/medium/0324-wiggle-sort-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0487 - Max Consecutive Ones II](./leetcode/medium/0487-max-consecutive-ones-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2868 - Continuous Subarrays](./leetcode/medium/2868-continuous-subarrays) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [3241 - Divide Array Into Arrays With Max Difference](./leetcode/medium/3241-divide-array-into-arrays-with-max-difference) ![Medium](https://img.shields.io/badge/Medium-orange)
 
