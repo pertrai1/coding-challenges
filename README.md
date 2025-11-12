@@ -4,9 +4,9 @@ This repository contains my solutions to various LeetCode problems, organized by
 
 ## 📊 Statistics
 
-- **Total Problems**: 138 solved
+- **Total Problems**: 139 solved
 - **Easy**: 73 problems
-- **Medium**: 55 problems
+- **Medium**: 56 problems
 - **Hard**: 10 problems
 
 ## 📈 Progress Tracking
@@ -180,6 +180,7 @@ Problems are organized by:
 - [0984 - Most Stones Removed with Same Row or Column](./leetcode/medium/0984-most-stones-removed-with-same-row-or-column) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1100 - Connecting Cities With Minimum Cost](./leetcode/medium/1100-connecting-cities-with-minimum-cost) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1120 - Flower Planting With No Adjacent](./leetcode/medium/1120-flower-planting-with-no-adjacent) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [1229 - Shortest Path with Alternating Colors](./leetcode/medium/1229-shortest-path-with-alternating-colors) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1442 - Number of Operations to Make Network Connected](./leetcode/medium/1442-number-of-operations-to-make-network-connected) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2035 - Count Sub Islands](./leetcode/medium/2035-count-sub-islands) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2090 - Number of Ways to Arrive at Destination](./leetcode/medium/2090-number-of-ways-to-arrive-at-destination) ![Medium](https://img.shields.io/badge/Medium-orange)
