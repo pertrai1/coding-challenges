@@ -57,8 +57,8 @@ Because I saw that the requirement is to get the shortest path, I felt that brea
 
 ## 8. Complexity Analysis
 
-- **Time Complexity:** O(n)
-- **Space Complexity:** O(n)
+- **Time Complexity:** O(V + E) where V is the number of vertices (n) and E is the total number of edges (redEdges.length + blueEdges.length)
+- **Space Complexity:** O(V + E)
 
 ## 9. Mistakes & Pitfalls
 
@@ -66,7 +66,7 @@ Because I saw that the requirement is to get the shortest path, I felt that brea
 
 - Incorrect setup of the adjacency lists setting Infinity rather than building up the edges
 - Wrong structure for the distance
-- Started by using `pop()` rathan than `shift()` for a queue.
+- Started by using `pop()` rathar than `shift()` for a queue.
 - Iterated over edge arrays instead of neighbors
 
 - **Discovery:** None
