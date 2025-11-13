@@ -1,9 +1,10 @@
-function findClosestElements(arr: number[], k: number, x: number): number[] {
+export function findClosestElements(arr: number[], k: number, x: number): number[] {
   let left = 0;
   let right = arr.length - k;
 
   while (left < right) {
     const mid = (left + right) >> 1;
+    // compare distances: if left element is farther, move window right
     if (x - arr[mid] > arr[mid + k] - x) {
       left = mid + 1;
     } else {
