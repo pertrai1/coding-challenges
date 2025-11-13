@@ -1,4 +1,4 @@
-name: OpenAI Auto Comment Pull Request Review
+name: OpenAI Code Review
 
 on:
   pull_request:
