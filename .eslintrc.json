@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "eslint:recommended"
-  ],
+  "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
@@ -11,11 +9,7 @@
     "es2020": true
   },
   "rules": {
-    // Code Style
-    "indent": [
-      "error",
-      2
-    ],
+    "indent": ["error", 2],
     "quotes": [
       "error",
       "single",
@@ -23,72 +17,29 @@
         "avoidEscape": true
       }
     ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
-    "object-curly-spacing": [
-      "error",
-      "always"
-    ],
-    "array-bracket-spacing": [
-      "error",
-      "never"
-    ],
-    // Code Quality
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "never"],
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "never"],
     "no-unused-vars": "warn",
-    "no-console": "off", // Allow console for debugging in coding challenges
+    "no-console": "off",
     "no-debugger": "warn",
     "no-duplicate-imports": "error",
     "prefer-const": "error",
     "no-var": "error",
-    // Complexity Rules for Algorithm Analysis
-    "complexity": [
-      "warn",
-      10
-    ],
-    "max-depth": [
-      "warn",
-      4
-    ],
-    "max-lines-per-function": [
-      "warn",
-      50
-    ],
-    "max-params": [
-      "warn",
-      4
-    ],
-    // Algorithm-specific rules
+    "complexity": ["warn", 10],
+    "max-depth": ["warn", 4],
+    "max-lines-per-function": ["warn", 50],
+    "max-params": ["warn", 4],
     "prefer-arrow-callback": "error",
     "arrow-spacing": "error",
-    "no-magic-numbers": [
-      "warn",
-      {
-        "ignore": [
-          -1,
-          0,
-          1,
-          2
-        ],
-        "ignoreArrayIndexes": true,
-        "detectObjects": false
-      }
-    ]
+    "no-magic-numbers": "off"
   },
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parser": "@typescript-eslint/parser",
-      "plugins": [
-        "@typescript-eslint"
-      ],
+      "plugins": ["@typescript-eslint"],
       "rules": {
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "warn",
@@ -98,42 +49,20 @@
       }
     },
     {
-      "files": [
-        "leetcode/**/*.js",
-        "leetcode/**/*.ts"
-      ],
+      "files": ["leetcode/**/*.js", "leetcode/**/*.ts"],
       "rules": {
-        // Relaxed rules for LeetCode solutions
         "no-magic-numbers": "off",
         "max-lines-per-function": "off",
-        "complexity": [
-          "warn",
-          15
-        ]
+        "complexity": ["warn", 15]
       }
     },
     {
-      "files": [
-        "scripts/**/*.js",
-        "scripts/**/*.ts"
-      ],
+      "files": ["scripts/**/*.js", "scripts/**/*.ts"],
       "rules": {
-        // Tool scripts can be more complex
-        "complexity": [
-          "warn",
-          20
-        ],
-        "max-lines-per-function": [
-          "warn",
-          100
-        ]
+        "complexity": ["warn", 20],
+        "max-lines-per-function": ["warn", 100]
       }
     }
   ],
-  "ignorePatterns": [
-    "node_modules/",
-    "dist/",
-    "*.min.js",
-    "perf/dashboard/*.js"
-  ]
+  "ignorePatterns": ["node_modules/", "dist/", "*.min.js", "perf/dashboard/*.js"]
 }

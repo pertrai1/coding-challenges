@@ -10,7 +10,13 @@ import { pathToFileURL } from 'url';
  */
 class ComplexityAnalyzer {
   constructor() {
-    this.patterns = {
+    this.patterns = this.initializePatterns();
+    this.dataStructures = this.initializeDataStructures();
+    this.algorithmicPatterns = this.initializeAlgorithmicPatterns();
+  }
+
+  initializePatterns() {
+    return {
       // Time Complexity Patterns
       'O(1)': {
         patterns: [
@@ -37,9 +43,37 @@ class ComplexityAnalyzer {
           /\.map\s*\(/g,
           /\.filter\s*\(/g,
           /\.reduce\s*\(/g,
-          /while\s*\([^)]*\.length[^)]*\)/g
+          /while\s*\([^)]*\.length[^)]*\)/g,
+          // Dynamic Programming patterns
+          /dp\s*\[\s*\w+\s*\]\s*=.*dp\s*\[\s*\w+\s*-\s*\d+\s*\]/g,
+          /for\s*\([^;]*i[^;]*;\s*i\s*<[^;]*n[^;]*;[^)]*\)\s*{[^}]*dp\s*\[/g,
+          /memo\s*\[[^\]]*\]\s*=/g,
+          /cache\s*\[[^\]]*\]\s*=/g,
+          // Graph traversal patterns - single visit per node
+          /visited\s*\[[^\]]*\]\s*=\s*true/g,
+          /function\s+\w*\s*\([^)]*node[^)]*\)[^{]*\{[^}]*visited/g,
+          /dfs\s*\(|bfs\s*\(/gi
         ],
-        description: 'Linear time - single pass through data'
+        description:
+          'Linear time - single pass through data or DP table construction'
+      },
+
+      'O(V + E)': {
+        patterns: [
+          // Graph traversal patterns
+          /for\s*\([^)]*neighbors?[^)]*\)/gi,
+          /for\s*\([^)]*adjacen[^)]*\)/gi,
+          /for\s*\([^)]*edges?[^)]*\)/gi,
+          /\.neighbors\s*\.\s*forEach/gi,
+          /function\s+\w*\s*\([^)]*\)[^{]*\{[^}]*for\s*\([^)]*neighbor[^)]*\)/gi,
+          /while\s*\([^)]*queue[^)]*\)/gi, // BFS patterns
+          // Clone graph specific patterns
+          /cloneGraph|clone.*node/gi,
+          // DFS/BFS with adjacency list
+          /dfs\s*\([^)]*\)[^{]*\{[^}]*for[^}]*neighbor/gi,
+          /visited\s*\[[^\]]*\][^}]*for[^}]*neighbor/gi
+        ],
+        description: 'Graph traversal - visits each vertex and edge once'
       },
 
       'O(n log n)': {
@@ -68,8 +102,10 @@ class ComplexityAnalyzer {
         description: 'Exponential time - recursive branching'
       }
     };
+  }
 
-    this.dataStructures = {
+  initializeDataStructures() {
+    return {
       Array: {
         patterns: [/\[[^\]]*\]/, /Array\.from/, /new Array/],
         operations: {
@@ -105,8 +141,33 @@ class ComplexityAnalyzer {
         }
       }
     };
+  }
 
-    this.algorithmicPatterns = {
+  initializeAlgorithmicPatterns() {
+    return {
+      'Dynamic Programming': {
+        patterns: [
+          /dp\s*\[/g,
+          /memo\s*\[/g,
+          /cache\s*\[/g,
+          /for\s*\([^)]*\)\s*{[^}]*dp\s*\[[^}]*dp\s*\[\s*\w+\s*-\s*\d+\s*\]/g,
+          /climbStairs|fibonacci|coinChange|longestSubsequence/gi
+        ],
+        complexity: 'O(n) to O(n²)',
+        description: 'Bottom-up or memoized approach to solve subproblems'
+      },
+      'Graph Traversal': {
+        patterns: [
+          /visited\s*\[/g,
+          /dfs\s*\(|bfs\s*\(/gi,
+          /queue\s*\.\s*push.*neighbors?/gi,
+          /cloneGraph/gi,
+          /for\s*\([^)]*neighbors?[^)]*\)/gi,
+          /adjacen/gi
+        ],
+        complexity: 'O(V + E)',
+        description: 'Graph algorithms that visit each vertex and edge'
+      },
       'Two Pointers': {
         patterns: [
           /let\s+\w+\s*=\s*0[^;]*;\s*let\s+\w+\s*=\s*\w+\.length\s*-\s*1/,
@@ -118,10 +179,18 @@ class ComplexityAnalyzer {
       'Sliding Window': {
         patterns: [
           /let\s+\w+\s*=\s*0[^;]*;\s*for\s*\([^;]*;\s*\w+\s*<[^;]*;\s*\w+\+\+\)/,
-          /while\s*\([^)]*\)\s*{[^}]*while\s*\([^)]*\)\s*{[^}]*\w+\+\+/
+          /while\s*\([^)]*\)\s*{[^}]*while\s*\([^)]*\)\s*{[^}]*\w+\+\+/,
+          // More comprehensive sliding window patterns
+          /left.*right|start.*end/gi,
+          /window.*expand|window.*shrink/gi,
+          /while\s*\([^)]*right[^)]*\)/gi,
+          /for\s*\([^)]*right[^)]*\)/gi,
+          /continuousSubarrays|subarrays.*window/gi,
+          // Pattern: increment right, conditionally increment left
+          /right\s*\+\+.*left\s*\+\+|right\+\+.*left\+\+/g
         ],
         complexity: 'O(n)',
-        description: 'Sliding window technique'
+        description: 'Sliding window technique for subarray/substring problems'
       },
       'Binary Search': {
         patterns: [
@@ -130,16 +199,6 @@ class ComplexityAnalyzer {
         ],
         complexity: 'O(log n)',
         description: 'Binary search on sorted data'
-      },
-      'Dynamic Programming': {
-        patterns: [
-          /dp\[/,
-          /memo\[/,
-          /cache\[/,
-          /for[^{]*{[^}]*for[^{]*{[^}]*dp\[/
-        ],
-        complexity: 'O(n²) typical',
-        description: 'Dynamic programming with memoization'
       }
     };
   }
@@ -187,11 +246,45 @@ class ComplexityAnalyzer {
       }
     }
 
+    // If no patterns detected, return unknown
+    if (detected.length === 0) {
+      return { complexity: 'Unknown', confidence: 0 };
+    }
+
+    // Smart prioritization based on algorithmic patterns
+    const algorithmicPatterns = this.analyzeAlgorithmicPatterns(content);
+
+    // Priority-based complexity determination
+    if (algorithmicPatterns.some((p) => p.name === 'Graph Traversal')) {
+      const graphComplexity = detected.find((d) => d.complexity === 'O(V + E)');
+      if (graphComplexity) return graphComplexity;
+    }
+
+    if (
+      algorithmicPatterns.some(
+        (p) => p.name === 'Sliding Window' || p.name === 'Two Pointers'
+      )
+    ) {
+      const linearComplexity = detected.find((d) => d.complexity === 'O(n)');
+      if (linearComplexity) {
+        return {
+          ...linearComplexity,
+          description: 'Linear time - sliding window or two pointers technique',
+          confidence: Math.max(linearComplexity.confidence, 75) // Boost confidence for known patterns
+        };
+      }
+    }
+
+    if (algorithmicPatterns.some((p) => p.name === 'Dynamic Programming')) {
+      const dpComplexity = detected.find(
+        (d) => d.complexity === 'O(n)' || d.complexity === 'O(n²)'
+      );
+      if (dpComplexity) return dpComplexity;
+    }
+
     // Sort by confidence and return most likely
     detected.sort((a, b) => b.confidence - a.confidence);
-    return detected.length > 0
-      ? detected[0]
-      : { complexity: 'Unknown', confidence: 0 };
+    return detected[0];
   }
 
   analyzeSpaceComplexity(content) {
@@ -316,6 +409,55 @@ class ComplexityAnalyzer {
   generateRecommendations(analysis) {
     const recommendations = [];
 
+    // Algorithm-specific recommendations
+    if (
+      analysis.algorithmicPatterns.some((p) => p.name === 'Dynamic Programming')
+    ) {
+      recommendations.push({
+        type: 'algorithm',
+        message:
+          '🎯 **DP Detected**: For climbing stairs, coin change, and similar problems, verify O(n) time complexity with O(n) space for bottom-up DP'
+      });
+    }
+
+    // Graph algorithm recommendations
+    if (
+      analysis.algorithmicPatterns.some((p) => p.name === 'Graph Traversal')
+    ) {
+      recommendations.push({
+        type: 'algorithm',
+        message:
+          '📊 **Graph Algorithm**: For clone graph, connected components, and graph traversal problems, expect O(V + E) time complexity where V=vertices, E=edges'
+      });
+    }
+
+    // Sliding window algorithm recommendations
+    if (analysis.algorithmicPatterns.some((p) => p.name === 'Sliding Window')) {
+      recommendations.push({
+        type: 'algorithm',
+        message:
+          '🪟 **Sliding Window Detected**: For subarray/substring problems, sliding window typically has O(n) time complexity with single pass through data'
+      });
+    }
+
+    // Two pointers algorithm recommendations
+    if (analysis.algorithmicPatterns.some((p) => p.name === 'Two Pointers')) {
+      recommendations.push({
+        type: 'algorithm',
+        message:
+          '👆 **Two Pointers**: For array problems with sorted data or opposite-direction traversal, expect O(n) time complexity'
+      });
+    }
+
+    // Low confidence warnings
+    if (analysis.timeComplexity.confidence < 70) {
+      recommendations.push({
+        type: 'verification',
+        message:
+          '⚠️ **Manual Review Needed**: Low confidence score suggests manual verification is required'
+      });
+    }
+
     // Complexity recommendations
     if (analysis.timeComplexity.complexity === 'O(n²)') {
       recommendations.push({
@@ -350,7 +492,12 @@ class ComplexityAnalyzer {
    */
   generateReport(analysis) {
     const report = [
-      `# Complexity Analysis Report`,
+      '# 🔍 Automated Complexity Analysis',
+      '',
+      '> ⚠️ **Disclaimer**: This is an automated analysis that may not be 100% accurate.',
+      '> Always verify the complexity analysis manually, especially for complex algorithms.',
+      '> Dynamic Programming, recursive, and mathematical algorithms may need manual review.',
+      '',
       `**File:** ${analysis.file}`,
       `**Generated:** ${new Date().toISOString()}`,
       '',
@@ -358,6 +505,10 @@ class ComplexityAnalyzer {
       `**Estimated:** ${analysis.timeComplexity.complexity}`,
       `**Description:** ${analysis.timeComplexity.description || 'N/A'}`,
       `**Confidence:** ${analysis.timeComplexity.confidence?.toFixed(1) || 'N/A'}%`,
+      '',
+      analysis.timeComplexity.confidence < 70
+        ? '> ⚠️ **Low Confidence**: Please manually verify this analysis.'
+        : '',
       '',
       '## Space Complexity',
       `**Estimated:** ${analysis.spaceComplexity.complexity}`,

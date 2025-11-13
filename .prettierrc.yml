@@ -34,4 +34,3 @@ overrides:
     options:
       # More flexible formatting for algorithm solutions
       printWidth: 100
-      singleQuote: false # Use double quotes for LeetCode compatibility

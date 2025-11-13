@@ -46,8 +46,18 @@ jobs:
           FILES="${{ steps.changed-files.outputs.files }}"
           if [ -n "$FILES" ]; then
             echo "Running ESLint on: $FILES"
-            npx eslint $FILES --format=json --output-file=eslint-report.json || true
-            npx eslint $FILES || echo "ESLint found issues in changed files"
+
+            # Run ESLint and capture exit code
+            if npx eslint $FILES --format=json --output-file=eslint-report.json; then
+              echo "✅ ESLint passed - no errors found"
+            else
+              eslint_exit_code=$?
+              echo "⚠️ ESLint found issues (exit code: $eslint_exit_code)"
+
+              # Also run with default formatter for readable output in logs
+              echo "ESLint issues found in changed files:"
+              npx eslint $FILES || true
+            fi
           else
             echo "No JavaScript/TypeScript files changed"
             echo "[]" > eslint-report.json
@@ -59,7 +69,13 @@ jobs:
           FILES="${{ steps.changed-files.outputs.files }}"
           if [ -n "$FILES" ]; then
             echo "Running Prettier check on: $FILES"
-            npx prettier --check $FILES || echo "Prettier formatting issues found"
+
+            if npx prettier --check $FILES; then
+              echo "✅ Prettier check passed - all files properly formatted"
+            else
+              echo "⚠️ Prettier found formatting issues in changed files"
+              echo "Run 'npm run format' locally to fix formatting issues"
+            fi
           fi
 
       - name: Run complexity analysis on changed files
@@ -68,14 +84,56 @@ jobs:
           FILES="${{ steps.changed-files.outputs.files }}"
           mkdir -p analysis-results
 
+          # Check if complexity analyzer exists
+          if [ ! -f "scripts/complexity-analyzer.js" ]; then
+            echo "⚠️ Warning: Complexity analyzer script not found at scripts/complexity-analyzer.js"
+            echo "Skipping complexity analysis step"
+            echo "# Complexity Analysis Unavailable" > analysis-results/analysis-error.md
+            echo "The complexity analyzer script was not found in this repository." >> analysis-results/analysis-error.md
+            echo "Please ensure \`scripts/complexity-analyzer.js\` exists to enable algorithm analysis." >> analysis-results/analysis-error.md
+            exit 0
+          fi
+
           if [ -n "$FILES" ]; then
             echo "Running complexity analysis on changed files..."
+            analysis_success=0
+            analysis_total=0
+
             for file in $FILES; do
               if [ -f "$file" ]; then
+                analysis_total=$((analysis_total + 1))
                 echo "Analyzing: $file"
-                node scripts/complexity-analyzer.js "$file" > "analysis-results/$(basename "$file" .js).md" 2>&1 || true
+
+                # Get base filename without extension for output
+                base_name=$(basename "$file")
+                output_name="${base_name%.*}"
+
+                # Run analysis with proper error handling
+                if node scripts/complexity-analyzer.js "$file" > "analysis-results/${output_name}.md" 2>&1; then
+                  echo "✅ Successfully analyzed: $file"
+                  analysis_success=$((analysis_success + 1))
+                else
+                  echo "❌ Failed to analyze: $file"
+                  # Create error report for this file
+                  cat > "analysis-results/${output_name}.md" << EOF
+          # Analysis Failed for \`$file\`
+
+          ❌ **Error**: The complexity analysis failed for this file.
+
+          **Possible causes:**
+          - Syntax errors in the code
+          - Unsupported language constructs
+          - File encoding issues
+
+          **Recommendation**: Check the workflow logs for detailed error information.
+          EOF
+                fi
+              else
+                echo "⚠️ File not found: $file"
               fi
             done
+
+            echo "📊 Analysis Summary: $analysis_success/$analysis_total files analyzed successfully"
           else
             echo "No files to analyze"
           fi
@@ -127,9 +185,7 @@ jobs:
             if [ -f "$file" ]; then
               echo "#### $(basename "$file" .md)" >> leetcode-analysis.md
               echo "" >> leetcode-analysis.md
-              echo '```' >> leetcode-analysis.md
               cat "$file" >> leetcode-analysis.md
-              echo '```' >> leetcode-analysis.md
               echo "" >> leetcode-analysis.md
             fi
           done
