@@ -1,6 +1,6 @@
 # Coding Challenges
 
-This repository contains my solutions to various LeetCode problems, organized by difficulty and topic.
+This repository contains solutions to various LeetCode problems, organized by difficulty and topic.
 
 ## 📊 Statistics
 
