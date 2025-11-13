@@ -2,6 +2,14 @@
 
 ## Data Structures and Algorithms Problem Solving Techniques
 
+### Hash Lookup Technique
+
+- Use hash-based data structures (Map, Set, Object) for O(1) average-case lookups, insertions, and deletions.
+- Essential for: Two Sum pattern, frequency counting, duplicate detection, grouping, and memoization.
+- **Map**: Key-value pairs with any data type as keys.
+- **Set**: Unique values collection for membership testing.
+- [Technique Details](techniques/HASH_LOOKUP.md)
+
 ### Sliding Window Technique
 
 - Maintain a window over an array/string while expanding and shrinking based on constraints.

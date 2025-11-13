@@ -16,7 +16,7 @@ Problems are organized by:
 - **Difficulty Level**: [Easy](#-easy-problems), [Medium](#-medium-problems), [Hard](#-hard-problems)
 - **Topic**: Arrays, Strings, Trees, Math, etc.
 - **Data Structures**: Hash Tables, Stacks, Queues, etc.
-- **Algorithms**: [Two Pointers](./docs/techniques/TWO_POINTERS.md), [Sliding Window](./docs/techniques/SLIDING_WINDOW.md), DFS, BFS, etc.
+- **Algorithms**: [Hash Lookup](./docs/techniques/HASH_LOOKUP.md), [Two Pointers](./docs/techniques/TWO_POINTERS.md), [Sliding Window](./docs/techniques/SLIDING_WINDOW.md), DFS, BFS, etc.
 
 ## 🟢 Easy Problems
 
