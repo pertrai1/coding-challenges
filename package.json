@@ -16,6 +16,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
     "dev": "ts-node",
     "build": "tsc",
     "start": "node",
@@ -51,11 +52,5 @@
     "*.{json,md,yml,yaml}": [
       "prettier --write"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "echo 'Commit message validation could be added here'"
-    }
   }
 }
