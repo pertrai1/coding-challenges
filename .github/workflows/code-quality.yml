@@ -1,8 +1,6 @@
 name: Code Quality & Analysis
 
 on:
-  push:
-    branches: [main, develop]
   pull_request:
     branches: [main, develop]
   workflow_dispatch:
@@ -13,54 +11,16 @@ permissions:
   checks: write
 
 jobs:
-  lint-and-format:
+  analyze-changed-files:
     runs-on: ubuntu-latest
-    name: ESLint & Prettier Check
+    name: Analyze Changed Files
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'pertrai1'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: |
-          npm install
-
-      - name: Install ESLint and Prettier
-        run: |
-          npm install --save-dev eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier
-
-      - name: Run ESLint
-        run: |
-          npx eslint . --ext .js,.ts --format=json --output-file=eslint-report.json || true
-          npx eslint . --ext .js,.ts
-        continue-on-error: true
-
-      - name: Run Prettier Check
-        run: |
-          npx prettier --check . --ignore-path .gitignore
-        continue-on-error: true
-
-      - name: Upload ESLint report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: eslint-report
-          path: eslint-report.json
-
-  complexity-analysis:
-    runs-on: ubuntu-latest
-    name: Complexity Analysis
-    needs: lint-and-format
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -71,243 +31,189 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create analysis directory
-        run: mkdir -p docs/analysis
-
-      - name: Run complexity analysis
+      - name: Get changed files
+        id: changed-files
         run: |
-          node scripts/complexity-analyzer.js --leetcode > complexity-report.txt 2>&1 || true
+          # Get files changed in this PR
+          git fetch origin ${{ github.base_ref }}
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E '\.(js|ts)$' | tr '\n' ' ')
+          echo "files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+          echo "Changed files: $CHANGED_FILES"
 
-      - name: Upload complexity analysis
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: complexity-analysis
-          path: |
-            complexity-report.txt
-            docs/analysis/
-          retention-days: 30
+      - name: Analyze changed files with ESLint
+        if: steps.changed-files.outputs.files != ''
+        run: |
+          FILES="${{ steps.changed-files.outputs.files }}"
+          if [ -n "$FILES" ]; then
+            echo "Running ESLint on: $FILES"
+            npx eslint $FILES --format=json --output-file=eslint-report.json || true
+            npx eslint $FILES || echo "ESLint found issues in changed files"
+          else
+            echo "No JavaScript/TypeScript files changed"
+            echo "[]" > eslint-report.json
+          fi
 
-      - name: Comment complexity summary on PR
-        if: github.event_name == 'pull_request'
+      - name: Format check on changed files
+        if: steps.changed-files.outputs.files != ''
+        run: |
+          FILES="${{ steps.changed-files.outputs.files }}"
+          if [ -n "$FILES" ]; then
+            echo "Running Prettier check on: $FILES"
+            npx prettier --check $FILES || echo "Prettier formatting issues found"
+          fi
+
+      - name: Run complexity analysis on changed files
+        if: steps.changed-files.outputs.files != ''
+        run: |
+          FILES="${{ steps.changed-files.outputs.files }}"
+          mkdir -p analysis-results
+
+          if [ -n "$FILES" ]; then
+            echo "Running complexity analysis on changed files..."
+            for file in $FILES; do
+              if [ -f "$file" ]; then
+                echo "Analyzing: $file"
+                node scripts/complexity-analyzer.js "$file" > "analysis-results/$(basename "$file" .js).md" 2>&1 || true
+              fi
+            done
+          else
+            echo "No files to analyze"
+          fi
+
+      - name: Generate LeetCode solution summary
+        if: steps.changed-files.outputs.files != ''
+        run: |
+          cat > leetcode-analysis.md << 'EOF'
+          # 🧮 LeetCode Solution Analysis
+
+          **PR:** ${{ github.event.pull_request.title }}
+          **Files Changed:** ${{ steps.changed-files.outputs.files }}
+
+          ## 📊 Code Quality Results
+
+          ### ESLint Analysis
+          EOF
+
+          # Add ESLint results
+          if [ -f eslint-report.json ]; then
+            node -e "
+            const report = JSON.parse(require('fs').readFileSync('eslint-report.json', 'utf8'));
+            if (report.length === 0) {
+              console.log('✅ **No ESLint issues found**');
+            } else {
+              const totalErrors = report.reduce((sum, file) => sum + file.errorCount, 0);
+              const totalWarnings = report.reduce((sum, file) => sum + file.warningCount, 0);
+              console.log(\`- **Errors:** \${totalErrors}\`);
+              console.log(\`- **Warnings:** \${totalWarnings}\`);
+
+              if (totalErrors > 0 || totalWarnings > 0) {
+                console.log('\\n**Issues by file:**');
+                report.forEach(file => {
+                  if (file.errorCount > 0 || file.warningCount > 0) {
+                    console.log(\`- \${file.filePath}: \${file.errorCount} errors, \${file.warningCount} warnings\`);
+                  }
+                });
+              }
+            }
+            " >> leetcode-analysis.md
+          fi
+
+          echo "" >> leetcode-analysis.md
+          echo "### 🔍 Algorithm Complexity Analysis" >> leetcode-analysis.md
+          echo "" >> leetcode-analysis.md
+
+          # Add complexity analysis for each changed file
+          for file in analysis-results/*.md; do
+            if [ -f "$file" ]; then
+              echo "#### $(basename "$file" .md)" >> leetcode-analysis.md
+              echo "" >> leetcode-analysis.md
+              echo '```' >> leetcode-analysis.md
+              cat "$file" >> leetcode-analysis.md
+              echo '```' >> leetcode-analysis.md
+              echo "" >> leetcode-analysis.md
+            fi
+          done
+
+          # Add tips section
+          cat >> leetcode-analysis.md << 'EOF'
+
+          ## 💡 Algorithm Analysis Tips
+
+          - **Time Complexity**: Focus on the dominant operation in loops
+          - **Space Complexity**: Consider auxiliary data structures
+          - **Optimization**: Look for opportunities to reduce nested loops
+          - **Edge Cases**: Ensure your solution handles empty inputs, single elements, etc.
+
+          ## 🎯 Next Steps
+
+          1. Review any ESLint errors/warnings above
+          2. Consider the complexity analysis - is this the optimal approach?
+          3. Test with edge cases mentioned in the problem description
+          4. Add comments explaining the algorithm approach if complex
+
+          ---
+          *Analysis generated for PR files only*
+          EOF
+
+      - name: Comment PR with analysis
+        if: steps.changed-files.outputs.files != ''
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
 
-            let reportContent = 'Complexity analysis report not available';
+            // Read the analysis report
+            let analysisContent = 'Analysis report not available';
             try {
-              reportContent = fs.readFileSync('complexity-report.txt', 'utf8');
+              analysisContent = fs.readFileSync('leetcode-analysis.md', 'utf8');
             } catch (e) {
-              console.log('Could not read complexity report:', e.message);
+              console.log('Could not read analysis report:', e.message);
+              analysisContent = `## 🧮 LeetCode Solution Analysis
+
+              ❌ Analysis could not be completed. Please check the workflow logs.
+
+              **Files attempted:** ${{ steps.changed-files.outputs.files }}`;
             }
 
-            const comment = `## 🔍 Code Complexity Analysis
-
-            ### Summary
-            Automated complexity analysis has been performed on the changed files.
-
-            <details>
-            <summary>View detailed complexity report</summary>
-
-            \`\`\`
-            ${reportContent}
-            \`\`\`
-            </details>
-
-            ---
-            📊 For detailed analysis reports, check the artifacts in this workflow run.
-            `;
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            // Check if we already commented on this PR
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: comment
+              issue_number: context.issue.number,
             });
 
-  security-scan:
-    runs-on: ubuntu-latest
-    name: Security Scan
+            const botComment = comments.find(comment =>
+              comment.user.login === 'github-actions[bot]' &&
+              comment.body.includes('🧮 LeetCode Solution Analysis')
+            );
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run npm audit
-        run: |
-          npm audit --audit-level=moderate --json > npm-audit.json || true
-          npm audit --audit-level=moderate || true
-        continue-on-error: true
-
-      - name: Upload security report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: security-scan
-          path: npm-audit.json
-
-  code-metrics:
-    runs-on: ubuntu-latest
-    name: Code Metrics & Quality Gates
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: |
-          npm install
-          npm install --save-dev cloc complexity-report jscpd
-
-      - name: Generate code metrics
-        run: |
-          # Lines of code analysis
-          npx cloc . --exclude-dir=node_modules,dist,.git --json > cloc-report.json || true
-
-          # Copy-paste detection
-          npx jscpd . --ignore "**/node_modules/**,**/dist/**" --format json --output jscpd-report.json || true
-
-          echo "Code metrics generated successfully"
-
-      - name: Check quality gates
-        run: |
-          # Check if any critical issues exist
-          node -e "
-          const fs = require('fs');
-
-          let critical = false;
-          let warnings = [];
-
-          // Check ESLint results if available
-          try {
-            const eslintReport = JSON.parse(fs.readFileSync('eslint-report.json', 'utf8'));
-            const errors = eslintReport.reduce((sum, file) => sum + file.errorCount, 0);
-            if (errors > 10) {
-              critical = true;
-              warnings.push(\`ESLint: \${errors} errors found\`);
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: analysisContent
+              });
+              console.log('Updated existing PR comment');
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: analysisContent
+              });
+              console.log('Created new PR comment');
             }
-          } catch (e) { /* ignore */ }
 
-          // Check complexity
-          try {
-            const complexityReport = fs.readFileSync('complexity-report.txt', 'utf8');
-            if (complexityReport.includes('O(2ⁿ)') || complexityReport.includes('cyclomatic complexity > 15')) {
-              warnings.push('High complexity algorithms detected');
-            }
-          } catch (e) { /* ignore */ }
-
-          if (warnings.length > 0) {
-            console.log('⚠️  Quality Gate Warnings:');
-            warnings.forEach(w => console.log('   - ' + w));
-          }
-
-          if (critical) {
-            console.log('❌ Quality gates failed - critical issues found');
-            process.exit(1);
-          } else {
-            console.log('✅ Quality gates passed');
-          }
-          " || echo "Quality gate check completed"
-
-      - name: Upload metrics
+      - name: Upload detailed analysis
+        if: steps.changed-files.outputs.files != ''
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: code-metrics
+          name: leetcode-analysis-detailed
           path: |
-            cloc-report.json
-            jscpd-report.json
-
-  generate-quality-report:
-    runs-on: ubuntu-latest
-    name: Generate Quality Report
-    needs: [lint-and-format, complexity-analysis, security-scan, code-metrics]
-    if: always()
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          merge-multiple: true
-
-      - name: Generate comprehensive report
-        run: |
-          cat > quality-report.md << 'EOF'
-          # Code Quality Report
-
-          **Generated:** $(date)
-          **Commit:** ${{ github.sha }}
-          **Branch:** ${{ github.ref_name }}
-
-          ## 📊 Quality Metrics Summary
-
-          ### ESLint Analysis
-          $(if [ -f eslint-report.json ]; then
-            node -e "
-            const report = JSON.parse(require('fs').readFileSync('eslint-report.json', 'utf8'));
-            const totalErrors = report.reduce((sum, file) => sum + file.errorCount, 0);
-            const totalWarnings = report.reduce((sum, file) => sum + file.warningCount, 0);
-            console.log(\`- **Errors:** \${totalErrors}\`);
-            console.log(\`- **Warnings:** \${totalWarnings}\`);
-            console.log(\`- **Files Analyzed:** \${report.length}\`);
-            "
-          else
-            echo "- ESLint report not available"
-          fi)
-
-          ### Complexity Analysis
-          $(if [ -f complexity-report.txt ]; then
-            echo "**Available** - See detailed complexity analysis below"
-          else
-            echo "**Not Available**"
-          fi)
-
-          ### Security Scan
-          $(if [ -f npm-audit.json ]; then
-            echo "**Available** - NPM audit completed"
-          else
-            echo "**Not Available**"
-          fi)
-
-          ### Code Metrics
-          $(if [ -f cloc-report.json ]; then
-            node -e "
-            try {
-              const cloc = JSON.parse(require('fs').readFileSync('cloc-report.json', 'utf8'));
-              console.log(\`- **Total Lines:** \${cloc.SUM?.code || 'N/A'}\`);
-              console.log(\`- **Languages:** \${Object.keys(cloc).length - 1}\`);
-            } catch (e) {
-              console.log('- Code metrics parsing failed');
-            }
-            "
-          else
-            echo "- Code metrics not available"
-          fi)
-
-          ## 🔍 Detailed Analysis
-
-          $(if [ -f complexity-report.txt ]; then
-            echo "### Complexity Analysis Results"
-            echo "\`\`\`"
-            head -50 complexity-report.txt
-            echo "\`\`\`"
-          fi)
-
-          ---
-          *Generated by Code Quality CI/CD Pipeline*
-          EOF
-
-      - name: Upload quality report
-        uses: actions/upload-artifact@v4
-        with:
-          name: quality-report
-          path: quality-report.md
+            leetcode-analysis.md
+            analysis-results/
+            eslint-report.json
+          retention-days: 30
