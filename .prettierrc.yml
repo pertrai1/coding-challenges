@@ -1,0 +1,37 @@
+# Prettier Configuration for Coding Challenges
+
+# Print Width - Keep lines readable
+printWidth: 80
+
+# Tab Width - Consistent with ESLint
+tabWidth: 2
+useTabs: false
+
+# Quotes - Single quotes for consistency
+singleQuote: true
+
+# Semicolons - Always use semicolons
+semi: true
+
+# Trailing Commas - No trailing commas (better for git diffs in algorithms)
+trailingComma: 'none'
+
+# Bracket Spacing - Consistent object formatting
+bracketSpacing: true
+
+# Arrow Function Parentheses - Always include for clarity
+arrowParens: 'always'
+
+# End of Line - Unix line endings
+endOfLine: 'lf'
+
+# Override for specific file types
+overrides:
+  - files: '*.json'
+    options:
+      printWidth: 120
+  - files: 'leetcode/**/*.{js,ts}'
+    options:
+      # More flexible formatting for algorithm solutions
+      printWidth: 100
+      singleQuote: false # Use double quotes for LeetCode compatibility
