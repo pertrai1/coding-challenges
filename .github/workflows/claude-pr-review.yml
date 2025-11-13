@@ -6,6 +6,7 @@ on:
 jobs:
   review:
     runs-on: ubuntu-latest
+    if: github.actor == 'pertrai1'
     permissions:
       contents: read
       pull-requests: write
