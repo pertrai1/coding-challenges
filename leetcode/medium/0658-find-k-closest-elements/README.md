@@ -1,4 +1,3 @@
-
 # [Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements) ![](https://img.shields.io/badge/Medium-orange)
 
 <p>Given a <strong>sorted</strong> integer array <code>arr</code>, two integers <code>k</code> and <code>x</code>, return the <code>k</code> closest integers to <code>x</code> in the array. The result should also be sorted in ascending order.</p>
@@ -36,5 +35,3 @@
 	<li><code>arr</code> is sorted in <strong>ascending</strong> order.</li>
 	<li><code>-10<sup>4</sup> &lt;= arr[i], x &lt;= 10<sup>4</sup></code></li>
 </ul>
-
-        
