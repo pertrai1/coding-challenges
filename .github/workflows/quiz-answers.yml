@@ -1,4 +1,4 @@
-ame: Quiz Answer Command
+name: Quiz Answer Command
 
 on:
   issue_comment:
@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Provide Quiz Answers
     if: |
+      !github.event.issue.pull_request &&
       contains(github.event.comment.body, '/answers') &&
       (github.event.issue.user.login == 'pertrai1' || github.actor == 'pertrai1') &&
       contains(join(github.event.issue.labels.*.name, ','), 'quiz')
