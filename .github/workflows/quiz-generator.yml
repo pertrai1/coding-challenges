@@ -45,8 +45,8 @@ jobs:
             echo "files=$CHANGED_FILES" >> $GITHUB_OUTPUT
             echo "Found technique files: $CHANGED_FILES"
 
-            # Convert to JSON array for processing
-            FILES_JSON=$(echo "$CHANGED_FILES" | jq -R . | jq -s .)
+            # Convert to JSON array for processing - handle multiline properly
+            FILES_JSON=$(echo "$CHANGED_FILES" | tr '\n' '\0' | xargs -0 printf '"%s"\n' | jq -s .)
             echo "files_json=$FILES_JSON" >> $GITHUB_OUTPUT
           else
             echo "No technique files changed"
