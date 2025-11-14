@@ -45,8 +45,18 @@ jobs:
             echo "files=$CHANGED_FILES" >> $GITHUB_OUTPUT
             echo "Found technique files: $CHANGED_FILES"
 
-            # Convert to JSON array for processing - handle multiline properly
-            FILES_JSON=$(echo "$CHANGED_FILES" | tr '\n' '\0' | xargs -0 printf '"%s"\n' | jq -s .)
+            # Convert to JSON array for processing - simpler approach
+            FILES_JSON="["
+            first=true
+            for file in $CHANGED_FILES; do
+              if [ "$first" = true ]; then
+                FILES_JSON="$FILES_JSON\"$file\""
+                first=false
+              else
+                FILES_JSON="$FILES_JSON,\"$file\""
+              fi
+            done
+            FILES_JSON="$FILES_JSON]"
             echo "files_json=$FILES_JSON" >> $GITHUB_OUTPUT
           else
             echo "No technique files changed"
