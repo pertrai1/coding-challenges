@@ -1122,5 +1122,5 @@ const merge = (map1, map2) => {
 4. **Initialize Before Use**: Always check `map.has(key)` before accessing nested structures
 5. **Reference Equality**: Remember that objects/arrays are compared by reference in Sets/Maps
 6. **Space-Time Tradeoff**: Hash tables trade O(n) space for O(1) time - usually worth it
-7. **Iteration Order**: Map and Set maintain insertion order in JavaScript
-8. **Null Safety**: Use `??` instead of `||` to avoid treating falsy values as missing
+7. **Null Safety**: Use `??` instead of `||` to avoid treating falsy values as missing
+8. **Iteration Order**: Map and Set maintain insertion order in JavaScript
