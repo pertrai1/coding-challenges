@@ -16,7 +16,9 @@
 
 The **Hash Lookup** technique leverages hash-based data structures (Maps, Sets, Objects) to achieve **O(1) average-case** lookups, insertions, and deletions. This transforms problems that would require O(n) or O(n²) time with linear search into much more efficient solutions.
 
-Hash tables use a hash function to compute an index into an array of buckets, where the desired value can be found. In JavaScript/TypeScript, we primarily use:
+Hash tables are fundamental data structures that use a hash function to compute an index into an array of buckets, where the desired value can be found. This technique is essential for optimizing algorithm performance across many problem domains.
+
+In JavaScript/TypeScript, we primarily use:
 
 - **Map**: Key-value pairs with any data type as keys
 - **Set**: Unique values collection
@@ -66,7 +68,8 @@ The hash lookup technique is ideal when you need to:
 - "group by"
 - "first unique/non-repeating"
 - "two sum" variations
-- "anagram" detection
+- "anagram detection"
+- "substring matching"
 - "intersection" or "union"
 - "cache" or "memoize"
 
