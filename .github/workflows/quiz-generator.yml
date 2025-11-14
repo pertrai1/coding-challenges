@@ -76,7 +76,7 @@ jobs:
             apiKey: process.env.OPENAI_API_KEY,
           });
 
-          const changedFiles = ${{ steps.technique-files.outputs.files_json }};
+          const changedFiles = JSON.parse(process.env.CHANGED_FILES_JSON);
 
           async function generateQuiz(filePath) {
             try {
@@ -203,6 +203,7 @@ jobs:
           "
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          CHANGED_FILES_JSON: ${{ steps.technique-files.outputs.files_json }}
 
       - name: Create GitHub issues for quizzes
         if: steps.technique-files.outputs.files != ''
