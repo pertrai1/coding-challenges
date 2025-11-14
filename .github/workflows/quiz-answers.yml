@@ -13,8 +13,9 @@ jobs:
   provide-answers:
     runs-on: ubuntu-latest
     name: Provide Quiz Answers
+    # Only run on actual issues (not PRs) with quiz labels when /answers is commented
     if: |
-      !github.event.issue.pull_request &&
+      github.event.issue.pull_request == null &&
       contains(github.event.comment.body, '/answers') &&
       (github.event.issue.user.login == 'pertrai1' || github.actor == 'pertrai1') &&
       contains(join(github.event.issue.labels.*.name, ','), 'quiz')
