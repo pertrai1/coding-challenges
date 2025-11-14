@@ -1,0 +1,272 @@
+name: Algorithm Quiz Generator
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  actions: write
+
+jobs:
+  generate-quiz:
+    runs-on: ubuntu-latest
+    name: Generate Algorithm Quiz
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install openai
+
+      - name: Detect technique file changes
+        id: technique-files
+        run: |
+          # Get files changed in merged PR
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} | grep "^docs/techniques/" | grep "\.md$" || echo "")
+
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+            echo "Found technique files: $CHANGED_FILES"
+
+            # Convert to JSON array for processing
+            FILES_JSON=$(echo "$CHANGED_FILES" | jq -R . | jq -s .)
+            echo "files_json=$FILES_JSON" >> $GITHUB_OUTPUT
+          else
+            echo "No technique files changed"
+            echo "files=" >> $GITHUB_OUTPUT
+            echo "files_json=[]" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate quizzes for changed technique files
+        if: steps.technique-files.outputs.files != ''
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const OpenAI = require('openai');
+
+          const openai = new OpenAI({
+            apiKey: process.env.OPENAI_API_KEY,
+          });
+
+          const changedFiles = ${{ steps.technique-files.outputs.files_json }};
+
+          async function generateQuiz(filePath) {
+            try {
+              console.log(\`Generating quiz for: \${filePath}\`);
+
+              // Read the technique file content
+              const content = fs.readFileSync(filePath, 'utf8');
+              const techniqueName = path.basename(filePath, '.md');
+
+              // Extract key content (limit to prevent token overflow)
+              const contentPreview = content.substring(0, 8000);
+
+              const prompt = \`Based on this algorithm technique documentation:
+
+          \\\`\\\`\\\`markdown
+          \${contentPreview}
+          \\\`\\\`\\\`
+
+          Generate exactly 12 quiz questions in this format:
+
+          ## Multiple Choice Questions (10 questions)
+
+          **Question 1:** [Question text]
+          A) [Option A]
+          B) [Option B]
+          C) [Option C]
+          D) [Option D]
+
+          [Continue for questions 2-10...]
+
+          ## Coding Challenge Questions (2 questions)
+
+          **Challenge 1:** [Problem description with example input/output]
+          **Challenge 2:** [Problem description with example input/output]
+
+          Focus on:
+          - Time/space complexity understanding
+          - When to use this technique
+          - Implementation details
+          - Common pitfalls
+          - Pattern recognition
+
+          Make questions educational and progressively challenging.\`;
+
+              const response = await openai.chat.completions.create({
+                model: 'gpt-3.5-turbo-mini',
+                messages: [
+                  { role: 'system', content: 'You are an expert algorithm instructor creating educational quiz questions.' },
+                  { role: 'user', content: prompt }
+                ],
+                max_tokens: 2000,
+                temperature: 0.7,
+              });
+
+              const quiz = response.choices[0].message.content;
+
+              // Generate answers
+              const answerPrompt = \`For the quiz questions you just created, provide the correct answers in this format:
+
+          ## Multiple Choice Answers
+          1. [Correct letter] - [Brief explanation]
+          2. [Correct letter] - [Brief explanation]
+          [Continue for all 10...]
+
+          ## Coding Challenge Solutions
+          **Challenge 1 Solution:** [Step-by-step solution approach]
+          **Challenge 2 Solution:** [Step-by-step solution approach]
+
+          Keep explanations concise but educational.\`;
+
+              const answerResponse = await openai.chat.completions.create({
+                model: 'gpt-3.5-turbo-mini',
+                messages: [
+                  { role: 'system', content: 'You are providing answer keys for algorithm quiz questions.' },
+                  { role: 'user', content: answerPrompt }
+                ],
+                max_tokens: 1500,
+                temperature: 0.3,
+              });
+
+              const answers = answerResponse.choices[0].message.content;
+
+              // Save quiz and answers
+              const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+              const quizFileName = \`quiz-\${techniqueName}-\${timestamp}.md\`;
+              const answersFileName = \`answers-\${techniqueName}-\${timestamp}.md\`;
+
+              fs.writeFileSync(quizFileName, quiz);
+              fs.writeFileSync(answersFileName, answers);
+
+              return {
+                techniqueName,
+                filePath,
+                quizFileName,
+                answersFileName,
+                quiz,
+                timestamp
+              };
+
+            } catch (error) {
+              console.error(\`Error generating quiz for \${filePath}:\`, error.message);
+              return null;
+            }
+          }
+
+          async function main() {
+            const results = [];
+
+            for (const file of changedFiles) {
+              const result = await generateQuiz(file);
+              if (result) {
+                results.push(result);
+              }
+              // Rate limiting - small delay between API calls
+              await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+
+            // Save results for issue creation
+            fs.writeFileSync('quiz-results.json', JSON.stringify(results, null, 2));
+            console.log(\`Generated \${results.length} quizzes\`);
+          }
+
+          main().catch(console.error);
+          "
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Create GitHub issues for quizzes
+        if: steps.technique-files.outputs.files != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            let quizResults = [];
+            try {
+              const resultsContent = fs.readFileSync('quiz-results.json', 'utf8');
+              quizResults = JSON.parse(resultsContent);
+            } catch (e) {
+              console.log('No quiz results found or error reading results');
+              return;
+            }
+
+            for (const result of quizResults) {
+              try {
+                const issueTitle = `📝 Algorithm Quiz: ${result.techniqueName.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} Technique`;
+
+                const issueBody = `# 🧮 Algorithm Technique Quiz
+
+            **Technique:** ${result.techniqueName.replace(/_/g, ' ')}
+            **Source:** [\`docs/techniques/${result.techniqueName}.md\`](https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/docs/techniques/${result.techniqueName}.md)
+            **Generated:** ${new Date(result.timestamp).toLocaleString()}
+
+            ---
+
+            ${result.quiz}
+
+            ---
+
+            ## 💡 How to Get Answers
+
+            Comment \`/answers\` on this issue to reveal the answer key (restricted to maintainers).
+
+            ## 🎯 Learning Objectives
+
+            This quiz tests your understanding of:
+            - When and how to apply the ${result.techniqueName.replace(/_/g, ' ')} technique
+            - Time and space complexity analysis
+            - Implementation patterns and common pitfalls
+            - Problem recognition and pattern matching
+
+            *Good luck! 🚀*`;
+
+                // Create the issue
+                const issue = await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: issueTitle,
+                  body: issueBody,
+                  labels: ['quiz', 'algorithm', 'auto-generated', `quiz-answers-${result.timestamp}`, result.techniqueName]
+                });
+
+                console.log(`Created quiz issue #${issue.data.number} for ${result.techniqueName}`);
+
+              } catch (error) {
+                console.error(`Error creating issue for ${result.techniqueName}:`, error.message);
+              }
+            }
+
+      - name: Upload quiz artifacts
+        if: steps.technique-files.outputs.files != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: algorithm-quiz-answers
+          path: |
+            answers-*.md
+            quiz-results.json
+          retention-days: 90
+
+      - name: Cleanup temporary files
+        if: steps.technique-files.outputs.files != ''
+        run: |
+          rm -f quiz-*.md answers-*.md quiz-results.json
