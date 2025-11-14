@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
   checks: write
 
@@ -21,6 +21,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -82,6 +83,7 @@ jobs:
         if: steps.changed-files.outputs.files != ''
         run: |
           FILES="${{ steps.changed-files.outputs.files }}"
+          mkdir -p docs/analysis
           mkdir -p analysis-results
 
           # Check if complexity analyzer exists
@@ -98,24 +100,36 @@ jobs:
             echo "Running complexity analysis on changed files..."
             analysis_success=0
             analysis_total=0
+            analysis_files_created=""
 
             for file in $FILES; do
               if [ -f "$file" ]; then
                 analysis_total=$((analysis_total + 1))
                 echo "Analyzing: $file"
 
-                # Get base filename without extension for output
-                base_name=$(basename "$file")
-                output_name="${base_name%.*}"
+                # Extract problem name from file path for proper naming
+                # Examples: leetcode/easy/0205-isomorphic-strings/isomorphic-strings.js -> isomorphic-strings
+                # Examples: leetcode/medium/0003-longest-substring/longest-substring.ts -> longest-substring
+                echo "Checking file pattern for: $file"
+                if [[ "$file" =~ leetcode/[^/]+/[0-9]+-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+                  problem_name="${BASH_REMATCH[1]}"
+                  analysis_file="docs/analysis/${problem_name}-analysis.md"
+                  echo "✅ Matched LeetCode pattern. Problem: $problem_name"
 
-                # Run analysis with proper error handling
-                if node scripts/complexity-analyzer.js "$file" > "analysis-results/${output_name}.md" 2>&1; then
-                  echo "✅ Successfully analyzed: $file"
-                  analysis_success=$((analysis_success + 1))
-                else
-                  echo "❌ Failed to analyze: $file"
-                  # Create error report for this file
-                  cat > "analysis-results/${output_name}.md" << EOF
+                  echo "Creating analysis file: $analysis_file"
+
+                  # Run analysis and save to docs/analysis with proper naming
+                  if node scripts/complexity-analyzer.js "$file" > "$analysis_file" 2>&1; then
+                    echo "✅ Successfully analyzed: $file -> $analysis_file"
+                    analysis_success=$((analysis_success + 1))
+                    analysis_files_created="$analysis_files_created $analysis_file"
+
+                    # Also create a copy in analysis-results for PR comment
+                    cp "$analysis_file" "analysis-results/${problem_name}-analysis.md"
+                  else
+                    echo "❌ Failed to analyze: $file"
+                    # Create error report for this file
+                    cat > "$analysis_file" << EOF
           # Analysis Failed for \`$file\`
 
           ❌ **Error**: The complexity analysis failed for this file.
@@ -127,6 +141,20 @@ jobs:
 
           **Recommendation**: Check the workflow logs for detailed error information.
           EOF
+                    analysis_files_created="$analysis_files_created $analysis_file"
+                  fi
+                else
+                  echo "⚠️ File does not match LeetCode pattern: $file"
+                  # For non-LeetCode files, use the original logic
+                  base_name=$(basename "$file")
+                  output_name="${base_name%.*}"
+
+                  if node scripts/complexity-analyzer.js "$file" > "analysis-results/${output_name}.md" 2>&1; then
+                    echo "✅ Successfully analyzed: $file"
+                    analysis_success=$((analysis_success + 1))
+                  else
+                    echo "❌ Failed to analyze: $file"
+                  fi
                 fi
               else
                 echo "⚠️ File not found: $file"
@@ -134,8 +162,40 @@ jobs:
             done
 
             echo "📊 Analysis Summary: $analysis_success/$analysis_total files analyzed successfully"
+            echo "analysis_files_created=$analysis_files_created" >> $GITHUB_ENV
           else
             echo "No files to analyze"
+          fi
+
+      - name: Commit and push analysis files
+        if: steps.changed-files.outputs.files != '' && env.analysis_files_created != ''
+        run: |
+          # Configure git
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          # Check if there are any changes to commit
+          if [ -n "$(git status --porcelain docs/analysis/)" ]; then
+            echo "📝 Committing analysis files to docs/analysis/"
+
+            # Stage only the analysis files we created
+            git add docs/analysis/
+
+            # Commit with descriptive message
+            git commit -m "📊 Add automated complexity analysis for PR changes
+
+            - Generated analysis files for changed LeetCode solutions
+            - Files: ${{ steps.changed-files.outputs.files }}
+            - Timestamp: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+            [skip ci]"
+
+            # Push to the PR branch
+            git push origin HEAD:${{ github.head_ref }}
+
+            echo "✅ Analysis files committed and pushed successfully"
+          else
+            echo "ℹ️ No analysis files to commit"
           fi
 
       - name: Generate LeetCode solution summary
@@ -200,12 +260,17 @@ jobs:
           - **Optimization**: Look for opportunities to reduce nested loops
           - **Edge Cases**: Ensure your solution handles empty inputs, single elements, etc.
 
+          ## 📁 Analysis Files Created
+
+          Detailed analysis files have been automatically generated and committed to `docs/analysis/` for future reference.
+
           ## 🎯 Next Steps
 
           1. Review any ESLint errors/warnings above
           2. Consider the complexity analysis - is this the optimal approach?
           3. Test with edge cases mentioned in the problem description
           4. Add comments explaining the algorithm approach if complex
+          5. Check the `docs/analysis/` directory for detailed complexity analysis files
 
           ---
           *Analysis generated for PR files only*
