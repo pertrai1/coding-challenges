@@ -70,7 +70,6 @@ The hash lookup technique is ideal when you need to:
 - "two sum" variations
 - "anagram detection"
 - "substring matching"
-- "anagram" detection
 - "intersection" or "union"
 - "cache" or "memoize"
 
