@@ -1,0 +1,257 @@
+name: Create Review Issues
+
+on:
+  schedule:
+    # Run daily at 9 AM UTC (adjust to your timezone preference)
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Allow manual trigger for testing
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  create-reviews:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check for due reviews
+        id: check-reviews
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+
+          // Read review schedule
+          const schedulePath = 'docs/reviews/review-schedule.json';
+          if (!fs.existsSync(schedulePath)) {
+            console.log('⚠️ No review schedule found');
+            process.exit(0);
+          }
+
+          const schedule = JSON.parse(fs.readFileSync(schedulePath, 'utf8'));
+          const today = new Date().toISOString().split('T')[0];
+
+          console.log(`📅 Checking for reviews due on ${today}...`);
+
+          const dueReviews = [];
+
+          schedule.problems.forEach(problem => {
+            problem.reviewsDue.forEach(review => {
+              if (review.scheduledDate === today && !review.completed && !review.issueNumber) {
+                dueReviews.push({
+                  problem,
+                  review
+                });
+              }
+            });
+          });
+
+          console.log(`Found ${dueReviews.length} review(s) due today`);
+
+          // Save due reviews to file for next step
+          fs.writeFileSync('due-reviews.json', JSON.stringify(dueReviews, null, 2));
+
+          // Set output
+          if (dueReviews.length > 0) {
+            console.log('has_reviews=true');
+            fs.writeFileSync(process.env.GITHUB_OUTPUT, 'has_reviews=true\n', { flag: 'a' });
+          } else {
+            console.log('has_reviews=false');
+            fs.writeFileSync(process.env.GITHUB_OUTPUT, 'has_reviews=false\n', { flag: 'a' });
+          }
+          EOF
+
+      - name: Create review issues
+        if: steps.check-reviews.outputs.has_reviews == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // Read due reviews
+            const dueReviews = JSON.parse(fs.readFileSync('due-reviews.json', 'utf8'));
+
+            console.log(`Creating ${dueReviews.length} review issue(s)...`);
+
+            const createdIssues = [];
+
+            for (const item of dueReviews) {
+              const { problem, review } = item;
+
+              // Determine review ordinal (1st, 2nd, 3rd, etc.)
+              const ordinals = ['1st', '2nd', '3rd', '4th', '5th'];
+              const reviewOrdinal = ordinals[review.reviewNumber - 1] || `${review.reviewNumber}th`;
+
+              // Calculate days since solved
+              const solvedDate = new Date(problem.solvedDate);
+              const today = new Date(new Date().toISOString().split('T')[0]);
+              const daysSince = Math.floor((today - solvedDate) / (1000 * 60 * 60 * 24));
+
+              // Create issue body
+              const issueBody = `## 🔄 ${reviewOrdinal} Review - Spaced Repetition
+
+            It's time to review this problem to reinforce your understanding!
+
+            ### 📊 Problem Details
+            - **Problem**: [#${problem.problemNumber} - ${problem.problemName}](https://leetcode.com/problems/${problem.problemSlug}/)
+            - **Difficulty**: ${problem.difficulty.toUpperCase()}
+            - **Originally Solved**: ${new Date(problem.solvedDate).toLocaleDateString()} (${daysSince} days ago)
+            - **Original PR**: #${problem.prNumber}
+            - **Solution File**: \`${problem.filePath}\`
+
+            ### 📝 Review Instructions
+
+            1. **Try solving it again** without looking at your solution first
+            2. **Compare approaches**:
+               - Did you solve it the same way?
+               - Is your new approach more efficient?
+               - What did you remember vs. forget?
+            3. **Comment below** with:
+               - ✅ "Solved again easily" / "Needed hints" / "Struggled"
+               - Any new insights or patterns you noticed
+               - Time/space complexity comparison
+            4. **Close this issue** when you've completed the review
+
+            ### 🧠 Learning Science
+            This is your **${reviewOrdinal} review** (${review.interval} days after solving). Spaced repetition at increasing intervals helps move knowledge from short-term to long-term memory!
+
+            ### 📈 Progress Tracking
+            - Review ${review.reviewNumber} of ${problem.reviewsDue.length}
+            - Next review: ${review.reviewNumber < problem.reviewsDue.length ? 'Scheduled automatically' : 'Final review!'}
+
+            ---
+            _This issue was automatically created by the Spaced Repetition Review system._`;
+
+              // Create the issue
+              const issue = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `📚 Review: #${problem.problemNumber} - ${problem.problemName} (${reviewOrdinal})`,
+                body: issueBody,
+                // Ensure all labels exist before creating the issue
+                const labelsToAdd = [
+                  'review-needed',
+                  `difficulty:${problem.difficulty}`,
+                  `review-${review.reviewNumber}`,
+                  'spaced-repetition'
+                ];
+
+                // Get existing labels in the repo
+                const existingLabelsResp = await github.rest.issues.listLabelsForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  per_page: 100
+                });
+                const existingLabels = existingLabelsResp.data.map(l => l.name);
+
+                // Create missing labels
+                for (const label of labelsToAdd) {
+                  if (!existingLabels.includes(label)) {
+                    await github.rest.issues.createLabel({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      name: label,
+                      color: 'ededed' // default color
+                    });
+                  }
+                }
+
+                // Create the issue
+                const issue = await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: `📚 Review: #${problem.problemNumber} - ${problem.problemName} (${reviewOrdinal})`,
+                  body: issueBody,
+                  labels: labelsToAdd
+                });
+
+                console.log(`✅ Created issue #${issue.data.number} for ${problem.problemName}`);
+              createdIssues.push({
+                problemNumber: problem.problemNumber,
+                problemSlug: problem.problemSlug,
+                reviewNumber: review.reviewNumber,
+                issueNumber: issue.data.number,
+                scheduledDate: review.scheduledDate
+              });
+            }
+
+            // Save created issues info for updating schedule
+            fs.writeFileSync('created-issues.json', JSON.stringify(createdIssues, null, 2));
+
+      - name: Update review schedule
+        if: steps.check-reviews.outputs.has_reviews == 'true'
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+
+          // Read schedule and created issues
+          const schedule = JSON.parse(fs.readFileSync('docs/reviews/review-schedule.json', 'utf8'));
+          const createdIssues = JSON.parse(fs.readFileSync('created-issues.json', 'utf8'));
+
+          // Update schedule with issue numbers
+          createdIssues.forEach(created => {
+            const problem = schedule.problems.find(p => p.problemNumber === created.problemNumber);
+            if (problem) {
+              const review = problem.reviewsDue.find(r => r.reviewNumber === created.reviewNumber);
+              if (review) {
+                review.issueNumber = created.issueNumber;
+                review.issueCreatedAt = new Date().toISOString();
+                console.log(`✅ Updated schedule: ${problem.problemName} review ${created.reviewNumber} -> Issue #${created.issueNumber}`);
+              }
+            }
+          });
+
+          schedule.lastUpdated = new Date().toISOString();
+
+          // Write updated schedule
+          fs.writeFileSync('docs/reviews/review-schedule.json', JSON.stringify(schedule, null, 2));
+
+          console.log(`✅ Updated review schedule with ${createdIssues.length} issue number(s)`);
+          EOF
+
+      - name: Commit updated schedule
+        if: steps.check-reviews.outputs.has_reviews == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if [ -n "$(git status --porcelain docs/reviews/)" ]; then
+            git add docs/reviews/review-schedule.json
+
+            # Count issues created
+            ISSUE_COUNT=$(cat created-issues.json | grep -o '"issueNumber"' | wc -l)
+
+            git commit -m "🔄 Update review schedule with created issues
+
+            Created $ISSUE_COUNT review issue(s)
+            Date: $(date -u +"%Y-%m-%d")
+
+            [skip ci]"
+
+            git push origin main
+            echo "✅ Review schedule updated and pushed"
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          if [ "${{ steps.check-reviews.outputs.has_reviews }}" == "true" ]; then
+            ISSUE_COUNT=$(cat created-issues.json | grep -o '"issueNumber"' | wc -l || echo "0")
+            echo "✅ Successfully created $ISSUE_COUNT review issue(s)"
+
+            echo "📋 Created Issues:"
+            cat created-issues.json | grep -o '"issueNumber": [0-9]*' || echo "None"
+          else
+            echo "ℹ️ No reviews due today"
+          fi
