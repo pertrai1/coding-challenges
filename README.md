@@ -4,9 +4,9 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 140 solved
+- **Total Problems**: 141 solved
 - **Easy**: 73 problems
-- **Medium**: 57 problems
+- **Medium**: 58 problems
 - **Hard**: 10 problems
 
 ## 📈 Progress Tracking
@@ -180,6 +180,7 @@ Problems are organized by:
 - [0922 - Possible Bipartition](./leetcode/medium/0922-possible-bipartition) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0984 - Most Stones Removed with Same Row or Column](./leetcode/medium/0984-most-stones-removed-with-same-row-or-column) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1100 - Connecting Cities With Minimum Cost](./leetcode/medium/1100-connecting-cities-with-minimum-cost) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [1101 - Parallel Courses](./leetcode/medium/1101-parallel-courses) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1120 - Flower Planting With No Adjacent](./leetcode/medium/1120-flower-planting-with-no-adjacent) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1229 - Shortest Path with Alternating Colors](./leetcode/medium/1229-shortest-path-with-alternating-colors) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1442 - Number of Operations to Make Network Connected](./leetcode/medium/1442-number-of-operations-to-make-network-connected) ![Medium](https://img.shields.io/badge/Medium-orange)
