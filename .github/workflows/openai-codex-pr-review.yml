@@ -2,7 +2,9 @@ name: OpenAI Code Review
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [review_requested]
+  pull_request_review:
+    types: [requested]
 
 permissions:
   issues: write
@@ -18,4 +20,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
-          body: "@codex review"
+          body: '@codex review'
