@@ -4,9 +4,9 @@
  * View Review Schedule - Display current spaced repetition review schedule
  *
  * Usage:
- *   node scripts/view-review-schedule.js
- *   node scripts/view-review-schedule.js --upcoming
- *   node scripts/view-review-schedule.js --stats
+ *   node scripts/view-review-schedule.cjs
+ *   node scripts/view-review-schedule.cjs --upcoming
+ *   node scripts/view-review-schedule.cjs --stats
  */
 
 const fs = require('fs');
