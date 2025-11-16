@@ -127,8 +127,8 @@ jobs:
             This is your **${reviewOrdinal} review** (${review.interval} days after solving). Spaced repetition at increasing intervals helps move knowledge from short-term to long-term memory!
 
             ### 📈 Progress Tracking
-            - Review ${review.reviewNumber} of 5
-            - Next review: ${review.reviewNumber < 5 ? 'Scheduled automatically' : 'Final review!'}
+            - Review ${review.reviewNumber} of ${problem.reviewsDue.length}
+            - Next review: ${review.reviewNumber < problem.reviewsDue.length ? 'Scheduled automatically' : 'Final review!'}
 
             ---
             _This issue was automatically created by the Spaced Repetition Review system._`;
