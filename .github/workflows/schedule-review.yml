@@ -1,0 +1,206 @@
+name: Schedule Spaced Repetition Review
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  schedule-review:
+    runs-on: ubuntu-latest
+    # Only run if PR was merged (not just closed)
+    if: github.event.pull_request.merged == true && github.event.pull_request.user.login == 'pertrai1'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Extract problem information
+        id: extract-info
+        run: |
+          # Get PR information
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PR_URL="${{ github.event.pull_request.html_url }}"
+          MERGED_AT="${{ github.event.pull_request.merged_at }}"
+
+          # Get changed files
+          git fetch origin main
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD | grep -E 'leetcode/.*\.(js|ts)$' || echo "")
+
+          echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          echo "merged_at=$MERGED_AT" >> $GITHUB_OUTPUT
+          echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+
+          echo "📋 PR Info:"
+          echo "Title: $PR_TITLE"
+          echo "Number: $PR_NUMBER"
+          echo "Merged at: $MERGED_AT"
+          echo "Changed files: $CHANGED_FILES"
+
+      - name: Parse problem details
+        id: parse-problem
+        run: |
+          CHANGED_FILES="${{ steps.extract-info.outputs.changed_files }}"
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "⚠️ No LeetCode files changed in this PR"
+            echo "has_leetcode_files=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "has_leetcode_files=true" >> $GITHUB_OUTPUT
+
+          # Parse first LeetCode file (main solution file)
+          MAIN_FILE=$(echo "$CHANGED_FILES" | head -n 1)
+          echo "main_file=$MAIN_FILE" >> $GITHUB_OUTPUT
+
+          # Extract problem info from file path
+          # Example: leetcode/easy/0205-isomorphic-strings/isomorphic-strings.js
+          if [[ "$MAIN_FILE" =~ leetcode/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+            DIFFICULTY="${BASH_REMATCH[1]}"
+            PROBLEM_NUMBER="${BASH_REMATCH[2]}"
+            PROBLEM_SLUG="${BASH_REMATCH[3]}"
+            FILE_NAME="${BASH_REMATCH[4]}"
+
+            echo "difficulty=$DIFFICULTY" >> $GITHUB_OUTPUT
+            echo "problem_number=$PROBLEM_NUMBER" >> $GITHUB_OUTPUT
+            echo "problem_slug=$PROBLEM_SLUG" >> $GITHUB_OUTPUT
+
+            # Create human-readable problem name
+            PROBLEM_NAME=$(echo "$PROBLEM_SLUG" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
+            echo "problem_name=$PROBLEM_NAME" >> $GITHUB_OUTPUT
+
+            echo "✅ Parsed problem: #$PROBLEM_NUMBER - $PROBLEM_NAME ($DIFFICULTY)"
+          else
+            echo "⚠️ File doesn't match LeetCode pattern: $MAIN_FILE"
+            echo "has_leetcode_files=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Add to review schedule
+        if: steps.parse-problem.outputs.has_leetcode_files == 'true'
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          // Read current schedule
+          const schedulePath = 'docs/reviews/review-schedule.json';
+          let schedule = JSON.parse(fs.readFileSync(schedulePath, 'utf8'));
+
+          // Problem details
+          const problemData = {
+            problemNumber: '${{ steps.parse-problem.outputs.problem_number }}',
+            problemName: '${{ steps.parse-problem.outputs.problem_name }}',
+            problemSlug: '${{ steps.parse-problem.outputs.problem_slug }}',
+            difficulty: '${{ steps.parse-problem.outputs.difficulty }}',
+            prNumber: '${{ steps.extract-info.outputs.pr_number }}',
+            prUrl: '${{ steps.extract-info.outputs.pr_url }}',
+            filePath: '${{ steps.parse-problem.outputs.main_file }}',
+            solvedDate: '${{ steps.extract-info.outputs.merged_at }}',
+            reviewsDue: [],
+            reviewsCompleted: []
+          };
+
+          // Calculate review dates
+          const solvedDate = new Date(problemData.solvedDate);
+          const intervals = schedule.reviewIntervals; // [1, 3, 7, 14, 30]
+
+          intervals.forEach((days, index) => {
+            const reviewDate = new Date(solvedDate);
+            reviewDate.setDate(reviewDate.getDate() + days);
+
+            problemData.reviewsDue.push({
+              reviewNumber: index + 1,
+              scheduledDate: reviewDate.toISOString().split('T')[0],
+              interval: days,
+              completed: false,
+              issueNumber: null
+            });
+          });
+
+          // Add to schedule
+          schedule.problems.push(problemData);
+          schedule.lastUpdated = new Date().toISOString();
+
+          // Write updated schedule
+          fs.writeFileSync(schedulePath, JSON.stringify(schedule, null, 2));
+
+          console.log('✅ Added problem to review schedule:');
+          console.log(`   Problem: ${problemData.problemName}`);
+          console.log(`   Reviews scheduled: ${problemData.reviewsDue.length}`);
+          console.log(`   Next review: ${problemData.reviewsDue[0].scheduledDate}`);
+          EOF
+
+      - name: Commit updated schedule
+        if: steps.parse-problem.outputs.has_leetcode_files == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if [ -n "$(git status --porcelain docs/reviews/)" ]; then
+            git add docs/reviews/review-schedule.json
+            git commit -m "📅 Schedule spaced repetition reviews for ${{ steps.parse-problem.outputs.problem_name }}
+
+            Problem: #${{ steps.parse-problem.outputs.problem_number }} - ${{ steps.parse-problem.outputs.problem_name }}
+            PR: #${{ steps.extract-info.outputs.pr_number }}
+            Reviews scheduled: 5 (days 1, 3, 7, 14, 30)
+
+            [skip ci]"
+
+            git push origin main
+            echo "✅ Review schedule updated and pushed"
+          else
+            echo "ℹ️ No changes to commit"
+          fi
+
+      - name: Comment on PR
+        if: steps.parse-problem.outputs.has_leetcode_files == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## 📅 Spaced Repetition Reviews Scheduled!
+
+            Great job solving **#${{ steps.parse-problem.outputs.problem_number }} - ${{ steps.parse-problem.outputs.problem_name }}**! 🎉
+
+            To help you retain this knowledge long-term, I've scheduled **5 review sessions** using spaced repetition:
+
+            | Review | Days After | Approximate Date |
+            |--------|-----------|------------------|
+            | 1st Review | 1 day | Tomorrow |
+            | 2nd Review | 3 days | In 3 days |
+            | 3rd Review | 7 days | In 1 week |
+            | 4th Review | 14 days | In 2 weeks |
+            | 5th Review | 30 days | In 1 month |
+
+            ### What to expect:
+            - GitHub issues will be automatically created for each review
+            - Each issue will link back to your solution
+            - You'll be reminded to solve the problem again or review your approach
+            - This helps move knowledge from short-term to long-term memory!
+
+            ### 🧠 Why Spaced Repetition?
+            Research shows that reviewing material at increasing intervals dramatically improves retention. This is your learning superpower!
+
+            _Check \`docs/reviews/review-schedule.json\` to see your full review schedule._`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ steps.extract-info.outputs.pr_number }},
+              body: comment
+            });
