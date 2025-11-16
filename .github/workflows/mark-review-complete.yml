@@ -115,7 +115,9 @@ jobs:
             const reviewInfo = JSON.parse(fs.readFileSync('review-info.json', 'utf8'));
 
             // Calculate progress
-            const progress = Math.round((reviewInfo.completedReviews / reviewInfo.totalReviews) * 100);
+            const progress = reviewInfo.totalReviews === 0
+              ? 0
+              : Math.round((reviewInfo.completedReviews / reviewInfo.totalReviews) * 100);
             const remaining = reviewInfo.totalReviews - reviewInfo.completedReviews;
 
             // Create progress bar
