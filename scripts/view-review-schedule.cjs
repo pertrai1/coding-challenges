@@ -125,7 +125,7 @@ if (!showStats && !showUpcoming) {
   schedule.problems.forEach((problem, index) => {
     const completed = problem.reviewsCompleted.length;
     const total = problem.reviewsDue.length;
-    const progress = Math.round((completed / total) * 100);
+    const progress = total === 0 ? 0 : Math.round((completed / total) * 100);
 
     console.log(`  ${index + 1}. #${problem.problemNumber} - ${problem.problemName}`);
     console.log(`     Difficulty:    ${problem.difficulty.toUpperCase()}`);
