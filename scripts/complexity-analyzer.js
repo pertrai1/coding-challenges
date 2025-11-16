@@ -71,7 +71,12 @@ class ComplexityAnalyzer {
           /cloneGraph|clone.*node/gi,
           // DFS/BFS with adjacency list
           /dfs\s*\([^)]*\)[^{]*\{[^}]*for[^}]*neighbor/gi,
-          /visited\s*\[[^\]]*\][^}]*for[^}]*neighbor/gi
+          /visited\s*\[[^\]]*\][^}]*for[^}]*neighbor/gi,
+          // Topological sort patterns (Kahn's algorithm)
+          /adjList|adjacencyList/gi,
+          /inDegree|indegree/gi,
+          // Graph iteration with adjacency structures
+          /for\s*\([^)]*of\s+\w*[Aa]dj/gi
         ],
         description: 'Graph traversal - visits each vertex and edge once'
       },
@@ -163,31 +168,38 @@ class ComplexityAnalyzer {
           /queue\s*\.\s*push.*neighbors?/gi,
           /cloneGraph/gi,
           /for\s*\([^)]*neighbors?[^)]*\)/gi,
-          /adjacen/gi
+          /adjacen/gi,
+          // Topological sort patterns
+          /adjList|adjacencyList/gi,
+          /inDegree|indegree/gi,
+          // Graph-specific iteration patterns
+          /for\s*\([^)]*of\s+\w*[Aa]dj/gi,
+          /while\s*\([^)]*queue\.length[^)]*\)[^{]*{[^}]*for\s*\([^)]*of/gi
         ],
         complexity: 'O(V + E)',
         description: 'Graph algorithms that visit each vertex and edge'
       },
       'Two Pointers': {
         patterns: [
+          // Two pointers must have two distinct pointer variables moving towards/away from each other
           /let\s+\w+\s*=\s*0[^;]*;\s*let\s+\w+\s*=\s*\w+\.length\s*-\s*1/,
-          /while\s*\([^)]*<[^)]*\)/
+          // Pattern where left/right or start/end pointers move
+          /\(left\s*<\s*right\)|\(start\s*<\s*end\)/gi
         ],
         complexity: 'O(n)',
         description: 'Two pointers moving towards each other'
       },
       'Sliding Window': {
         patterns: [
-          /let\s+\w+\s*=\s*0[^;]*;\s*for\s*\([^;]*;\s*\w+\s*<[^;]*;\s*\w+\+\+\)/,
-          /while\s*\([^)]*\)\s*{[^}]*while\s*\([^)]*\)\s*{[^}]*\w+\+\+/,
-          // More comprehensive sliding window patterns
-          /left.*right|start.*end/gi,
+          // More specific sliding window patterns that avoid graph BFS false positives
+          /window\s*(Size|Start|End)/gi,
+          /left.*right.*window|right.*left.*window/gi,
           /window.*expand|window.*shrink/gi,
-          /while\s*\([^)]*right[^)]*\)/gi,
-          /for\s*\([^)]*right[^)]*\)/gi,
+          /maxWindow|minWindow|windowSum/gi,
           /continuousSubarrays|subarrays.*window/gi,
-          // Pattern: increment right, conditionally increment left
-          /right\s*\+\+.*left\s*\+\+|right\+\+.*left\+\+/g
+          // Sliding window with explicit left/right pointers (not index)
+          /let\s+(left|right)\s*=\s*0[^}]*while[^}]*(left|right)/gi,
+          /for\s*\([^;]*(right|end)[^;]*[^)]*\)[^{]*{[^}]*(left|start)\s*\+\+/gi
         ],
         complexity: 'O(n)',
         description: 'Sliding window technique for subarray/substring problems'
@@ -255,9 +267,16 @@ class ComplexityAnalyzer {
     const algorithmicPatterns = this.analyzeAlgorithmicPatterns(content);
 
     // Priority-based complexity determination
+    // Graph algorithms take priority over sliding window/two pointers
+    // because graph patterns are more specific and often use similar loop structures
     if (algorithmicPatterns.some((p) => p.name === 'Graph Traversal')) {
       const graphComplexity = detected.find((d) => d.complexity === 'O(V + E)');
-      if (graphComplexity) return graphComplexity;
+      if (graphComplexity) {
+        return {
+          ...graphComplexity,
+          confidence: Math.max(graphComplexity.confidence, 75) // Boost confidence for graph patterns
+        };
+      }
     }
 
     if (
@@ -322,16 +341,22 @@ class ComplexityAnalyzer {
 
   analyzeAlgorithmicPatterns(content) {
     const detected = [];
+    const seen = new Set(); // Track unique pattern names
 
     for (const [name, config] of Object.entries(this.algorithmicPatterns)) {
       for (const pattern of config.patterns) {
         if (pattern.test(content)) {
-          detected.push({
-            name,
-            complexity: config.complexity,
-            description: config.description,
-            confidence: this.calculateConfidence(content, pattern)
-          });
+          // Only add if we haven't seen this pattern name before
+          if (!seen.has(name)) {
+            detected.push({
+              name,
+              complexity: config.complexity,
+              description: config.description,
+              confidence: this.calculateConfidence(content, pattern)
+            });
+            seen.add(name);
+          }
+          break; // Move to next pattern name once we've found a match
         }
       }
     }

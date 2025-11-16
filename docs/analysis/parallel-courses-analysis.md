@@ -1,5 +1,3 @@
-📋 Analysis Results:
-
 # 🔍 Automated Complexity Analysis
 
 > ⚠️ **Disclaimer**: This is an automated analysis that may not be 100% accurate.
@@ -7,21 +5,20 @@
 > Dynamic Programming, recursive, and mathematical algorithms may need manual review.
 
 **File:** leetcode/medium/1101-parallel-courses/parallel-courses.ts
-**Generated:** 2025-11-16T01:29:20.695Z
+**Generated:** 2025-11-16T01:45:45.760Z
 
 ## Time Complexity
-
-**Estimated:** O(n)
-**Description:** Linear time - sliding window or two pointers technique
+**Estimated:** O(V + E)
+**Description:** Graph traversal - visits each vertex and edge once
 **Confidence:** 75.0%
 
-## Space Complexity
 
+
+## Space Complexity
 **Estimated:** O(n)
 **Reason:** Additional data structures
 
 ## Data Structures Used
-
 - **Array**: []
   - access: O(1)
   - search: O(n)
@@ -37,20 +34,14 @@
   - shift/unshift: O(n) for arrays
 
 ## Algorithmic Patterns
-
-- **Two Pointers**: O(n)
-  - Two pointers moving towards each other
-- **Sliding Window**: O(n)
-  - Sliding window technique for subarray/substring problems
+- **Graph Traversal**: O(V + E)
+  - Graph algorithms that visit each vertex and edge
 
 ## Code Metrics
-
 - **Lines of Code:** 32
 - **Cyclomatic Complexity:** 8
 - **Max Nesting Level:** 5
 
 ## Recommendations
-
-- **ALGORITHM**: 🪟 **Sliding Window Detected**: For subarray/substring problems, sliding window typically has O(n) time complexity with single pass through data
-- **ALGORITHM**: 👆 **Two Pointers**: For array problems with sorted data or opposite-direction traversal, expect O(n) time complexity
+- **ALGORITHM**: 📊 **Graph Algorithm**: For clone graph, connected components, and graph traversal problems, expect O(V + E) time complexity where V=vertices, E=edges
 - **READABILITY**: Deep nesting detected. Consider early returns or helper functions
