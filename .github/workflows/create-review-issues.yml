@@ -139,16 +139,44 @@ jobs:
                 repo: context.repo.repo,
                 title: `📚 Review: #${problem.problemNumber} - ${problem.problemName} (${reviewOrdinal})`,
                 body: issueBody,
-                labels: [
+                // Ensure all labels exist before creating the issue
+                const labelsToAdd = [
                   'review-needed',
                   `difficulty:${problem.difficulty}`,
                   `review-${review.reviewNumber}`,
                   'spaced-repetition'
-                ]
-              });
+                ];
 
-              console.log(`✅ Created issue #${issue.data.number} for ${problem.problemName}`);
+                // Get existing labels in the repo
+                const existingLabelsResp = await github.rest.issues.listLabelsForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  per_page: 100
+                });
+                const existingLabels = existingLabelsResp.data.map(l => l.name);
 
+                // Create missing labels
+                for (const label of labelsToAdd) {
+                  if (!existingLabels.includes(label)) {
+                    await github.rest.issues.createLabel({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      name: label,
+                      color: 'ededed' // default color
+                    });
+                  }
+                }
+
+                // Create the issue
+                const issue = await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: `📚 Review: #${problem.problemNumber} - ${problem.problemName} (${reviewOrdinal})`,
+                  body: issueBody,
+                  labels: labelsToAdd
+                });
+
+                console.log(`✅ Created issue #${issue.data.number} for ${problem.problemName}`);
               createdIssues.push({
                 problemNumber: problem.problemNumber,
                 problemSlug: problem.problemSlug,
