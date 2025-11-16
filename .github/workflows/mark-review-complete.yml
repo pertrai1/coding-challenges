@@ -1,0 +1,155 @@
+name: Mark Review Complete
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  mark-complete:
+    runs-on: ubuntu-latest
+    # Only run for review issues
+    if: contains(github.event.issue.labels.*.name, 'review-needed')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Mark review as complete
+        id: mark-complete
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+
+          const issueNumber = ${{ github.event.issue.number }};
+          console.log(`📝 Marking review complete for issue #${issueNumber}`);
+
+          // Read schedule
+          const schedulePath = 'docs/reviews/review-schedule.json';
+          if (!fs.existsSync(schedulePath)) {
+            console.log('⚠️ No review schedule found');
+            process.exit(0);
+          }
+
+          const schedule = JSON.parse(fs.readFileSync(schedulePath, 'utf8'));
+          let found = false;
+          let problemInfo = null;
+
+          // Find and update the review
+          schedule.problems.forEach(problem => {
+            problem.reviewsDue.forEach(review => {
+              if (review.issueNumber === issueNumber) {
+                review.completed = true;
+                review.completedAt = new Date().toISOString();
+                found = true;
+
+                // Track in completed reviews
+                problem.reviewsCompleted.push({
+                  reviewNumber: review.reviewNumber,
+                  completedAt: review.completedAt,
+                  issueNumber: issueNumber
+                });
+
+                problemInfo = {
+                  name: problem.problemName,
+                  number: problem.problemNumber,
+                  reviewNumber: review.reviewNumber,
+                  totalReviews: problem.reviewsDue.length,
+                  completedReviews: problem.reviewsCompleted.length
+                };
+
+                console.log(`✅ Marked complete: ${problem.problemName} - Review ${review.reviewNumber}`);
+              }
+            });
+          });
+
+          if (found) {
+            schedule.lastUpdated = new Date().toISOString();
+            fs.writeFileSync(schedulePath, JSON.stringify(schedule, null, 2));
+            console.log('✅ Review schedule updated');
+
+            // Save info for comment
+            fs.writeFileSync('review-info.json', JSON.stringify(problemInfo, null, 2));
+            fs.writeFileSync(process.env.GITHUB_OUTPUT, 'found=true\n', { flag: 'a' });
+          } else {
+            console.log('⚠️ Review not found in schedule');
+            fs.writeFileSync(process.env.GITHUB_OUTPUT, 'found=false\n', { flag: 'a' });
+          }
+          EOF
+
+      - name: Commit updated schedule
+        if: steps.mark-complete.outputs.found == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if [ -n "$(git status --porcelain docs/reviews/)" ]; then
+            git add docs/reviews/review-schedule.json
+            git commit -m "✅ Mark review complete: Issue #${{ github.event.issue.number }}
+
+            Review completed at: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+            [skip ci]"
+
+            git push origin main
+            echo "✅ Review completion recorded"
+          fi
+
+      - name: Comment on issue
+        if: steps.mark-complete.outputs.found == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const reviewInfo = JSON.parse(fs.readFileSync('review-info.json', 'utf8'));
+
+            // Calculate progress
+            const progress = Math.round((reviewInfo.completedReviews / reviewInfo.totalReviews) * 100);
+            const remaining = reviewInfo.totalReviews - reviewInfo.completedReviews;
+
+            // Create progress bar
+            const filled = Math.floor(progress / 10);
+            const empty = 10 - filled;
+            const progressBar = '█'.repeat(filled) + '░'.repeat(empty);
+
+            const comment = `## ✅ Review Completed!
+
+            Great work! You've completed review **${reviewInfo.reviewNumber}** of **${reviewInfo.totalReviews}** for **#${reviewInfo.number} - ${reviewInfo.name}**.
+
+            ### 📊 Progress
+            ${progressBar} **${progress}%**
+
+            - ✅ Completed: ${reviewInfo.completedReviews}/${reviewInfo.totalReviews} reviews
+            - 📅 Remaining: ${remaining} review(s)
+
+            ${remaining > 0 ? `### 🔜 Next Steps
+            Your next review will be automatically scheduled. Keep up the great work!` : `### 🎉 All Reviews Complete!
+            You've completed all spaced repetition reviews for this problem. The knowledge is now solidly in your long-term memory!`}
+
+            ### 🧠 Keep Learning
+            - Continue solving new problems
+            - Watch for review notifications
+            - The more you practice with spaced repetition, the stronger your retention!
+
+            ---
+            _Review completion recorded in \`docs/reviews/review-schedule.json\`_`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.issue.number }},
+              body: comment
+            });
+
+            console.log('✅ Posted completion comment');
