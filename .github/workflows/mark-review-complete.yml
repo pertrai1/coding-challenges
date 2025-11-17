@@ -1,5 +1,9 @@
 name: Mark Review Complete
 
+concurrency:
+  group: review-schedule-updates
+  cancel-in-progress: false
+
 on:
   issues:
     types: [closed]

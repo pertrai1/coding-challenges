@@ -25,11 +25,11 @@ When you solve a LeetCode problem and merge a PR, the system automatically sched
 ## Files
 
 - `review-schedule.json`: Master schedule of all problems and their review dates
-- `completed-reviews.json`: History of completed reviews for tracking progress
 
 ## Review Completion
 
 When you complete a review:
+
 1. Solve the problem again (or review your solution)
 2. Comment on the review issue with your findings
 3. Close the issue to mark it as completed

@@ -1,5 +1,9 @@
 name: Schedule Spaced Repetition Review
 
+concurrency:
+  group: review-schedule-updates
+  cancel-in-progress: false
+
 on:
   pull_request:
     types: [closed]
@@ -33,14 +37,13 @@ jobs:
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
           # Get PR information
-          # PR_TITLE is now safely set via env
           PR_NUMBER="${{ github.event.pull_request.number }}"
           PR_URL="${{ github.event.pull_request.html_url }}"
           MERGED_AT="${{ github.event.pull_request.merged_at }}"
 
-          # Get changed files
+          # Get changed files - only match actual solution files
           git fetch origin main
-          CHANGED_FILES=$(git diff --name-only origin/main...HEAD | grep -E 'leetcode/.*\.(js|ts)$' || echo "")
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD | grep -E 'leetcode/(easy|medium|hard)/[0-9]+-[^/]+/[^/]+\.(js|ts)$' || echo "")
 
           echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
           echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
@@ -66,12 +69,33 @@ jobs:
 
           echo "has_leetcode_files=true" >> $GITHUB_OUTPUT
 
-          # Parse first LeetCode file (main solution file)
-          MAIN_FILE=$(echo "$CHANGED_FILES" | head -n 1)
-          echo "main_file=$MAIN_FILE" >> $GITHUB_OUTPUT
+          # Find the main solution file (should match problem slug in filename)
+          MAIN_FILE=""
+          for file in $CHANGED_FILES; do
+            # Extract problem info from file path first
+            # Example: leetcode/easy/0205-isomorphic-strings/isomorphic-strings.js
+            if [[ "$file" =~ leetcode/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+              DIFFICULTY="${BASH_REMATCH[1]}"
+              PROBLEM_NUMBER="${BASH_REMATCH[2]}"
+              PROBLEM_SLUG="${BASH_REMATCH[3]}"
+              FILE_NAME="${BASH_REMATCH[4]}"
 
-          # Extract problem info from file path
-          # Example: leetcode/easy/0205-isomorphic-strings/isomorphic-strings.js
+              # Validate that the filename matches the problem slug (main solution file)
+              if [[ "$FILE_NAME" == "$PROBLEM_SLUG" ]]; then
+                MAIN_FILE="$file"
+                echo "main_file=$MAIN_FILE" >> $GITHUB_OUTPUT
+                break
+              fi
+            fi
+          done
+
+          if [[ -z "$MAIN_FILE" ]]; then
+            echo "⚠️ No main solution file found matching expected pattern"
+            echo "has_leetcode_files=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Extract problem info from validated main file
           if [[ "$MAIN_FILE" =~ leetcode/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
             DIFFICULTY="${BASH_REMATCH[1]}"
             PROBLEM_NUMBER="${BASH_REMATCH[2]}"
@@ -154,6 +178,13 @@ jobs:
           git config --local user.name "GitHub Action"
 
           if [ -n "$(git status --porcelain docs/reviews/)" ]; then
+            # Switch to main branch to ensure push succeeds for all merge strategies
+            echo "📡 Fetching latest main branch..."
+            git fetch origin main
+            git checkout main
+            git pull origin main
+
+            # Stage and commit the changes
             git add docs/reviews/review-schedule.json
             git commit -m "📅 Schedule spaced repetition reviews for ${{ steps.parse-problem.outputs.problem_name }}
 

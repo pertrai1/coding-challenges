@@ -1,5 +1,9 @@
 name: Create Review Issues
 
+concurrency:
+  group: review-schedule-updates
+  cancel-in-progress: false
+
 on:
   schedule:
     # Run daily at 9 AM UTC (adjust to your timezone preference)
