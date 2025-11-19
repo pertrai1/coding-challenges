@@ -1,4 +1,3 @@
-
 # [Rotate List](https://leetcode.com/problems/rotate-list) ![](https://img.shields.io/badge/Medium-orange)
 
 <p>Given the <code>head</code> of a linked&nbsp;list, rotate the list to the right by <code>k</code> places.</p>
@@ -26,5 +25,3 @@
 	<li><code>-100 &lt;= Node.val &lt;= 100</code></li>
 	<li><code>0 &lt;= k &lt;= 2 * 10<sup>9</sup></code></li>
 </ul>
-
-        
