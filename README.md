@@ -4,9 +4,9 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 142 solved
+- **Total Problems**: 143 solved
 - **Easy**: 73 problems
-- **Medium**: 59 problems
+- **Medium**: 60 problems
 - **Hard**: 10 problems
 
 ## 📈 Progress Tracking
@@ -130,6 +130,7 @@ Problems are organized by:
 
 - [0002 - Add Two Numbers](./leetcode/medium/0002-add-two-numbers) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0019 - Remove Nth Node From End of List](./leetcode/medium/0019-remove-nth-node-from-end-of-list) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0061 - Rotate List](./leetcode/medium/0061-rotate-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Tree Problems
 
