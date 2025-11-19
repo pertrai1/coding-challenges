@@ -7,12 +7,12 @@
 > Dynamic Programming, recursive, and mathematical algorithms may need manual review.
 
 **File:** leetcode/medium/0061-rotate-list/rotate-list.ts
-**Generated:** 2025-11-19T14:22:50.771Z
+**Generated:** 2025-11-19T14:27:52.502Z
 
 ## Time Complexity
 
-**Estimated:** O(n)
-**Description:** Linear time - traverses the linked list twice (each while loop iterates over n nodes)
+**Estimated:** O(1)
+**Description:** Constant time - single operations
 **Confidence:** 52.3%
 
 > ⚠️ **Low Confidence**: Please manually verify this analysis.
