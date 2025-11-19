@@ -11,8 +11,8 @@
 
 ## Time Complexity
 
-**Estimated:** O(1)
-**Description:** Constant time - single operations
+**Estimated:** O(n)
+**Description:** Linear time - traverses the linked list twice (each while loop iterates over n nodes)
 **Confidence:** 52.3%
 
 > ⚠️ **Low Confidence**: Please manually verify this analysis.
