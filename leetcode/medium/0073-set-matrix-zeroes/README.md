@@ -1,4 +1,3 @@
-
 # [Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes) ![](https://img.shields.io/badge/Medium-orange)
 
 <p>Given an <code>m x n</code> integer matrix <code>matrix</code>, if an element is <code>0</code>, set its entire row and column to <code>0</code>&#39;s.</p>
@@ -38,5 +37,3 @@
 	<li>A simple improvement uses <code>O(m + n)</code> space, but still not the best solution.</li>
 	<li>Could you devise a constant space solution?</li>
 </ul>
-
-        

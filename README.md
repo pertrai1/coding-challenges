@@ -4,9 +4,9 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 141 solved
+- **Total Problems**: 142 solved
 - **Easy**: 73 problems
-- **Medium**: 58 problems
+- **Medium**: 59 problems
 - **Hard**: 10 problems
 
 ## 📈 Progress Tracking
@@ -116,6 +116,7 @@ Problems are organized by:
 - [0016 - 3Sum Closest](./leetcode/medium/0016-3sum-closest) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0018 - 4Sum](./leetcode/medium/0018-4sum) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0034 - Find First and Last Position of Element in Sorted Array](./leetcode/medium/0034-find-first-and-last-position-of-element-in-sorted-array) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0073 - Set Matrix Zeroes](./leetcode/medium/0073-set-matrix-zeroes) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0090 - Subsets II](./leetcode/medium/0090-subsets-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0209 - Minimum Size Subarray Sum](./leetcode/medium/0209-minimum-size-subarray-sum) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0287 - Find the Duplicate Number](./leetcode/medium/0287-find-the-duplicate-number) ![Medium](https://img.shields.io/badge/Medium-orange)
