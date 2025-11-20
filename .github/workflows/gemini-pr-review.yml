@@ -1,0 +1,23 @@
+name: Gemini Code Review
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    if: github.actor == 'pertrai1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Gemini Code Review
+        uses: google-github-actions/run-gemini-cli@v1.0.0
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          command: 'review'
