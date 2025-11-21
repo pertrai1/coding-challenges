@@ -4,8 +4,8 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 143 solved
-- **Easy**: 73 problems
+- **Total Problems**: 144 solved
+- **Easy**: 74 problems
 - **Medium**: 60 problems
 - **Hard**: 10 problems
 
@@ -25,6 +25,7 @@ Problems are organized by:
 - [0001 - Two Sum](./leetcode/easy/0001-two-sum) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0009 - Palindrome Number](./leetcode/easy/0009-palindrome-number) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0020 - Valid Parentheses](./leetcode/easy/0020-valid-parentheses) ![Easy](https://img.shields.io/badge/Easy-green)
+- [0121 - Best Time to Buy and Sell Stock](./leetcode/easy/0121-best-time-to-buy-and-sell-stock) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0169 - Majority Element](./leetcode/easy/0169-majority-element) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0266 - Palindrome Permutation](./leetcode/easy/0266-palindrome-permutation) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0205 - Isomorphic Strings](./leetcode/easy/0205-isomorphic-strings) ![Easy](https://img.shields.io/badge/Easy-green)
