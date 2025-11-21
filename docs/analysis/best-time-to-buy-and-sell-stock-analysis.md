@@ -11,16 +11,16 @@
 
 ## Time Complexity
 
-**Estimated:** O(1)
-**Description:** Constant time - single operations
+**Estimated:** O(n)
+**Description:** Linear time - iterates through all prices
 **Confidence:** 57.7%
 
 > ⚠️ **Low Confidence**: Please manually verify this analysis.
 
 ## Space Complexity
 
-**Estimated:** O(n)
-**Reason:** Recursive call stack
+**Estimated:** O(1)
+**Reason:** Only two variables (`minPrice` and `maxProfit`) are used; no recursion or scalable data structures.
 
 ## Data Structures Used
 
