@@ -14,9 +14,23 @@ jobs:
     if: github.actor == 'pertrai1'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Run Gemini Code Review
         uses: google-github-actions/run-gemini-cli@v0.1.14
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          prompt: '/gemini-review'
+          prompt: |
+            Review this pull request according to the guidelines in CLAUDE.md.
+
+            Focus on:
+            - Algorithm correctness and efficiency
+            - Time and space complexity analysis
+            - Code quality and JavaScript/TypeScript best practices
+            - Potential bugs and edge cases
+
+            Post your review comments directly on the PR. Use inline comments for specific issues and a summary comment for overall observations.
