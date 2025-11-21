@@ -7,20 +7,20 @@
 > Dynamic Programming, recursive, and mathematical algorithms may need manual review.
 
 **File:** leetcode/easy/0121-best-time-to-buy-and-sell-stock/best-time-to-buy-and-sell-stock.ts
-**Generated:** 2025-11-21T12:54:24.521Z
+**Generated:** 2025-11-21T13:01:09.112Z
 
 ## Time Complexity
 
-**Estimated:** O(n)
-**Description:** Linear time - iterates through all prices
+**Estimated:** O(1)
+**Description:** Constant time - single operations
 **Confidence:** 57.7%
 
 > ⚠️ **Low Confidence**: Please manually verify this analysis.
 
 ## Space Complexity
 
-**Estimated:** O(1)
-**Reason:** Only two variables (`minPrice` and `maxProfit`) are used; no recursion or scalable data structures.
+**Estimated:** O(n)
+**Reason:** Recursive call stack
 
 ## Data Structures Used
 
