@@ -42,6 +42,7 @@
     "lint-staged": "^14.0.0",
     "prettier": "^3.0.0",
     "ts-node": "^10.9.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.0.0"
   },
   "lint-staged": {
