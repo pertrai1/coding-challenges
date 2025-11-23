@@ -7,12 +7,12 @@
 > Dynamic Programming, recursive, and mathematical algorithms may need manual review.
 
 **File:** leetcode/hard/0689-maximum-sum-of-3-non-overlapping-subarrays/maximum-sum-of-3-non-overlapping-subarrays.ts
-**Generated:** 2025-11-23T13:38:41.118Z
+**Generated:** 2025-11-23T13:56:23.542Z
 
 ## Time Complexity
 
-**Estimated:** O(n)
-**Description:** Linear time - multiple passes through the array (computing sums, building leftBest and rightBest arrays, and iterating through middle positions)
+**Estimated:** O(1)
+**Description:** Constant time - single operations
 **Confidence:** 51.2%
 
 > ⚠️ **Low Confidence**: Please manually verify this analysis.
