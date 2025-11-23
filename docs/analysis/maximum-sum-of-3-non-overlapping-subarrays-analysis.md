@@ -11,8 +11,8 @@
 
 ## Time Complexity
 
-**Estimated:** O(1)
-**Description:** Constant time - single operations
+**Estimated:** O(n)
+**Description:** Linear time - multiple passes through the array (computing sums, building leftBest and rightBest arrays, and iterating through middle positions)
 **Confidence:** 51.2%
 
 > ⚠️ **Low Confidence**: Please manually verify this analysis.
