@@ -4,10 +4,10 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 144 solved
+- **Total Problems**: 145 solved
 - **Easy**: 74 problems
 - **Medium**: 60 problems
-- **Hard**: 10 problems
+- **Hard**: 11 problems
 
 ## 📈 Progress Tracking
 
@@ -196,6 +196,10 @@ Problems are organized by:
 - [2745 - Convert Object to JSON String](./leetcode/medium/2745-convert-object-to-json-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ## 🔴 Hard Problems
+
+### Array & Dynamic Programming
+
+- [0689 - Maximum Sum of 3 Non-Overlapping Subarrays](./leetcode/hard/0689-maximum-sum-of-3-non-overlapping-subarrays) ![Hard](https://img.shields.io/badge/Hard-red)
 
 ### Graph Problems
 
