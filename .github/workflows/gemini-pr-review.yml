@@ -6,7 +6,6 @@ on:
 permissions:
   contents: read
   pull-requests: write
-  issues: write
 
 jobs:
   review:
@@ -17,20 +16,88 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run Gemini Code Review
-        uses: google-github-actions/run-gemini-cli@v0.1.14
+      - name: Prepare Pull Request Diff
+        run: |
+          # Get the diff of changes in this PR
+          git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
+
+          # Check if diff is too large (Gemini has token limits)
+          DIFF_SIZE=$(wc -c < pr_diff.txt)
+          if [ $DIFF_SIZE -gt 30000 ]; then
+            echo "Diff is too large for review. Truncating to 30KB..."
+            head -c 30000 pr_diff.txt > pr_diff_truncated.txt
+            mv pr_diff_truncated.txt pr_diff.txt
+          fi
+
+          echo "Diff size: $(wc -c < pr_diff.txt) bytes"
+
+      - name: Read Guidelines
+        id: guidelines
+        run: |
+          if [ -f "CLAUDE.md" ]; then
+            GUIDELINES=$(cat CLAUDE.md | head -c 2000)
+            echo "Found CLAUDE.md guidelines"
+          else
+            GUIDELINES="Focus on: Algorithm correctness, efficiency, time/space complexity, code quality, and edge cases."
+          fi
+          # Save for use in next step
+          echo "$GUIDELINES" > guidelines.txt
+
+      - name: Generate Review with Gemini
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          # Install jq for JSON processing
+          sudo apt-get update && sudo apt-get install -y jq
+
+          # Read the diff and guidelines
+          DIFF_CONTENT=$(cat pr_diff.txt | jq -sR .)
+          GUIDELINES=$(cat guidelines.txt | jq -sR .)
+
+          # Construct the JSON payload
+          cat <<EOF > payload.json
+          {
+            "contents": [{
+              "parts": [{
+                "text": "You are a senior code reviewer for a coding challenges repository. Review the following code changes.\n\nGUIDELINES:\n"
+              }, {
+                "text": $GUIDELINES
+              }, {
+                "text": "\n\nProvide your review in Markdown format with:\n1. A brief summary\n2. Specific issues found (algorithm correctness, complexity, bugs, edge cases)\n3. Suggestions for improvement\n\nCODE DIFF:\n"
+              }, {
+                "text": $DIFF_CONTENT
+              }]
+            }],
+            "generationConfig": {
+              "temperature": 0.7,
+              "maxOutputTokens": 2048
+            }
+          }
+          EOF
+
+          # Call Gemini API
+          curl -s \
+            -H "Content-Type: application/json" \
+            -d @payload.json \
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$API_KEY" > response.json
+
+          # Extract the review text
+          cat response.json | jq -r '.candidates[0].content.parts[0].text' > review_comment.md
+
+          # Check if review was generated
+          if [ ! -s review_comment.md ]; then
+            echo "# Gemini Code Review" > review_comment.md
+            echo "" >> review_comment.md
+            echo "⚠️ Failed to generate review. API response:" >> review_comment.md
+            echo '```json' >> review_comment.md
+            cat response.json >> review_comment.md
+            echo '```' >> review_comment.md
+          fi
+
+      - name: Post Comment to PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        with:
-          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          prompt: |
-            Review this pull request according to the guidelines in CLAUDE.md.
-
-            Focus on:
-            - Algorithm correctness and efficiency
-            - Time and space complexity analysis
-            - Code quality and JavaScript/TypeScript best practices
-            - Potential bugs and edge cases
-
-            Post your review comments directly on the PR. Use inline comments for specific issues and a summary comment for overall observations.
+        run: |
+          # Post the review as a PR comment
+          gh pr comment "$PR_NUMBER" --body-file review_comment.md
