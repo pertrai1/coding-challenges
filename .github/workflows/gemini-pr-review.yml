@@ -75,11 +75,11 @@ jobs:
           }
           EOF
 
-          # Call Gemini API
+          # Call Gemini API with correct v1 endpoint
           curl -s \
             -H "Content-Type: application/json" \
             -d @payload.json \
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$API_KEY" > response.json
+            "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=$API_KEY" > response.json
 
           # Debug: Show the response
           echo "API Response:"
