@@ -4,9 +4,9 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 147 solved
-- **Easy**: 76 problems
-- **Medium**: 60 problems
+- **Total Problems**: 149 solved
+- **Easy**: 77 problems
+- **Medium**: 61 problems
 - **Hard**: 11 problems
 
 ## 📈 Progress Tracking
@@ -31,6 +31,7 @@ Problems are organized by:
 - [0205 - Isomorphic Strings](./leetcode/easy/0205-isomorphic-strings) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2168 - Check if Numbers Are Ascending in a Sentence](./leetcode/easy/2168-check-if-numbers-are-ascending-in-a-sentence) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0383 - Ransom Note](./leetcode/easy/0383-ransom-note) ![Easy](https://img.shields.io/badge/Easy-green)
+- [0485 - Max Consecutive Ones](./leetcode/easy/0485-max-consecutive-ones) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0551 - Student Attendance Record I](./leetcode/easy/0551-student-attendance-record-i) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0598 - Range Addition II](./leetcode/easy/0598-range-addition-ii) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0628 - Maximum Product of Three Numbers](./leetcode/easy/0628-maximum-product-of-three-numbers) ![Easy](https://img.shields.io/badge/Easy-green)
