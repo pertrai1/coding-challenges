@@ -6,12 +6,12 @@ export default defineConfig({
     environment: 'node',
     include: ['**/*.{test,spec}.{js,ts}'],
     exclude: [
-      'node_modules',
-      'dist',
-      'blog',
-      'load-balancer',
-      'netcat',
-      'notion'
+      'node_modules/**',
+      'dist/**',
+      'blog/**',
+      'load-balancer/**',
+      'netcat/**',
+      'notion/**'
     ],
     coverage: {
       provider: 'v8',
