@@ -11,8 +11,8 @@
 
 ## Time Complexity
 
-**Estimated:** O(1)
-**Description:** Constant time - single operations
+**Estimated:** O(n)
+**Description:** Linear time - iterates through each element once
 **Confidence:** 55.9%
 
 > ⚠️ **Low Confidence**: Please manually verify this analysis.
