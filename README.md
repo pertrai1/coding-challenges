@@ -4,8 +4,8 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 146 solved
-- **Easy**: 75 problems
+- **Total Problems**: 147 solved
+- **Easy**: 76 problems
 - **Medium**: 60 problems
 - **Hard**: 11 problems
 
@@ -50,6 +50,7 @@ Problems are organized by:
 - [1319 - Unique Number of Occurrences](./leetcode/easy/1319-unique-number-of-occurrences) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1363 - Greatest English Letter in Upper and Lower Case](./leetcode/easy/1363-greatest-english-letter-in-upper-and-lower-case) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1476 - Count Negative Numbers in a Sorted Matrix](./leetcode/easy/1476-count-negative-numbers-in-a-sorted-matrix) ![Easy](https://img.shields.io/badge/Easy-green)
+- [1580 - Shuffle the Array](./leetcode/easy/1580-shuffle-the-array) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1741 - Sort Array by Increasing Frequency](./leetcode/easy/1741-sort-array-by-increasing-frequency) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2102 - Find the Middle Index in Array](./leetcode/easy/2102-find-the-middle-index-in-array) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2331 - Intersection of Multiple Arrays](./leetcode/easy/2331-intersection-of-multiple-arrays) ![Easy](https://img.shields.io/badge/Easy-green)
