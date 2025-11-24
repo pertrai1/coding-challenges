@@ -5,8 +5,8 @@ This repository contains solutions to various LeetCode problems, organized by di
 ## 📊 Statistics
 
 - **Total Problems**: 149 solved
-- **Easy**: 77 problems
-- **Medium**: 61 problems
+- **Easy**: 78 problems
+- **Medium**: 60 problems
 - **Hard**: 11 problems
 
 ## 📈 Progress Tracking
@@ -51,6 +51,7 @@ Problems are organized by:
 - [1319 - Unique Number of Occurrences](./leetcode/easy/1319-unique-number-of-occurrences) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1363 - Greatest English Letter in Upper and Lower Case](./leetcode/easy/1363-greatest-english-letter-in-upper-and-lower-case) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1476 - Count Negative Numbers in a Sorted Matrix](./leetcode/easy/1476-count-negative-numbers-in-a-sorted-matrix) ![Easy](https://img.shields.io/badge/Easy-green)
+- [1482 - How Many Numbers Are Smaller Than the Current Number](./leetcode/easy/1482-how-many-numbers-are-smaller-than-the-current-number) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1580 - Shuffle the Array](./leetcode/easy/1580-shuffle-the-array) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1741 - Sort Array by Increasing Frequency](./leetcode/easy/1741-sort-array-by-increasing-frequency) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2102 - Find the Middle Index in Array](./leetcode/easy/2102-find-the-middle-index-in-array) ![Easy](https://img.shields.io/badge/Easy-green)
