@@ -7,12 +7,12 @@
 > Dynamic Programming, recursive, and mathematical algorithms may need manual review.
 
 **File:** leetcode/medium/0080-remove-duplicates-from-sorted-array-ii/remove-duplicates-from-sorted-array-ii.ts
-**Generated:** 2025-11-24T21:57:51.183Z
+**Generated:** 2025-11-24T22:00:42.385Z
 
 ## Time Complexity
 
-**Estimated:** O(n)
-**Description:** Linear time - iterates through each element once
+**Estimated:** O(1)
+**Description:** Constant time - single operations
 **Confidence:** 55.9%
 
 > ⚠️ **Low Confidence**: Please manually verify this analysis.
