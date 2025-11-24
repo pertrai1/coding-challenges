@@ -3,3 +3,8 @@ blog/node_modules/
 notion/node_modules/
 notion/.env
 dist/
+
+# Test coverage
+coverage/
+*.lcov
+.nyc_output/
