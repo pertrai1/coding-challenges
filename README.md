@@ -4,8 +4,8 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 145 solved
-- **Easy**: 74 problems
+- **Total Problems**: 146 solved
+- **Easy**: 75 problems
 - **Medium**: 60 problems
 - **Hard**: 11 problems
 
@@ -70,6 +70,7 @@ Problems are organized by:
 - [1241 - Decompress Run-Length Encoded List](./leetcode/easy/1241-decompress-run-length-encoded-list) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1302 - Delete Characters to Make Fancy String](./leetcode/easy/1302-delete-characters-to-make-fancy-string) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2032 - Largest Odd Number in String](./leetcode/easy/2032-largest-odd-number-in-string) ![Easy](https://img.shields.io/badge/Easy-green)
+- [2058 - Concatenation of Array](./leetcode/easy/2058-concatenation-of-array) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2542 - Average Value of Even Numbers That Are Divisible by Three](./leetcode/easy/2542-average-value-of-even-numbers-that-are-divisible-by-three) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2767 - Maximum Sum With Exactly K Elements](./leetcode/easy/2767-maximum-sum-with-exactly-k-elements) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2361 - Calculate Digit Sum of a String](./leetcode/easy/2361-calculate-digit-sum-of-a-string) ![Easy](https://img.shields.io/badge/Easy-green)
