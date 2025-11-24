@@ -81,17 +81,27 @@ jobs:
             -d @payload.json \
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$API_KEY" > response.json
 
-          # Extract the review text
-          cat response.json | jq -r '.candidates[0].content.parts[0].text' > review_comment.md
+          # Debug: Show the response
+          echo "API Response:"
+          cat response.json | jq '.' || cat response.json
 
-          # Check if review was generated
-          if [ ! -s review_comment.md ]; then
-            echo "# Gemini Code Review" > review_comment.md
+          # Extract the review text with better error handling
+          REVIEW_TEXT=$(cat response.json | jq -r '.candidates[0].content.parts[0].text // empty' 2>/dev/null)
+
+          if [ -z "$REVIEW_TEXT" ] || [ "$REVIEW_TEXT" = "null" ]; then
+            echo "# Gemini Code Review - Error" > review_comment.md
             echo "" >> review_comment.md
-            echo "⚠️ Failed to generate review. API response:" >> review_comment.md
+            echo "⚠️ Failed to extract review from Gemini API response." >> review_comment.md
+            echo "" >> review_comment.md
+            echo "<details><summary>API Response</summary>" >> review_comment.md
+            echo "" >> review_comment.md
             echo '```json' >> review_comment.md
-            cat response.json >> review_comment.md
+            cat response.json | jq '.' 2>/dev/null || cat response.json >> review_comment.md
             echo '```' >> review_comment.md
+            echo "" >> review_comment.md
+            echo "</details>" >> review_comment.md
+          else
+            echo "$REVIEW_TEXT" > review_comment.md
           fi
 
       - name: Post Comment to PR
