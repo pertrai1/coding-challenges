@@ -228,8 +228,14 @@ class ComplexityAnalyzer {
   }
 
   /**
-   * Parse manual complexity override annotations from code comments
-   * Supports formats:
+   * Parse manual complexity override annotations from code comments.
+   *
+   * Precedence order (highest to lowest):
+   * 1. @complexity: O(n) time, O(k) space - full annotation
+   * 2. @time: O(n) / @space: O(k) - separate annotations
+   * 3. Time: O(n) / Space: O(k) - standard comment format
+   *
+   * Supported formats:
    * - // @complexity: O(n) time, O(k) space
    * - // @time: O(n)
    * - // @space: O(n)
@@ -243,7 +249,7 @@ class ComplexityAnalyzer {
       hasOverride: false
     };
 
-    // Pattern for @complexity annotation with both time and space
+    // Priority 1: Pattern for @complexity annotation with both time and space
     const complexityPattern =
       /@complexity:\s*O\(([^)]+)\)\s*time[,\s]*O\(([^)]+)\)\s*space/i;
     const complexityMatch = content.match(complexityPattern);
@@ -254,7 +260,7 @@ class ComplexityAnalyzer {
       return override;
     }
 
-    // Pattern for separate @time annotation
+    // Priority 2: Pattern for separate @time annotation
     const timePattern = /@time:\s*O\(([^)]+)\)/i;
     const timeMatch = content.match(timePattern);
     if (timeMatch) {
@@ -262,7 +268,7 @@ class ComplexityAnalyzer {
       override.hasOverride = true;
     }
 
-    // Pattern for separate @space annotation
+    // Priority 2: Pattern for separate @space annotation
     const spacePattern = /@space:\s*O\(([^)]+)\)/i;
     const spaceMatch = content.match(spacePattern);
     if (spaceMatch) {
@@ -270,7 +276,8 @@ class ComplexityAnalyzer {
       override.hasOverride = true;
     }
 
-    // Also check for standard complexity comments (Time: O(n), Space: O(k))
+    // Priority 3: Standard complexity comments (Time: O(n), Space: O(k))
+    // Only used if @annotation not found for the same type
     const standardTimePattern = /Time[:\s]+O\(([^)]+)\)/i;
     const standardTimeMatch = content.match(standardTimePattern);
     if (standardTimeMatch && !override.time) {
