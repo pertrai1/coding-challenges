@@ -4,10 +4,10 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 150 solved
+- **Total Problems**: 151 solved
 - **Easy**: 78 problems
 - **Medium**: 61 problems
-- **Hard**: 11 problems
+- **Hard**: 12 problems
 
 ## 📈 Progress Tracking
 
@@ -205,6 +205,7 @@ Problems are organized by:
 ### Array & Dynamic Programming
 
 - [0689 - Maximum Sum of 3 Non-Overlapping Subarrays](./leetcode/hard/0689-maximum-sum-of-3-non-overlapping-subarrays) ![Hard](https://img.shields.io/badge/Hard-red)
+- [1034 - Subarrays with K Different Integers](./leetcode/hard/1034-subarrays-with-k-different-integers) ![Hard](https://img.shields.io/badge/Hard-red)
 
 ### Graph Problems
 

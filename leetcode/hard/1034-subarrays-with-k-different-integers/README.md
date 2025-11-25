@@ -1,4 +1,3 @@
-
 # [Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers) ![](https://img.shields.io/badge/Hard-red)
 
 <p>Given an integer array <code>nums</code> and an integer <code>k</code>, return <em>the number of <strong>good subarrays</strong> of </em><code>nums</code>.</p>
@@ -35,5 +34,3 @@
 	<li><code>1 &lt;= nums.length &lt;= 2 * 10<sup>4</sup></code></li>
 	<li><code>1 &lt;= nums[i], k &lt;= nums.length</code></li>
 </ul>
-
-        
