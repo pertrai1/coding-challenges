@@ -1,0 +1,198 @@
+name: DSA Learning Mentor
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'leetcode/**'
+      - '*-*/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  mentor:
+    runs-on: ubuntu-latest
+    if: github.actor == 'pertrai1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract Problem Info
+        id: problem
+        run: |
+          # Get files changed in this PR
+          PROBLEM_PATH=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E '(leetcode|[0-9]+-[a-z])' | head -1)
+
+          if [ -z "$PROBLEM_PATH" ]; then
+            echo "No LeetCode problem files found"
+            echo "found=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "found=true" >> $GITHUB_OUTPUT
+          echo "path=$PROBLEM_PATH" >> $GITHUB_OUTPUT
+
+          # Extract difficulty from path (leetcode/easy/, leetcode/medium/, leetcode/hard/)
+          if echo "$PROBLEM_PATH" | grep -q "leetcode/easy"; then
+            DIFFICULTY="Easy"
+          elif echo "$PROBLEM_PATH" | grep -q "leetcode/medium"; then
+            DIFFICULTY="Medium"
+          elif echo "$PROBLEM_PATH" | grep -q "leetcode/hard"; then
+            DIFFICULTY="Hard"
+          else
+            DIFFICULTY="Unknown"
+          fi
+          echo "difficulty=$DIFFICULTY" >> $GITHUB_OUTPUT
+
+          # Extract problem number and name
+          # Pattern: 0001-two-sum or 1034-subarrays-with-k-different-integers
+          PROBLEM_FOLDER=$(echo "$PROBLEM_PATH" | grep -oE '[0-9]+-[a-z0-9-]+' | head -1)
+          PROBLEM_NUM=$(echo "$PROBLEM_FOLDER" | grep -oE '^[0-9]+')
+          PROBLEM_NAME=$(echo "$PROBLEM_FOLDER" | sed 's/^[0-9]*-//' | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g')
+
+          echo "problem_num=$PROBLEM_NUM" >> $GITHUB_OUTPUT
+          echo "problem_name=$PROBLEM_NAME" >> $GITHUB_OUTPUT
+          echo "problem_folder=$PROBLEM_FOLDER" >> $GITHUB_OUTPUT
+
+      - name: Read Solution File
+        if: steps.problem.outputs.found == 'true'
+        id: solution
+        run: |
+          # Find the solution file
+          PROBLEM_PATH="${{ steps.problem.outputs.path }}"
+          SOLUTION_DIR=$(dirname "$PROBLEM_PATH")
+
+          # Look for .js or .ts solution file
+          SOLUTION_FILE=$(find "$SOLUTION_DIR" -maxdepth 1 -type f \( -name "*.js" -o -name "*.ts" \) ! -name "*.test.*" ! -name "*.spec.*" | head -1)
+
+          if [ -n "$SOLUTION_FILE" ] && [ -f "$SOLUTION_FILE" ]; then
+            echo "file=$SOLUTION_FILE" >> $GITHUB_OUTPUT
+            # Extract complexity comments if present
+            TIME_COMPLEXITY=$(grep -i "time.*O(" "$SOLUTION_FILE" | head -1 || echo "Not specified")
+            SPACE_COMPLEXITY=$(grep -i "space.*O(" "$SOLUTION_FILE" | head -1 || echo "Not specified")
+            echo "time_complexity=$TIME_COMPLEXITY" >> $GITHUB_OUTPUT
+            echo "space_complexity=$SPACE_COMPLEXITY" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate DSA Learning Card
+        if: steps.problem.outputs.found == 'true'
+        id: learning_card
+        run: |
+          cat > learning-card.md << 'EOF'
+          ## 📚 DSA Learning Card
+
+          | Property | Value |
+          |----------|-------|
+          | **Problem** | #${{ steps.problem.outputs.problem_num }} - ${{ steps.problem.outputs.problem_name }} |
+          | **Difficulty** | ${{ steps.problem.outputs.difficulty }} |
+          | **File** | `${{ steps.problem.outputs.path }}` |
+
+          ---
+
+          ### 🎯 Pattern Recognition Checklist
+
+          When reviewing this solution, identify:
+
+          - [ ] **Primary Pattern**: What main algorithmic pattern is used? (e.g., Sliding Window, Two Pointers, DP, BFS/DFS)
+          - [ ] **Secondary Patterns**: Are there supporting techniques? (e.g., Hash Map for O(1) lookup, Sorting as preprocessing)
+          - [ ] **Data Structures**: What data structures enable this solution?
+
+          ---
+
+          ### 🧠 Key Insight Question
+
+          > *What is the "aha!" moment that makes this solution work?*
+          > 
+          > Every problem has a non-obvious insight. For example:
+          > - "Subarrays with K Distinct": `exactlyK = atMostK(k) - atMostK(k-1)`
+          > - "Two Sum": Use hash map for O(1) complement lookup
+          > - "Sliding Window Maximum": Monotonic deque maintains max efficiently
+
+          ---
+
+          ### 📖 Related Problems to Practice
+
+          After solving this problem, try these related problems that use similar patterns:
+
+          | Difficulty | Problem | Pattern |
+          |------------|---------|---------|
+          | 🟢 Easy | *Identify easier prerequisite* | Same core pattern |
+          | 🟡 Medium | *Similar problem* | Same pattern, different constraints |
+          | 🔴 Hard | *Harder variation* | Extended pattern or combination |
+
+          ---
+
+          ### 💡 Interview Tips
+
+          - **Opening**: Start by clarifying the problem and identifying edge cases
+          - **Approach**: Explain the brute force first, then optimize
+          - **Complexity**: Always state and explain time/space complexity
+          - **Trade-offs**: Discuss alternative approaches and their trade-offs
+
+          ---
+
+          ### ⚠️ Common Mistakes
+
+          Watch out for these typical mistakes with this pattern:
+
+          1. **Off-by-one errors**: Check loop boundaries carefully
+          2. **Edge cases**: Empty input, single element, all same elements
+          3. **Constraint violations**: Integer overflow, negative numbers
+          4. **Cleanup**: Remember to clean up data structures when elements leave scope
+
+          ---
+
+          *💬 AI reviewers will fill in the specific details for this problem based on the solution code.*
+          EOF
+
+      - name: Post Learning Card Comment
+        if: steps.problem.outputs.found == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            let learningCard = '## 📚 DSA Learning Card\n\n';
+            learningCard += '**Problem analysis pending...**\n\n';
+
+            try {
+              learningCard = fs.readFileSync('learning-card.md', 'utf8');
+            } catch (e) {
+              console.log('Could not read learning card:', e.message);
+            }
+
+            // Check if we already commented on this PR
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment => 
+              comment.user.login === 'github-actions[bot]' && 
+              comment.body.includes('📚 DSA Learning Card')
+            );
+
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: learningCard
+              });
+              console.log('Updated existing DSA Learning Card comment');
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: learningCard
+              });
+              console.log('Created new DSA Learning Card comment');
+            }
