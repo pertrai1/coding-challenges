@@ -53,14 +53,8 @@ class ComplexityAnalyzer {
           /visited\s*\[[^\]]*\]\s*=\s*true/g,
           /function\s+\w*\s*\([^)]*node[^)]*\)[^{]*\{[^}]*visited/g,
           /dfs\s*\(|bfs\s*\(/gi,
-          // Sliding window with frequency tracking patterns
-          /for\s*\([^)]*right[^)]*\)[^{]*\{[^}]*while[^}]*left/gi,
-          /frequencyMap|freqMap|freq\s*\[|frequency\s*\[/gi,
-          /distinctCount|distinctNum|numDistinct/gi,
-          // atMost/exactlyK transformation pattern (common sliding window technique)
-          /atMost|atLeast|exactlyK|exactly\s*\(/gi,
-          // Sliding window helper function patterns
-          /countSubarrays|countValid|slidingWindow/gi
+          // Sliding window core pattern - for loop with inner while adjusting left pointer
+          /for\s*\([^)]*right[^)]*\)[^{]*\{[^}]*while[^}]*left/gi
         ],
         description:
           'Linear time - single pass through data or DP table construction'
