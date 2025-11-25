@@ -22,3 +22,19 @@
 - **Opposite Direction**: Pointers start at opposite ends and converge (e.g., Two Sum, palindrome checking).
 - **Same Direction**: Pointers move in parallel at different speeds (e.g., remove duplicates, fast/slow cycle detection).
 - [Technique Details](techniques/TWO_POINTERS.md)
+
+---
+
+## Additional Resources
+
+### Improvement Suggestions
+
+A comprehensive guide based on automated code review feedback that covers:
+- Code quality and best practices
+- Algorithm design and optimization patterns
+- Complexity analysis guidelines
+- Documentation and commenting standards
+- Testing best practices
+- Variable naming conventions
+
+[View Improvement Suggestions](./IMPROVEMENT_SUGGESTIONS.md)
