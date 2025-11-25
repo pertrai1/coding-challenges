@@ -256,12 +256,12 @@ const numFrequency: Record<number, number> = {};
 
 ### 💡 When to Use These Patterns
 
-| Pattern | Use When |
-|---------|----------|
+| Pattern        | Use When                                              |
+| -------------- | ----------------------------------------------------- |
 | Sliding Window | Finding subarrays/substrings with specific properties |
-| Frequency Map | Need to count occurrences or track unique elements |
-| "At Most K" | "Exactly K" problems can be decomposed |
-| Two Pointers | Need to track a range or compare elements |
+| Frequency Map  | Need to count occurrences or track unique elements    |
+| "At Most K"    | "Exactly K" problems can be decomposed                |
+| Two Pointers   | Need to track a range or compare elements             |
 
 ---
 
