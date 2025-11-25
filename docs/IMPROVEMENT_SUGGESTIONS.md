@@ -196,14 +196,12 @@ When reviewing LeetCode solutions, also provide:
 
 ### Pattern Identification
 - Clearly state which algorithmic pattern(s) the solution uses
-- Patterns include: Two Pointers, Sliding Window, Binary Search, BFS/DFS, 
-  Dynamic Programming, Backtracking, Union-Find, Topological Sort, etc.
+- Patterns include: Two Pointers, Sliding Window, Binary Search, BFS/DFS, Dynamic Programming, Backtracking, Union-Find, Topological Sort, etc.
 
 ### Key Insight Explanation
 - Every problem has a "key insight" that makes the optimal solution possible
 - Explain what that insight is and why it works
-- Example: "The key insight for 'Subarrays with K Distinct' is that 
-  exactlyK = atMostK - atMostK(k-1)"
+- Example: "The key insight for 'Subarrays with K Distinct' is that exactlyK = atMostK - atMostK(k-1)"
 
 ### Related Problems
 - Suggest 2-3 similar LeetCode problems that use the same pattern
