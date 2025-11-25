@@ -27,14 +27,12 @@
 
 ## Additional Resources
 
-### Improvement Suggestions
+### AI Code Review Workflow Improvements
 
-A comprehensive guide based on automated code review feedback that covers:
-- Code quality and best practices
-- Algorithm design and optimization patterns
-- Complexity analysis guidelines
-- Documentation and commenting standards
-- Testing best practices
-- Variable naming conventions
+Suggestions for enhancing the AI code review workflows and prompts to provide better learning feedback:
+- Workflow configuration improvements for Claude, Gemini, and complexity analyzer
+- Enhanced prompt templates for DSA-focused reviews
+- Additional feedback types to help learn patterns and prepare for interviews
+- Analysis of current workflow strengths and gaps
 
-[View Improvement Suggestions](./IMPROVEMENT_SUGGESTIONS.md)
+[View AI Workflow Improvement Suggestions](./IMPROVEMENT_SUGGESTIONS.md)

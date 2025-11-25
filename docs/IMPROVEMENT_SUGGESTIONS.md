@@ -1,306 +1,376 @@
-# DSA Learning Improvement Suggestions
+# AI Code Review Workflow Improvement Suggestions
 
-> **Source**: Review feedback from [PR #31 - Subarrays with K Different Integers](https://github.com/pertrai1/coding-challenges/pull/31)  
+> **Source**: Review feedback analysis from [PR #31 - Subarrays with K Different Integers](https://github.com/pertrai1/coding-challenges/pull/31)  
 > **Generated**: 2025-11-25  
-> **Reviewers**: GitHub Actions (CodeRabbit, Copilot Pull Request Reviewer, Claude Code Review)
+> **Purpose**: Suggestions for improving AI reviewer workflows and enhancing DSA learning during code reviews
 
-This document compiles actionable suggestions from automated code reviews to help improve coding practices, algorithm understanding, and overall code quality when solving data structures and algorithms problems.
+This document provides recommendations for improving the AI code review workflows and prompts, plus ideas for additional educational feedback that can help you learn data structures and algorithms more effectively during PR reviews.
 
 ---
 
 ## Table of Contents
 
-1. [Code Quality & Best Practices](#1-code-quality--best-practices)
-2. [Algorithm Design & Optimization](#2-algorithm-design--optimization)
-3. [Complexity Analysis](#3-complexity-analysis)
-4. [Documentation & Comments](#4-documentation--comments)
-5. [Testing Best Practices](#5-testing-best-practices)
-6. [Variable Naming Conventions](#6-variable-naming-conventions)
-7. [Pattern Recognition](#7-pattern-recognition)
+1. [Workflow Improvement Suggestions](#1-workflow-improvement-suggestions)
+2. [Prompt Enhancement Ideas](#2-prompt-enhancement-ideas)
+3. [Additional DSA Learning Feedback Ideas](#3-additional-dsa-learning-feedback-ideas)
+4. [Current Workflow Analysis](#4-current-workflow-analysis)
 
 ---
 
-## 1. Code Quality & Best Practices
+## 1. Workflow Improvement Suggestions
 
-### 🔴 Avoid Mutating Function Parameters
+### 🔧 Complexity Analyzer Improvements
 
-**Problem Identified**: The solution mutated the input parameter `k` by using it as a counter (`k--`, `k++`).
+**Current Issue**: The automated complexity analyzer in `code-quality.yml` produced incorrect results (O(1) instead of O(n)) with low confidence (51.8%).
 
-**Why This Matters**:
-- Function parameters should generally not be mutated, especially primitives
-- The variable name `k` implies it's a constant constraint, but it was being used as a mutable counter
-- This makes debugging confusing since `k` no longer represents "number of distinct elements we want"
-- Makes the code harder to reason about
+**Suggested Improvements**:
 
-**Recommendation**:
-```typescript
-// ❌ Bad: Mutating input parameter
-export function subarraysWithKDistinct(nums: number[], k: number): number {
-  // ... 
-  k--; // Mutating input parameter
-  k++;
-}
+1. **Improve Pattern Detection for Sliding Window**
+   - The `scripts/complexity-analyzer.js` could be enhanced to better detect sliding window patterns
+   - Add specific patterns for frequency map usage combined with pointer manipulation
+   
+   ```javascript
+   // Add to initializePatterns() in complexity-analyzer.js
+   'O(n)': {
+     patterns: [
+       // Existing patterns...
+       // Add: Sliding window with frequency tracking
+       /for\s*\([^)]*right[^)]*\)[^{]*\{[^}]*while[^}]*left/gi,
+       /frequencyMap|freqMap|distinctCount/gi,
+     ]
+   }
+   ```
 
-// ✅ Good: Use a separate variable
-export function subarraysWithKDistinct(nums: number[], k: number): number {
-  let remainingDistinct = k; // Separate tracking variable
-  // ...
-  remainingDistinct--;
-  remainingDistinct++;
-}
+2. **Add Manual Override Support**
+   - Allow developers to add complexity annotations that override automated analysis
+   - Example: `// @complexity: O(n) time, O(k) space`
+
+3. **Cross-Reference with Code Comments**
+   - If the code has explicit complexity comments, compare them with detected complexity and flag discrepancies
+
+### 🔧 Claude Code Review Improvements
+
+**Current Prompt** (in `claude-pr-review.yml`):
+```yaml
+prompt: |
+  Review this PR according to the guidelines in CLAUDE.md.
+  Focus on:
+  - Algorithm correctness and efficiency
+  - Time and space complexity
+  - Code quality and JavaScript best practices
+  - Potential bugs and edge cases
 ```
 
-### 🟢 Good Practice: Cleaning Up Data Structures
-
-**Positive Feedback**: Including the `delete` operation to remove keys with zero frequency from the map maintains space efficiency and prevents the map from growing unnecessarily.
-
-```typescript
-// ✅ Good: Clean up map when frequency becomes 0
-if (frequencyMap[nums[left]] === 0) {
-  delete frequencyMap[nums[left]]; // Remove key to maintain O(k) space
-}
-```
-
-**Why This Matters**: This is exactly the kind of optimization that interviewers look for. It demonstrates understanding of space complexity trade-offs.
-
----
-
-## 2. Algorithm Design & Optimization
-
-### 🔴 Consider the "At Most K" Pattern
-
-**Problem Identified**: The direct sliding window implementation for counting *exactly* K distinct integers can be error-prone and complex.
-
-**Recommended Approach**: Use the "at most K" pattern:
-```
-count(exactly K distinct) = count(at most K distinct) - count(at most K-1 distinct)
-```
-
-**Implementation**:
-```typescript
-export function subarraysWithKDistinct(nums: number[], k: number): number {
-  return countAtMostKDistinct(nums, k) - countAtMostKDistinct(nums, k - 1);
-}
-
-function countAtMostKDistinct(nums: number[], k: number): number {
-  if (k < 0) return 0;
+**Suggested Enhanced Prompt**:
+```yaml
+prompt: |
+  Review this PR as a DSA learning exercise. This repository is for practicing algorithmic problem-solving.
   
-  let count = 0;
-  let left = 0;
-  const freqMap: Map<number, number> = new Map();
-  let distinctElements = 0;
-
-  for (let right = 0; right < nums.length; right++) {
-    const num = nums[right];
-    freqMap.set(num, (freqMap.get(num) || 0) + 1);
-    if (freqMap.get(num) === 1) {
-      distinctElements++;
-    }
-
-    while (distinctElements > k) {
-      const leftNum = nums[left];
-      freqMap.set(leftNum, freqMap.get(leftNum)! - 1);
-      if (freqMap.get(leftNum) === 0) {
-        distinctElements--;
-      }
-      left++;
-    }
-    count += (right - left + 1); // All subarrays ending at 'right' starting from 'left' are valid
-  }
-  return count;
-}
+  CONTEXT:
+  - REPO: ${{ github.repository }}
+  - PR NUMBER: ${{ github.event.pull_request.number }}
+  - Review according to guidelines in CLAUDE.md
+  
+  REVIEW CHECKLIST:
+  1. ALGORITHM CORRECTNESS
+     - Verify solution handles all edge cases
+     - Test mental trace with the given examples
+     - Identify any logical errors
+  
+  2. COMPLEXITY ANALYSIS
+     - State the actual time complexity with explanation
+     - State the actual space complexity with explanation
+     - Compare to optimal solution if known
+     - Flag any inaccuracies in code comments
+  
+  3. DSA LEARNING FOCUS (NEW)
+     - Name the algorithmic pattern(s) used (e.g., sliding window, two pointers, DP)
+     - Explain WHY this pattern is suitable for this problem
+     - Suggest related LeetCode problems for practice
+     - Mention common variations of this pattern
+     - Provide a "Key Insight" - the non-obvious trick that makes this solution work
+  
+  4. CODE QUALITY
+     - Variable naming clarity
+     - Comment quality and accuracy
+     - Best practices adherence
+  
+  5. ALTERNATIVE APPROACHES (NEW)
+     - Mention 1-2 alternative algorithms that could solve this
+     - Explain trade-offs (time vs space, simplicity vs efficiency)
+  
+  Provide detailed inline comments for specific issues.
+  End with a "Learning Summary" section highlighting key DSA concepts from this problem.
 ```
 
-**Why This Matters**: This approach is more robust and less prone to edge case errors than a direct "exactly K" window implementation.
+### 🔧 Gemini Code Review Improvements
 
----
+**Current Issue**: The Gemini reviewer uses a generic prompt without DSA-specific guidance.
 
-## 3. Complexity Analysis
+**Suggested Enhanced Prompt** (in `gemini-pr-review.yml`):
+```javascript
+const prompt = `You are a DSA mentor reviewing code for learning purposes.
 
-### 🟡 Be Precise About Space Complexity
+REVIEW STRUCTURE:
+1. **Pattern Identification**: What algorithmic pattern does this solution use?
+2. **Complexity Verification**: Is the stated complexity accurate? If not, what is it?
+3. **Edge Case Analysis**: What edge cases should be tested?
+4. **Learning Points**: 
+   - What is the key insight that makes this solution work?
+   - What similar problems use this same pattern?
+5. **Improvement Suggestions**: How could the code be cleaner or more efficient?
 
-**Problem Identified**: The space complexity was claimed as O(k), but it's more accurately **O(min(n, k))**.
-
-**Explanation**:
-- In the best case with k << n, it's O(k)
-- In the worst case where k equals the array length and all elements are distinct, the frequency map will store n elements
-- The comment stated "at most k+1 distinct elements" but the algorithm can store up to k+1 elements temporarily when a new distinct element is added before the window shrinks
-
-**Recommendation**:
-```typescript
-/*
-Complexity - let n be the length of nums array
-Time: O(n) - each element is visited at most twice (once by right pointer, once by left pointer)
-Space: O(min(n, k)) - frequency map stores at most k+1 distinct elements during sliding window operation
-*/
+Be educational - explain the "why" behind your feedback.`;
 ```
 
-**Why This Matters**: Understanding precise complexity bounds is crucial for interview settings and optimization discussions.
+### 🔧 Add a New "DSA Mentor" Workflow
 
----
+**Suggested New Workflow**: Create a dedicated `dsa-mentor.yml` that runs after other reviews and provides learning-focused feedback.
 
-## 4. Documentation & Comments
+```yaml
+name: DSA Learning Mentor
 
-### 🟡 Explain Non-Obvious Algorithm Logic
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'leetcode/**'
 
-**Problem Identified**: The core counting logic needed more explanation for educational purposes.
-
-**Example of where clarification was needed**:
-```typescript
-// Unclear comment:
-// if the value is greater than 1, that means there are duplicates of the same element
-while (distinctCount[nums[left]] > 1) {
-```
-
-**Better documentation**:
-```typescript
-// Count valid subarrays: When we have exactly k distinct elements,
-// we can form multiple subarrays by shrinking from the left while
-// maintaining k distinct elements (only possible when left element has duplicates).
-// Each shrink represents an additional valid subarray ending at 'right'.
-while (frequencyMap[nums[left]] > 1) {
-```
-
-### 🟡 Document the Algorithm Pattern Being Used
-
-When using a specific algorithmic pattern (like sliding window, two pointers, etc.), add a brief explanation of *why* this pattern applies:
-
-```typescript
-/*
-Algorithm: Sliding Window with "Exactly K" counting
-Pattern: This problem uses the identity:
-  exactlyK(k) = atMostK(k) - atMostK(k-1)
-
-The sliding window maintains a window with at most K distinct elements.
-For each right position, all subarrays from left to right are valid.
-*/
-```
-
----
-
-## 5. Testing Best Practices
-
-### 🟢 Excellent Test Coverage (Positive Feedback)
-
-The test suite was praised for comprehensive coverage:
-- ✅ Basic examples from the problem
-- ✅ Edge case: k=1 (only subarrays with single distinct element)
-- ✅ Edge case: k equals distinct elements
-- ✅ Single element arrays
-- ✅ All identical elements
-- ✅ Consecutive duplicates
-- ✅ Window shrinking scenarios
-- ✅ Multiple duplicates at boundaries
-- ✅ Invalid k (greater than distinct elements)
-
-**This is exactly the kind of thorough testing that demonstrates understanding of the problem space.**
-
-### 🟡 Ensure Comments Match Test Expectations
-
-**Problem Identified**: A test comment stated "5 subarrays" but the test expected 6.
-
-```typescript
-// ❌ Incorrect comment:
-// [1], [1], [1], [1,1], [1,1,1] = 5 subarrays
-expect(subarraysWithKDistinct([1, 1, 1], 1)).toBe(6);
-
-// ✅ Correct comment:
-// [1], [1], [1], [1,1], [1,1], [1,1,1] = 6 subarrays (using formula n*(n+1)/2 = 3*4/2 = 6)
-expect(subarraysWithKDistinct([1, 1, 1], 1)).toBe(6);
-```
-
-### 💡 Use Formulas in Comments When Applicable
-
-For problems with mathematical patterns, include the formula:
-```typescript
-// For array of n identical elements with k=1:
-// All contiguous subarrays are valid: n*(n+1)/2 = 5*6/2 = 15 subarrays
-expect(subarraysWithKDistinct([2, 2, 2, 2, 2], 1)).toBe(15);
+jobs:
+  mentor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Extract Problem Info
+        id: problem
+        run: |
+          # Extract problem number and difficulty from path
+          # leetcode/hard/1034-subarrays-with-k-different-integers/...
+          PROBLEM_PATH=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep leetcode | head -1)
+          DIFFICULTY=$(echo $PROBLEM_PATH | cut -d'/' -f2)
+          PROBLEM_NUM=$(echo $PROBLEM_PATH | cut -d'/' -f3 | cut -d'-' -f1)
+          echo "difficulty=$DIFFICULTY" >> $GITHUB_OUTPUT
+          echo "problem_num=$PROBLEM_NUM" >> $GITHUB_OUTPUT
+          
+      - name: Generate DSA Learning Card
+        run: |
+          cat > learning-card.md << EOF
+          ## 📚 DSA Learning Card
+          
+          **Problem**: #${{ steps.problem.outputs.problem_num }}
+          **Difficulty**: ${{ steps.problem.outputs.difficulty }}
+          
+          ### 🎯 Pattern Recognition
+          <!-- AI should fill this in -->
+          - Primary Pattern: _____
+          - Secondary Patterns: _____
+          
+          ### 🧠 Key Insight
+          <!-- The "aha!" moment for this problem -->
+          
+          ### 📖 Related Problems to Practice
+          <!-- Similar problems using the same pattern -->
+          - [ ] Problem 1
+          - [ ] Problem 2
+          - [ ] Problem 3
+          
+          ### 💡 Interview Tips
+          <!-- What to remember for interviews -->
+          
+          EOF
 ```
 
 ---
 
-## 6. Variable Naming Conventions
+## 2. Prompt Enhancement Ideas
 
-### 🟡 Use Clear, Descriptive Variable Names
+### Add to `CLAUDE.md` Guidelines
 
-**Problem Identified**: The variable `distinctCount` was actually a frequency map (counts how many times each number appears), not a count of distinct elements.
+**Current `CLAUDE.md`** focuses on correctness and code quality. Add these sections:
 
-**Recommendation**:
-```typescript
-// ❌ Misleading name:
-const distinctCount: Record<number, number> = {};
+```markdown
+## DSA Learning Focus
 
-// ✅ Clear, descriptive name:
-const frequencyMap: Record<number, number> = {};
-// or
-const numFrequency: Record<number, number> = {};
+When reviewing LeetCode solutions, also provide:
+
+### Pattern Identification
+- Clearly state which algorithmic pattern(s) the solution uses
+- Patterns include: Two Pointers, Sliding Window, Binary Search, BFS/DFS, 
+  Dynamic Programming, Backtracking, Union-Find, Topological Sort, etc.
+
+### Key Insight Explanation
+- Every problem has a "key insight" that makes the optimal solution possible
+- Explain what that insight is and why it works
+- Example: "The key insight for 'Subarrays with K Distinct' is that 
+  exactlyK = atMostK - atMostK(k-1)"
+
+### Related Problems
+- Suggest 2-3 similar LeetCode problems that use the same pattern
+- This helps build pattern recognition skills
+
+### Complexity Deep-Dive
+- Don't just state complexity - explain WHY
+- Example: "O(n) because each element is visited at most twice - 
+  once when right pointer includes it, once when left pointer excludes it"
+
+### Common Mistakes
+- Point out common mistakes people make with this pattern
+- Example: "A common mistake with sliding window is forgetting to 
+  clean up the frequency map when elements leave the window"
 ```
 
-**Guidelines**:
-- Use names that describe what the variable *actually stores*
-- Avoid names that describe what you're *trying to track* if the implementation differs
-- A frequency map stores frequencies, not counts of distinct elements
-- Makes the code self-documenting
+### Add to `.github/copilot-instructions.md`
+
+Add a new section for PR review context:
+
+```markdown
+## PR Review Guidance
+
+When reviewing PRs in this repository, remember this is a LEARNING repository.
+Provide educational feedback that helps understand:
+
+1. **Pattern Recognition**: What pattern does this solution demonstrate?
+2. **Trade-offs**: What are the time/space trade-offs of different approaches?
+3. **Interview Context**: How would you explain this solution in an interview?
+4. **Variations**: What variations of this problem exist?
+```
 
 ---
 
-## 7. Pattern Recognition
+## 3. Additional DSA Learning Feedback Ideas
 
-### 📚 Key Patterns Demonstrated in This Problem
+These are types of feedback that would be valuable during code reviews but aren't currently provided:
 
-1. **Sliding Window**: Core technique for subarray problems
-2. **Frequency Map/Hash Map**: For tracking element occurrences
-3. **"At Most K" Pattern**: Transform "exactly K" into a difference of "at most K" counts
-4. **Two Pointers**: Left and right pointers to define window boundaries
+### 🎓 Pattern-Based Feedback
 
-### 💡 When to Use These Patterns
+| Feedback Type | Description | Example |
+|--------------|-------------|---------|
+| **Pattern Name** | Explicitly name the algorithmic pattern | "This uses the Sliding Window pattern" |
+| **Pattern Applicability** | Explain when this pattern applies | "Sliding window is ideal when looking for subarrays/substrings with constraints" |
+| **Pattern Template** | Provide a reusable template | Link to `docs/techniques/SLIDING_WINDOW.md` |
+| **Pattern Variations** | Mention variations of the pattern | "Fixed vs. variable size windows" |
 
-| Pattern        | Use When                                              |
-| -------------- | ----------------------------------------------------- |
-| Sliding Window | Finding subarrays/substrings with specific properties |
-| Frequency Map  | Need to count occurrences or track unique elements    |
-| "At Most K"    | "Exactly K" problems can be decomposed                |
-| Two Pointers   | Need to track a range or compare elements             |
+### 🎓 Complexity Feedback
+
+| Feedback Type | Description | Example |
+|--------------|-------------|---------|
+| **Complexity Explanation** | Explain WHY, not just WHAT | "O(n) because the left pointer moves at most n times total across all iterations" |
+| **Amortized Analysis** | When applicable | "While the inner while loop seems nested, amortized analysis shows O(n)" |
+| **Space Trade-offs** | Discuss alternatives | "You could save space by using array indices instead of a Map" |
+| **Optimal Comparison** | Compare to known optimal | "This matches the optimal solution for this problem class" |
+
+### 🎓 Interview Preparation Feedback
+
+| Feedback Type | Description | Example |
+|--------------|-------------|---------|
+| **Explanation Script** | How to explain in interview | "Start by explaining the brute force approach, then optimize" |
+| **Follow-up Questions** | Common interviewer follow-ups | "What if k could be 0? What if the array has negative numbers?" |
+| **Edge Cases to Mention** | Cases to proactively discuss | "Empty array, k larger than array length, all identical elements" |
+| **Time Management** | How long this should take | "This is a Hard problem - expect 30-40 minutes in an interview" |
+
+### 🎓 Cross-Problem Learning
+
+| Feedback Type | Description | Example |
+|--------------|-------------|---------|
+| **Related Problems** | Problems using same pattern | "Try also: LC 340, LC 159, LC 424" |
+| **Prerequisite Problems** | Simpler versions to understand first | "Start with LC 209 (Minimum Size Subarray Sum)" |
+| **Harder Variations** | More challenging versions | "For a harder challenge, try LC 76 (Minimum Window Substring)" |
+| **Pattern Family** | Group of related patterns | "This is part of the 'variable sliding window' family" |
 
 ---
 
-## Summary Checklist
+## 4. Current Workflow Analysis
 
-Use this checklist when reviewing your own solutions:
+### What's Working Well ✅
 
-### Code Quality
-- [ ] Avoid mutating input parameters
-- [ ] Use separate variables for tracking state
-- [ ] Clean up data structures when values become invalid
+| Reviewer | Strength |
+|----------|----------|
+| **Claude** | Detailed inline comments, catches code quality issues |
+| **CodeRabbit** | Good walkthrough summaries, PR structure analysis |
+| **Gemini** | Comprehensive review structure |
+| **Complexity Analyzer** | Automated analysis with recommendations |
+| **Test Coverage** | Reports coverage metrics |
 
-### Algorithm Design
-- [ ] Consider if the problem can be decomposed (e.g., "exactly K" → "at most K")
-- [ ] Use well-known patterns when applicable
-- [ ] Verify correctness with edge cases
+### What Could Be Improved 🔧
 
-### Documentation
-- [ ] Document time and space complexity accurately
-- [ ] Explain non-obvious logic
-- [ ] Name the pattern/technique being used
+| Area | Current Gap | Suggested Improvement |
+|------|-------------|----------------------|
+| **Pattern Naming** | Not consistently identifying DSA patterns | Add explicit pattern identification to prompts |
+| **Learning Context** | Reviews are code-quality focused, not learning-focused | Add "Learning Summary" section requirement |
+| **Related Problems** | No cross-references to similar problems | Add related problem suggestions |
+| **Complexity Accuracy** | Automated analyzer often incorrect | Improve patterns or allow manual override |
+| **Interview Prep** | No interview-specific guidance | Add interview tips section |
+| **Key Insights** | Don't highlight the "aha!" moment | Require "Key Insight" explanation |
 
-### Testing
-- [ ] Cover all edge cases
-- [ ] Ensure comments match expected values
-- [ ] Include formula explanations where applicable
+### Recommended Priority Order
 
-### Naming
-- [ ] Variables describe what they store
-- [ ] Names are clear and unambiguous
+1. **High Priority**
+   - Enhance Claude/Gemini prompts with DSA learning focus
+   - Add "Key Insight" requirement to reviews
+   - Fix complexity analyzer patterns for sliding window
+
+2. **Medium Priority**  
+   - Add related problems suggestions
+   - Create DSA Mentor workflow
+   - Add pattern templates to reviews
+
+3. **Lower Priority**
+   - Interview preparation tips
+   - Cross-problem learning graph
+   - Manual complexity override support
+
+---
+
+## Implementation Examples
+
+### Example: Enhanced Claude Review Output
+
+With the suggested prompt changes, a review might include:
+
+```markdown
+## Code Review: Subarrays with K Different Integers
+
+### 🎯 Pattern Identification
+**Primary Pattern**: Sliding Window (Variable Size)
+**Secondary Pattern**: Frequency Counting with Hash Map
+
+### 🧠 Key Insight
+The key insight is transforming "exactly K distinct" into a subtraction problem:
+`exactlyK(k) = atMostK(k) - atMostK(k-1)`
+
+This works because `atMostK` is much easier to implement with a standard sliding window.
+
+### 📖 Related Problems
+- [LC 340 - Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/) (Medium)
+- [LC 159 - Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/) (Medium)
+- [LC 76 - Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
+
+### ⏱️ Complexity Analysis
+- **Time**: O(n) - Each element is visited at most twice (once by right pointer, once by left pointer)
+- **Space**: O(min(n, k)) - The frequency map stores at most k+1 distinct elements
+
+### 💡 Interview Tips
+- Start by explaining the brute force O(n³) approach
+- Then introduce the sliding window optimization
+- Mention the "exactly K = at most K - at most K-1" transformation
+- Be ready to discuss: What if k > number of distinct elements?
+
+### ✅ Summary
+[Standard code quality feedback here...]
+```
 
 ---
 
 ## References
 
-- [PR #31 - Subarrays with K Different Integers](https://github.com/pertrai1/coding-challenges/pull/31)
-- [LeetCode Problem 992 - Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers/)
-- [Sliding Window Technique Documentation](./techniques/SLIDING_WINDOW.md)
+- [Current Claude Review Workflow](.github/workflows/claude-pr-review.yml)
+- [Current Gemini Review Workflow](.github/workflows/gemini-pr-review.yml)
+- [Current Code Quality Workflow](.github/workflows/code-quality.yml)
+- [Complexity Analyzer Script](scripts/complexity-analyzer.js)
+- [CLAUDE.md Guidelines](CLAUDE.md)
+- [PR #31 - Source of Analysis](https://github.com/pertrai1/coding-challenges/pull/31)
 
 ---
 
-*This document was generated from automated code review feedback and should be updated as new patterns and suggestions emerge from future PRs.*
+*This document should be updated as workflows are improved and new feedback patterns are identified.*
