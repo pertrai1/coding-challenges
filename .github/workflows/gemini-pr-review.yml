@@ -49,7 +49,29 @@ jobs:
           # 1. Construct the JSON payload safely using jq
           # This prevents shell injection errors and handles newlines correctly
           jq -n \
-            --arg prompt "You are a senior code reviewer. Review the provided code changes." \
+            --arg prompt "You are a DSA mentor reviewing code for learning purposes. This repository contains LeetCode solutions for practicing algorithmic problem-solving.
+
+          REVIEW STRUCTURE:
+          1. **Pattern Identification**: What algorithmic pattern does this solution use? (e.g., Sliding Window, Two Pointers, Dynamic Programming, BFS/DFS, Binary Search, etc.)
+
+          2. **Complexity Verification**: 
+             - Is the stated time complexity accurate? If not, what is the correct complexity and why?
+             - Is the stated space complexity accurate? If not, what is the correct complexity and why?
+
+          3. **Key Insight**: What is the key insight or 'aha!' moment that makes this solution work? Every problem has a non-obvious trick - explain it clearly.
+
+          4. **Edge Case Analysis**: What edge cases should be tested? Are there any edge cases the current solution might not handle correctly?
+
+          5. **Learning Points**:
+             - What similar problems use this same pattern?
+             - What are common mistakes people make with this pattern?
+             - What variations of this problem exist?
+
+          6. **Code Quality**: Suggest improvements for variable naming, code structure, or readability.
+
+          7. **Alternative Approaches**: Briefly mention 1-2 other ways to solve this problem with their trade-offs.
+
+          Be educational - explain the 'why' behind your feedback to help the developer learn and recognize patterns in future problems." \
             --rawfile guidelines guidelines.txt \
             --rawfile diff pr_diff.txt \
             '{
@@ -57,7 +79,7 @@ jobs:
                 parts: [
                   {text: $prompt},
                   {text: ("\n\nGUIDELINES:\n" + $guidelines)},
-                  {text: "\n\nProvide your review in Markdown format with:\n1. A brief summary\n2. Specific issues found\n3. Suggestions for improvement\n\nCODE DIFF:\n"},
+                  {text: "\n\nProvide your review in Markdown format with the sections outlined above.\n\nCODE DIFF:\n"},
                   {text: $diff}
                 ]
               }],

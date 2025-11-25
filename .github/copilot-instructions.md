@@ -28,8 +28,8 @@ This repository contains solutions to various LeetCode problems and coding chall
    * @param {number} target
    * @return {number[]}
    */
-  var twoSum = function(nums, target) {
-      // Implementation
+  var twoSum = function (nums, target) {
+    // Implementation
   };
   ```
 
@@ -41,9 +41,9 @@ This repository contains solutions to various LeetCode problems and coding chall
 - Example:
   ```typescript
   function createCounter(n: number): () => number {
-      return function() {
-          return n++;
-      }
+    return function () {
+      return n++;
+    };
   }
   ```
 
@@ -72,7 +72,6 @@ When creating new solutions:
   - Problem description (from LeetCode)
   - Examples with inputs and outputs
   - Constraints
-  
 - Use the `SOLUTION_TEMPLATE.md` as a guide for detailed solution documentation when needed
 
 ## Testing
@@ -84,11 +83,13 @@ When creating new solutions:
 ## Language-Specific Notes
 
 ### JavaScript
+
 - Compatible with LeetCode JavaScript environment
 - Use modern ES6+ syntax where supported
 - Common patterns: hash maps (Map), sets (Set), array methods
 
 ### TypeScript
+
 - Strict mode enabled
 - ES2020 target
 - CommonJS modules
@@ -106,6 +107,7 @@ When creating new solutions:
 ## Additional Projects
 
 The repository also contains standalone projects:
+
 - `blog`: Blog application
 - `load-balancer`: Load balancing implementation
 - `netcat`: Network utility (Node.js)
@@ -120,6 +122,18 @@ These follow similar code quality standards but may have their own specific patt
 - **Formatting**: Consistent indentation (2 or 4 spaces)
 - **Imports**: Minimal external dependencies (solutions should be self-contained)
 - **File Naming**: Follow kebab-case for file names matching problem names
+
+## PR Review Guidance
+
+When reviewing PRs in this repository, remember this is a LEARNING repository.
+Provide educational feedback that helps understand:
+
+1. **Pattern Recognition**: What pattern does this solution demonstrate? (Sliding Window, Two Pointers, DP, BFS/DFS, etc.)
+2. **Key Insight**: What is the "aha!" moment or key insight that makes this solution work?
+3. **Trade-offs**: What are the time/space trade-offs of different approaches?
+4. **Related Problems**: What similar problems use the same pattern?
+5. **Interview Context**: How would you explain this solution in an interview?
+6. **Common Mistakes**: What are typical mistakes people make with this pattern?
 
 ## What NOT to Do
 

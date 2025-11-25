@@ -52,7 +52,15 @@ class ComplexityAnalyzer {
           // Graph traversal patterns - single visit per node
           /visited\s*\[[^\]]*\]\s*=\s*true/g,
           /function\s+\w*\s*\([^)]*node[^)]*\)[^{]*\{[^}]*visited/g,
-          /dfs\s*\(|bfs\s*\(/gi
+          /dfs\s*\(|bfs\s*\(/gi,
+          // Sliding window with frequency tracking patterns
+          /for\s*\([^)]*right[^)]*\)[^{]*\{[^}]*while[^}]*left/gi,
+          /frequencyMap|freqMap|freq\s*\[|frequency\s*\[/gi,
+          /distinctCount|distinctNum|numDistinct/gi,
+          // atMost/exactlyK transformation pattern (common sliding window technique)
+          /atMost|atLeast|exactlyK|exactly\s*\(/gi,
+          // Sliding window helper function patterns
+          /countSubarrays|countValid|slidingWindow/gi
         ],
         description:
           'Linear time - single pass through data or DP table construction'
@@ -199,7 +207,17 @@ class ComplexityAnalyzer {
           /continuousSubarrays|subarrays.*window/gi,
           // Sliding window with explicit left/right pointers (not index)
           /let\s+(left|right)\s*=\s*0[^}]*while[^}]*(left|right)/gi,
-          /for\s*\([^;]*(right|end)[^;]*[^)]*\)[^{]*{[^}]*(left|start)\s*\+\+/gi
+          /for\s*\([^;]*(right|end)[^;]*[^)]*\)[^{]*{[^}]*(left|start)\s*\+\+/gi,
+          // Frequency map/count with sliding window (common pattern)
+          /frequencyMap|freqMap|freq\s*\[|frequency\s*\[/gi,
+          /distinctCount|distinctNum|numDistinct/gi,
+          // atMost/exactlyK transformation pattern (key insight for subarray counting)
+          /atMost|atLeast|exactlyK|exactly\s*\(/gi,
+          // Common sliding window problem patterns
+          /countSubarrays|countValid|slidingWindow/gi,
+          /subarraysWithKDistinct|longestSubstring.*Distinct/gi,
+          // While loop with left pointer increment inside for loop (classic sliding window)
+          /for\s*\([^)]*\)[^{]*\{[^}]*while[^}]*left[^}]*\+\+/gi
         ],
         complexity: 'O(n)',
         description: 'Sliding window technique for subarray/substring problems'
