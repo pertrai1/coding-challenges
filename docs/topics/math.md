@@ -780,6 +780,20 @@ const linearSearch = (arr, target) => {
 };
 
 // O(n log n) - Merge Sort
+const merge = (left, right) => {
+  const result = [];
+  let i = 0,
+    j = 0;
+  while (i < left.length && j < right.length) {
+    if (left[i] <= right[j]) {
+      result.push(left[i++]);
+    } else {
+      result.push(right[j++]);
+    }
+  }
+  return result.concat(left.slice(i)).concat(right.slice(j));
+};
+
 const mergeSort = (arr) => {
   if (arr.length <= 1) return arr;
   const mid = Math.floor(arr.length / 2);
@@ -809,9 +823,9 @@ Logarithms appear frequently in algorithm analysis, especially for divide-and-co
 
 **Key Concepts:**
 
-- **log₂(n)**: How many times you can divide n by 2 before reaching 1
-- **log₂(n)**: Height of a balanced binary tree with n nodes
-- **log₂(n)**: Number of bits needed to represent n
+- **Division counting**: log₂(n) tells how many times you can divide n by 2 before reaching 1
+- **Tree height**: log₂(n) approximates the height of a balanced binary tree with n nodes
+- **Bit representation**: log₂(n) indicates the number of bits needed to represent n
 
 **Important Properties:**
 
