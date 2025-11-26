@@ -52,7 +52,9 @@ class ComplexityAnalyzer {
           // Graph traversal patterns - single visit per node
           /visited\s*\[[^\]]*\]\s*=\s*true/g,
           /function\s+\w*\s*\([^)]*node[^)]*\)[^{]*\{[^}]*visited/g,
-          /dfs\s*\(|bfs\s*\(/gi
+          /dfs\s*\(|bfs\s*\(/gi,
+          // Sliding window core pattern - for loop with inner while adjusting left pointer
+          /for\s*\([^)]*right[^)]*\)[^{]*\{[^}]*while[^}]*left/gi
         ],
         description:
           'Linear time - single pass through data or DP table construction'
@@ -199,7 +201,17 @@ class ComplexityAnalyzer {
           /continuousSubarrays|subarrays.*window/gi,
           // Sliding window with explicit left/right pointers (not index)
           /let\s+(left|right)\s*=\s*0[^}]*while[^}]*(left|right)/gi,
-          /for\s*\([^;]*(right|end)[^;]*[^)]*\)[^{]*{[^}]*(left|start)\s*\+\+/gi
+          /for\s*\([^;]*(right|end)[^;]*[^)]*\)[^{]*{[^}]*(left|start)\s*\+\+/gi,
+          // Frequency map/count with sliding window (common pattern)
+          /frequencyMap|freqMap|freq\s*\[|frequency\s*\[/gi,
+          /distinctCount|distinctNum|numDistinct/gi,
+          // atMost/exactlyK transformation pattern (key insight for subarray counting)
+          /atMost|atLeast|exactlyK|exactly\s*\(/gi,
+          // Common sliding window problem patterns
+          /countSubarrays|countValid|slidingWindow/gi,
+          /subarraysWithKDistinct|longestSubstring.*Distinct/gi,
+          // While loop with left pointer increment inside for loop (classic sliding window)
+          /for\s*\([^)]*\)[^{]*\{[^}]*while[^}]*left[^}]*\+\+/gi
         ],
         complexity: 'O(n)',
         description: 'Sliding window technique for subarray/substring problems'
@@ -216,18 +228,91 @@ class ComplexityAnalyzer {
   }
 
   /**
+   * Parse manual complexity override annotations from code comments.
+   *
+   * Precedence order (highest to lowest):
+   * 1. @complexity: O(n) time, O(k) space - full annotation
+   * 2. @time: O(n) / @space: O(k) - separate annotations
+   * 3. Time: O(n) / Space: O(k) - standard comment format
+   *
+   * Supported formats:
+   * - // @complexity: O(n) time, O(k) space
+   * - // @time: O(n)
+   * - // @space: O(n)
+   * - Time: O(n) - standard comment format
+   * - Space: O(k) - standard comment format
+   */
+  parseManualOverride(content) {
+    const override = {
+      time: null,
+      space: null,
+      hasOverride: false
+    };
+
+    // Priority 1: Pattern for @complexity annotation with both time and space
+    const complexityPattern =
+      /@complexity:\s*O\(([^)]+)\)\s*time[,\s]*O\(([^)]+)\)\s*space/i;
+    const complexityMatch = content.match(complexityPattern);
+    if (complexityMatch) {
+      override.time = `O(${complexityMatch[1]})`;
+      override.space = `O(${complexityMatch[2]})`;
+      override.hasOverride = true;
+      return override;
+    }
+
+    // Priority 2: Pattern for separate @time annotation
+    const timePattern = /@time:\s*O\(([^)]+)\)/i;
+    const timeMatch = content.match(timePattern);
+    if (timeMatch) {
+      override.time = `O(${timeMatch[1]})`;
+      override.hasOverride = true;
+    }
+
+    // Priority 2: Pattern for separate @space annotation
+    const spacePattern = /@space:\s*O\(([^)]+)\)/i;
+    const spaceMatch = content.match(spacePattern);
+    if (spaceMatch) {
+      override.space = `O(${spaceMatch[1]})`;
+      override.hasOverride = true;
+    }
+
+    // Priority 3: Standard complexity comments (Time: O(n), Space: O(k))
+    // Only used if @annotation not found for the same type
+    const standardTimePattern = /Time[:\s]+O\(([^)]+)\)/i;
+    const standardTimeMatch = content.match(standardTimePattern);
+    if (standardTimeMatch && !override.time) {
+      override.time = `O(${standardTimeMatch[1]})`;
+      override.hasOverride = true;
+    }
+
+    const standardSpacePattern = /Space[:\s]+O\(([^)]+)\)/i;
+    const standardSpaceMatch = content.match(standardSpacePattern);
+    if (standardSpaceMatch && !override.space) {
+      override.space = `O(${standardSpaceMatch[1]})`;
+      override.hasOverride = true;
+    }
+
+    return override;
+  }
+
+  /**
    * Analyze a single file for complexity patterns
    */
   async analyzeFile(filePath) {
     try {
       const content = await fs.readFile(filePath, 'utf-8');
+
+      // Check for manual override first
+      const manualOverride = this.parseManualOverride(content);
+
       const analysis = {
         file: filePath,
-        timeComplexity: this.analyzeTimeComplexity(content),
-        spaceComplexity: this.analyzeSpaceComplexity(content),
+        timeComplexity: this.analyzeTimeComplexity(content, manualOverride),
+        spaceComplexity: this.analyzeSpaceComplexity(content, manualOverride),
         dataStructures: this.analyzeDataStructures(content),
         algorithmicPatterns: this.analyzeAlgorithmicPatterns(content),
         codeMetrics: this.analyzeCodeMetrics(content),
+        manualOverride: manualOverride.hasOverride ? manualOverride : null,
         recommendations: []
       };
 
@@ -243,7 +328,17 @@ class ComplexityAnalyzer {
     }
   }
 
-  analyzeTimeComplexity(content) {
+  analyzeTimeComplexity(content, manualOverride = null) {
+    // If manual override exists for time complexity, use it with 100% confidence
+    if (manualOverride && manualOverride.time) {
+      return {
+        complexity: manualOverride.time,
+        description: 'Manual override from code annotation',
+        confidence: 100,
+        isManualOverride: true
+      };
+    }
+
     const detected = [];
 
     for (const [complexity, config] of Object.entries(this.patterns)) {
@@ -306,7 +401,16 @@ class ComplexityAnalyzer {
     return detected[0];
   }
 
-  analyzeSpaceComplexity(content) {
+  analyzeSpaceComplexity(content, manualOverride = null) {
+    // If manual override exists for space complexity, use it
+    if (manualOverride && manualOverride.space) {
+      return {
+        complexity: manualOverride.space,
+        reason: 'Manual override from code annotation',
+        isManualOverride: true
+      };
+    }
+
     // Simple heuristics for space complexity
     const hasRecursion = /function[^{]*{[^}]*\w+\([^)]*-/.test(content);
     const hasDataStructures = /new\s+(Array|Map|Set)/.test(content);
@@ -522,24 +626,66 @@ class ComplexityAnalyzer {
       '> ⚠️ **Disclaimer**: This is an automated analysis that may not be 100% accurate.',
       '> Always verify the complexity analysis manually, especially for complex algorithms.',
       '> Dynamic Programming, recursive, and mathematical algorithms may need manual review.',
-      '',
+      ''
+    ];
+
+    // Show manual override notice if present
+    if (analysis.manualOverride) {
+      report.push(
+        '> ✅ **Manual Override Detected**: Using complexity annotations from code comments.',
+        ''
+      );
+    }
+
+    report.push(
       `**File:** ${analysis.file}`,
       `**Generated:** ${new Date().toISOString()}`,
       '',
       '## Time Complexity',
-      `**Estimated:** ${analysis.timeComplexity.complexity}`,
-      `**Description:** ${analysis.timeComplexity.description || 'N/A'}`,
-      `**Confidence:** ${analysis.timeComplexity.confidence?.toFixed(1) || 'N/A'}%`,
-      '',
+      `**Estimated:** ${analysis.timeComplexity.complexity}`
+    );
+
+    if (analysis.timeComplexity.isManualOverride) {
+      report.push(
+        '**Source:** Manual annotation (@complexity or Time: comment)'
+      );
+    } else {
+      report.push(
+        `**Description:** ${analysis.timeComplexity.description || 'N/A'}`
+      );
+      report.push(
+        `**Confidence:** ${analysis.timeComplexity.confidence?.toFixed(1) || 'N/A'}%`
+      );
+    }
+
+    report.push('');
+
+    if (
+      !analysis.timeComplexity.isManualOverride &&
       analysis.timeComplexity.confidence < 70
-        ? '> ⚠️ **Low Confidence**: Please manually verify this analysis.'
-        : '',
+    ) {
+      report.push(
+        '> ⚠️ **Low Confidence**: Please manually verify this analysis.',
+        '> 💡 **Tip**: Add `// @complexity: O(n) time, O(1) space` to override automated detection.',
+        ''
+      );
+    }
+
+    report.push(
       '',
       '## Space Complexity',
-      `**Estimated:** ${analysis.spaceComplexity.complexity}`,
-      `**Reason:** ${analysis.spaceComplexity.reason}`,
-      ''
-    ];
+      `**Estimated:** ${analysis.spaceComplexity.complexity}`
+    );
+
+    if (analysis.spaceComplexity.isManualOverride) {
+      report.push(
+        '**Source:** Manual annotation (@complexity or Space: comment)'
+      );
+    } else {
+      report.push(`**Reason:** ${analysis.spaceComplexity.reason}`);
+    }
+
+    report.push('');
 
     if (analysis.dataStructures.length > 0) {
       report.push('## Data Structures Used');

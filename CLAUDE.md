@@ -58,6 +58,41 @@ Each problem directory should include a `README.md` containing:
 - Problem description
 - Examples and constraints
 
+## DSA Learning Focus
+
+When reviewing LeetCode solutions, provide educational feedback that helps with pattern recognition and interview preparation:
+
+### Pattern Identification
+
+- Clearly state which algorithmic pattern(s) the solution uses
+- Patterns include: Two Pointers, Sliding Window, Binary Search, BFS/DFS, Dynamic Programming, Backtracking, Union-Find, Topological Sort, Greedy, Divide and Conquer, etc.
+- Explain WHY this pattern is suitable for this specific problem type
+
+### Key Insight Explanation
+
+- Every problem has a "key insight" that makes the optimal solution possible
+- Explain what that insight is and why it works
+- Example: "The key insight for 'Subarrays with K Distinct' is that exactlyK = atMostK - atMostK(k-1)"
+- Example: "The key insight for 'Two Sum' is using a hash map to achieve O(1) complement lookup"
+
+### Related Problems
+
+- Suggest 2-3 similar LeetCode problems that use the same pattern
+- This helps build pattern recognition skills
+- Group problems by pattern family (e.g., "variable sliding window" problems)
+
+### Complexity Deep-Dive
+
+- Don't just state complexity - explain WHY
+- Example: "O(n) because each element is visited at most twice - once when right pointer includes it, once when left pointer excludes it"
+- For amortized analysis, explain the reasoning clearly
+
+### Common Mistakes
+
+- Point out common mistakes people make with this pattern
+- Example: "A common mistake with sliding window is forgetting to clean up the frequency map when elements leave the window"
+- Example: "A common mistake with two pointers is not handling duplicates correctly"
+
 ## What NOT to Flag
 
 - Multiple solution approaches (exploratory learning is encouraged)
