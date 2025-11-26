@@ -4,8 +4,8 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 151 solved
-- **Easy**: 78 problems
+- **Total Problems**: 152 solved
+- **Easy**: 79 problems
 - **Medium**: 61 problems
 - **Hard**: 12 problems
 
@@ -93,6 +93,7 @@ Problems are organized by:
 
 - [0070 - Climbing Stairs](./leetcode/easy/0070-climbing-stairs) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0171 - Excel Sheet Column Number](./leetcode/easy/0171-excel-sheet-column-number) ![Easy](https://img.shields.io/badge/Easy-green)
+- [0268 - Missing Number](./leetcode/easy/0268-missing-number) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0476 - Number Complement](./leetcode/easy/0476-number-complement) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1289 - Day of the Week](./leetcode/easy/1289-day-of-the-week) ![Easy](https://img.shields.io/badge/Easy-green)
 - [1920 - Determine Color of a Chessboard Square](./leetcode/easy/1920-determine-color-of-a-chessboard-square) ![Easy](https://img.shields.io/badge/Easy-green)
