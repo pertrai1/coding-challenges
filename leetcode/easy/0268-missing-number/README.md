@@ -1,4 +1,3 @@
-
 # [Missing Number](https://leetcode.com/problems/missing-number) ![](https://img.shields.io/badge/Easy-green)
 
 <p>Given an array <code>nums</code> containing <code>n</code> distinct numbers in the range <code>[0, n]</code>, return <em>the only number in the range that is missing from the array.</em></p>
@@ -70,5 +69,3 @@
 
 <p>&nbsp;</p>
 <p><strong>Follow up:</strong> Could you implement a solution using only <code>O(1)</code> extra space complexity and <code>O(n)</code> runtime complexity?</p>
-
-        
