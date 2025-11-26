@@ -14,7 +14,7 @@ This repository contains solutions to various LeetCode problems, organized by di
 Problems are organized by:
 
 - **Difficulty Level**: [Easy](#-easy-problems), [Medium](#-medium-problems), [Hard](#-hard-problems)
-- **Topic**: Arrays, Strings, Trees, Math, etc.
+- **Topic**: Arrays, Strings, Trees, [Math](./docs/topics/math.md), etc.
 - **Data Structures**: Hash Tables, Stacks, Queues, etc.
 - **Algorithms**: [Hash Lookup](./docs/techniques/HASH_LOOKUP.md), [Two Pointers](./docs/techniques/TWO_POINTERS.md), [Sliding Window](./docs/techniques/SLIDING_WINDOW.md), DFS, BFS, etc.
 
