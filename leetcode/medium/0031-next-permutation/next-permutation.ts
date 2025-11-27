@@ -1,7 +1,9 @@
 /**
- Do not return anything, modify nums in-place instead.
- @time: O(n) because we have to traverse the nums array
- @space: O(1) because we are modifying the nums array in place
+ * Advance the array to its next lexicographic permutation in place.
+ *
+ * If the array is already the highest permutation (descending order), transforms it into the lowest permutation (ascending order).
+ *
+ * @param nums - Array of numbers representing a permutation; mutated to the next permutation.
  */
 export function nextPermutation(nums: number[]): void {
   const n = nums.length;
@@ -26,6 +28,13 @@ export function nextPermutation(nums: number[]): void {
   reverse(nums, pivotIndex + 1, n - 1);
 }
 
+/**
+ * Reverses the elements of `nums` in place between `start` and `end` inclusive.
+ *
+ * @param nums - The array to modify.
+ * @param start - Starting index of the range to reverse (inclusive).
+ * @param end - Ending index of the range to reverse (inclusive).
+ */
 function reverse(nums: number[], start: number, end: number): void {
   while (start < end) {
     [nums[start], nums[end]] = [nums[end], nums[start]];
