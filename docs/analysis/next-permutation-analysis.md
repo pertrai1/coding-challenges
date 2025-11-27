@@ -9,7 +9,7 @@
 > ✅ **Manual Override Detected**: Using complexity annotations from code comments.
 
 **File:** leetcode/medium/0031-next-permutation/next-permutation.ts
-**Generated:** 2025-11-27T14:47:07.103Z
+**Generated:** 2025-11-27T15:06:12.940Z
 
 ## Time Complexity
 
