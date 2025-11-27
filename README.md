@@ -4,9 +4,9 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 152 solved
+- **Total Problems**: 153 solved
 - **Easy**: 79 problems
-- **Medium**: 61 problems
+- **Medium**: 62 problems
 - **Hard**: 12 problems
 
 ## 📈 Progress Tracking
@@ -121,6 +121,7 @@ Problems are organized by:
 - [0003 - Longest Substring Without Repeating Characters](./leetcode/medium/0003-longest-substring-without-repeating-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0016 - 3Sum Closest](./leetcode/medium/0016-3sum-closest) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0018 - 4Sum](./leetcode/medium/0018-4sum) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0031 - Next Permutation](./leetcode/medium/0031-next-permutation) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0034 - Find First and Last Position of Element in Sorted Array](./leetcode/medium/0034-find-first-and-last-position-of-element-in-sorted-array) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0073 - Set Matrix Zeroes](./leetcode/medium/0073-set-matrix-zeroes) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0080 - Remove Duplicates from Sorted Array II](./leetcode/medium/0080-remove-duplicates-from-sorted-array-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
