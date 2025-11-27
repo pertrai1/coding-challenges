@@ -23,11 +23,18 @@ This quickstart guide breaks down the problem-solving process into four key phas
 Template:
 
 ```plaintext
-Restatement:
-Inputs:
-Constraints:
+Restatement: Find the next lexicographical permutation of the input array and return that permutation. If there is no permutation, return the lowest possible order.
+Inputs: An array of integers
+Constraints: In place modification. The length of the array is between 1 and 100. Each number is between 0 and 100
 Edge Cases:
+- Empty input: Not applicable as per constraints
+- Minimal input: Single element array
+- Maximal input: Array of length 100
+- Duplicates: Arrays with repeated numbers
 Visualization Notes:
+- Example: [1,2,3] -> [1,3,2]
+- Example: [3,2,1] -> [1,2,3]
+- Example: [1,1,5] -> [1,5,1]
 ```
 
 ## Plan
@@ -43,9 +50,12 @@ Visualization Notes:
 Template:
 
 ```plaintext
-Recognized Pattern:
+Recognized Pattern: Similar to generating all permutations except we only need the next one.
 Simplified Version Strategy:
-Chosen Technique:
+1. find the rightmost index `i` where `nums[i] < nums[i + 1]` <-- pivot
+2. find the smallest number to the right of `i` that is larger than `nums[i]` and swap.
+3. reverse the suffix after `i` to make it the smallest possible.
+Chosen Technique: Greedy algorithm with two-pointer technique.
 Invariant(s):
 ```
 
@@ -62,11 +72,16 @@ Template:
 
 ```plaintext
 Skeleton Outline:
-- Function signature
-- Base cases
-- Data structures
-- Main loop / recursion plan
+- Function signature - nextPermutation(nums: number[]): void
+- Base cases - If the array length is less than or equal to 1, return immediately.
+- Loops - Loop from the end of the array to find the first decreasing element.
+- Data structures - Use the input array itself for in-place modification.
+- Main loop / recursion plan:
+  1. Find the first decreasing element from the end.
+  2. If found, find the element just larger than this element to swap.
+  3. Reverse the elements after the swapped position to get the next permutation.
 Notes While Coding:
+- Keep track of indices carefully to avoid off-by-one errors.
 ```
 
 ## Reflect
@@ -82,8 +97,8 @@ Template:
 
 ```plaintext
 Edge Case Results:
-Time Complexity:
-Space Complexity:
+Time Complexity: O(n) where n is each element in the array
+Space Complexity: O(1) because the array is modified in place.
 Possible Simplifications:
 Generalized Insight:
 ```
