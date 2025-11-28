@@ -4,9 +4,9 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 153 solved
+- **Total Problems**: 154 solved
 - **Easy**: 79 problems
-- **Medium**: 62 problems
+- **Medium**: 63 problems
 - **Hard**: 12 problems
 
 ## 📈 Progress Tracking
@@ -164,6 +164,7 @@ Problems are organized by:
 
 ### Math & Number Theory
 
+- [0012 - Integer to Roman](./leetcode/medium/0012-integer-to-roman) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1359 - Circular Permutation in Binary Representation](./leetcode/medium/1359-circular-permutation-in-binary-representation) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1585 - The kth Factor of n](./leetcode/medium/1585-the-kth-factor-of-n) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1674 - Minimum Operations to Make Array Equal](./leetcode/medium/1674-minimum-operations-to-make-array-equal) ![Medium](https://img.shields.io/badge/Medium-orange)
