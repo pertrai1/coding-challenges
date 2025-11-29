@@ -1,7 +1,7 @@
 name: Claude Code Review
 on:
   pull_request:
-    types: [opened, synchronize, ready_for_review, reopened]
+    types: [opened, synchronize, ready_for_review, reopened, labeled]
 
 permissions:
   contents: read
@@ -11,7 +11,7 @@ permissions:
 jobs:
   review:
     runs-on: ubuntu-latest
-    if: github.actor == 'pertrai1'
+    if: github.actor == 'pertrai1' && contains(github.event.pull_request.labels.*.name, 'code challenge')
     permissions:
       contents: read
       pull-requests: write

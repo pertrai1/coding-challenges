@@ -2,6 +2,7 @@ name: Code Quality & Analysis
 
 on:
   pull_request:
+    types: [opened, synchronize, ready_for_review, reopened, labeled]
     branches: [main, develop]
   workflow_dispatch:
 
@@ -15,7 +16,7 @@ jobs:
   analyze-changed-files:
     runs-on: ubuntu-latest
     name: Analyze Changed Files
-    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'pertrai1'
+    if: github.event_name == 'pull_request' && github.actor == 'pertrai1' && contains(github.event.pull_request.labels.*.name, 'code challenge')
 
     steps:
       - name: Checkout code

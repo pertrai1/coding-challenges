@@ -2,9 +2,9 @@ name: OpenAI Code Review
 
 on:
   pull_request:
-    types: [review_requested]
+    types: [review_requested, labeled]
   pull_request_review:
-    types: [requested]
+    types: [submitted]
 
 permissions:
   contents: read
@@ -14,6 +14,7 @@ permissions:
 jobs:
   comment:
     runs-on: ubuntu-latest
+    if: github.actor == 'pertrai1' && contains(github.event.pull_request.labels.*.name, 'code challenge')
 
     steps:
       - name: Add codex comment

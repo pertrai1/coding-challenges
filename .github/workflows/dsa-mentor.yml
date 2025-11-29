@@ -2,7 +2,7 @@ name: DSA Learning Mentor
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, labeled]
     paths:
       - 'leetcode/**'
       - '*-*/**'
@@ -15,7 +15,7 @@ permissions:
 jobs:
   mentor:
     runs-on: ubuntu-latest
-    if: github.actor == 'pertrai1'
+    if: github.actor == 'pertrai1' && contains(github.event.pull_request.labels.*.name, 'code challenge')
     steps:
       - uses: actions/checkout@v4
         with:
@@ -87,7 +87,7 @@ jobs:
 
           | Property | Value |
           |----------|-------|
-          | **Problem** | #${{ steps.problem.outputs.problem_num }} - ${{ steps.problem.outputs.problem_name }} |
+          | **Problem** | ${{ steps.problem.outputs.problem_num }} - ${{ steps.problem.outputs.problem_name }} |
           | **Difficulty** | ${{ steps.problem.outputs.difficulty }} |
           | **File** | `${{ steps.problem.outputs.path }}` |
 
@@ -106,7 +106,7 @@ jobs:
           ### 🧠 Key Insight Question
 
           > *What is the "aha!" moment that makes this solution work?*
-          > 
+          >
           > Every problem has a non-obvious insight. For example:
           > - "Subarrays with K Distinct": `exactlyK = atMostK(k) - atMostK(k-1)`
           > - "Two Sum": Use hash map for O(1) complement lookup
@@ -172,8 +172,8 @@ jobs:
               issue_number: context.issue.number,
             });
 
-            const botComment = comments.find(comment => 
-              comment.user.login === 'github-actions[bot]' && 
+            const botComment = comments.find(comment =>
+              comment.user.login === 'github-actions[bot]' &&
               comment.body.includes('📚 DSA Learning Card')
             );
 
