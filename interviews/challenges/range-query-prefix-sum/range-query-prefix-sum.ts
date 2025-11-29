@@ -1,7 +1,7 @@
 /*
 Complexity:
 @time: the time complexity is O(n + p) where n is the length of views array and p is the length of the periods array. Because each array is traversed, that makes the time O(n + p).
-@space: the space complexity would be O(r + s) where r is the length of the results array and s is the length of the sums array
+@space: the space complexity would be O(n + p) where n is the length of the results array and p is the length of the sums array
 */
 export function rangeQueryPrefixSum(
   views: number[],

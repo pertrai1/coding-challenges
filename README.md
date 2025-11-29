@@ -4,8 +4,8 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 154 solved
-- **Easy**: 79 problems
+- **Total Problems**: 155 solved
+- **Easy**: 80 problems
 - **Medium**: 63 problems
 - **Hard**: 12 problems
 
@@ -28,6 +28,7 @@ Problems are organized by:
 - [0121 - Best Time to Buy and Sell Stock](./leetcode/easy/0121-best-time-to-buy-and-sell-stock) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0169 - Majority Element](./leetcode/easy/0169-majority-element) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0266 - Palindrome Permutation](./leetcode/easy/0266-palindrome-permutation) ![Easy](https://img.shields.io/badge/Easy-green)
+- [0303 - Range Sum Query - Immutable](./leetcode/easy/0303-range-sum-query-immutable) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0205 - Isomorphic Strings](./leetcode/easy/0205-isomorphic-strings) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2168 - Check if Numbers Are Ascending in a Sentence](./leetcode/easy/2168-check-if-numbers-are-ascending-in-a-sentence) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0383 - Ransom Note](./leetcode/easy/0383-ransom-note) ![Easy](https://img.shields.io/badge/Easy-green)
@@ -83,7 +84,7 @@ Problems are organized by:
 - [1916 - Find Center of Star Graph](./leetcode/easy/1916-find-center-of-star-graph) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2121 - Find if Path Exists in Graph](./leetcode/easy/2121-find-if-path-exists-in-graph) ![Easy](https://img.shields.io/badge/Easy-green)
 
-### Tree Problems
+### Easy Tree Problems
 
 - [0404 - Sum of Left Leaves](./leetcode/easy/0404-sum-of-left-leaves) ![Easy](https://img.shields.io/badge/Easy-green)
 - [0530 - Minimum Absolute Difference in BST](./leetcode/easy/0530-minimum-absolute-difference-in-bst) ![Easy](https://img.shields.io/badge/Easy-green)
@@ -107,7 +108,7 @@ Problems are organized by:
 - [1082 - Sum of Digits in the Minimum Number](./leetcode/easy/1082-sum-of-digits-in-the-minimum-number) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2442 - Number of Arithmetic Triplets](./leetcode/easy/2442-number-of-arithmetic-triplets) ![Easy](https://img.shields.io/badge/Easy-green)
 
-### JavaScript/TypeScript
+### Easy JavaScript/TypeScript
 
 - [2732 - Counter](./leetcode/easy/2732-counter) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2734 - Array Prototype Last](./leetcode/easy/2734-array-prototype-last) ![Easy](https://img.shields.io/badge/Easy-green)
