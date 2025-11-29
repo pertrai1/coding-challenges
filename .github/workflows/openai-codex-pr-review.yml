@@ -2,7 +2,7 @@ name: OpenAI Code Review
 
 on:
   pull_request:
-    types: [review_requested, labeled]
+    types: [opened, synchronize, ready_for_review, reopened, labeled]
   pull_request_review:
     types: [submitted]
 

@@ -28,7 +28,7 @@ Return an array, `results`, of integers with length `p`, where `result[i]` is th
 
 The first attempt was going to end up being O(n \* p) because I was going to sum up each range for each period. I realized that would be too slow for the input limits.
 
-## Then I considered using a prefix sum array to preprocess the views array. This would allow me to compute the sum for any range in constant time after an O(n) preprocessing step
+Then I considered using a prefix sum array to preprocess the views array. This would allow me to compute the sum for any range in constant time after an O(n) preprocessing step
 
 ### Analysis
 
