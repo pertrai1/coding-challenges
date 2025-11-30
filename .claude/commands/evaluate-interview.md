@@ -1,48 +1,6 @@
-You are evaluating a technical interview session. The user will provide you with a transcript from an audio interview session conducted on Claude.ai.
+Evaluate Interview Transcript (automated)
 
-## Your Task
+When given a complete text transcript of an interview session, do the following:
+1) Ask for the candidate's name (used to name the rubric file) and any additional context (role, target company, or notes). 2) Analyze the transcript and produce a completed rubric following the repository's INTERVIEW_RUBRIC_TEMPLATE.md structure. Score each category on a 1-5 scale and provide specific evidentiary justification for each score with line references or quoted excerpts from the transcript when relevant. 3) Output the rubric in Markdown and save it to `interviews/interview-rubric-YYYY-MM-DD-{candidate-name}.md` (use the current date). 4) Include an overall recommendation (Hire / Maybe / No-hire) and a short summary of strengths and weaknesses.
 
-1. **Read the transcript carefully** and analyze the candidate's performance across all four rubric categories
-2. **Create a new interview rubric file** in the `interviews/` directory with filename format: `interview-rubric-YYYY-MM-DD-candidate-name.md`
-3. **Fill out each section** of the INTERVIEW_RUBRIC_TEMPLATE.md with:
-   - A score (1-5) for each category
-   - Detailed justification with specific examples from the transcript
-   - Concrete observations that support the score
-
-## Evaluation Categories
-
-### Problem Solving (1-5)
-- Algorithm discovery and optimization
-- Amount of help needed
-- Discussion of time/space complexity tradeoffs
-- Use of appropriate data structures
-
-### Coding (1-5)
-- Translation of ideas into correct code
-- Code complexity and organization
-- Coding hygiene (naming, style, structure)
-- Software engineering principles
-
-### Verification (1-5)
-- Clarifying questions
-- Edge case consideration
-- Testing and correctness arguments
-- Bug identification and fixing
-
-### Communication (1-5)
-- Clear technical communication
-- Ability to answer questions
-- Openness to feedback
-- Articulation of confusion/blockers
-
-### Overall Recommendation
-Provide one of: Recommend / Lean Recommend / Neutral / Lean No / Do Not Recommend
-
-## Instructions
-
-After the user provides the transcript, ask them:
-1. What problem was given? (if not clear from transcript)
-2. What is the candidate's name? (for the filename)
-3. Any additional context about the interview?
-
-Then generate the completed rubric file with thoughtful, specific feedback based on actual observations from the transcript.
+Constraints: produce machine-readable, deterministic output suitable for automated saving. Keep any guidance to the point. Add a single-line link comment pointing to docs/interviews/INTERVIEW_WORKFLOW.md for further reading.
