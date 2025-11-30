@@ -1,10 +1,9 @@
-## 1. Problem Restatement
-
-_(In your own words)_
+## 1. Problem Restatement (In your own words)
 
 ## 2. Constraints & Edge Cases
 
 - ## **Constraints:**
+
 - ## **Edge Cases:**
 
 ## 3. Data Structures & Patterns
@@ -14,11 +13,11 @@ _(In your own words)_
 
 ## 4. Intuition
 
-_(High-level reasoning before coding)_
+(High-level reasoning before coding)
 
 ## 5. Approach
 
-_(Step-by-step plan)_
+(Step-by-step plan)
 
 ## 6. Solution Walkthrough
 

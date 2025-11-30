@@ -224,14 +224,6 @@ Problems are organized by:
 - [0877 - Shortest Path Visiting All Nodes](./leetcode/hard/0877-shortest-path-visiting-all-nodes) ![Hard](https://img.shields.io/badge/Hard-red)
 - [2439 - Longest Cycle in a Graph](./leetcode/hard/2439-longest-cycle-in-a-graph) ![Hard](https://img.shields.io/badge/Hard-red)
 
-## 🔧 Other Projects
-
-- [Blog](./blog) - Blog-related coding challenges
-- [Load Balancer](./load-balancer) - Load balancer implementation
-- [Netcat](./netcat) - Network utility implementation
-- [Notion](./notion) - Notion-related projects
-- [Smallest Common Scroll](./smallest-common-scroll) - Scroll optimization challenge
-
 ## 🚀 Getting Started
 
 Each problem directory contains:
