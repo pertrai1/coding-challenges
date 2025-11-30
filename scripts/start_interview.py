@@ -24,8 +24,10 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 from datetime import datetime
 from pathlib import Path
+from typing import Optional, Tuple
 
 VALID_MODES = ["coding", "systems", "behavioral", "full"]
 FULL_SEQUENCE = ["coding", "systems", "behavioral"]
@@ -54,7 +56,7 @@ def get_rubric_path(candidate: str, interview_type: str) -> Path:
     return INTERVIEWS_DIR / filename
 
 
-def find_llm_runner() -> str | None:
+def find_llm_runner() -> Optional[str]:
     """
     Find an available LLM runner.
     
@@ -90,15 +92,15 @@ def run_interview(
     mode: str,
     candidate: str,
     auto_eval: bool = False,
-    runner: str | None = None
-) -> tuple[bool, str]:
+    runner: Optional[str] = None
+) -> Tuple[bool, str]:
     """
     Run an interview session.
     
     Args:
         mode: Interview type (coding, systems, behavioral)
         candidate: Candidate name
-        auto_eval: Whether to auto-evaluate after interview
+        auto_eval: Whether to auto-evaluate after interview (creates placeholder rubric)
         runner: LLM runner command to use
     
     Returns:
@@ -134,15 +136,29 @@ To run this interview for real, either:
     
     # Run the actual interview with the LLM runner
     try:
-        # Build command to run the interview
-        cmd = [runner, "--prompt", prompt_content]
+        # Write prompt to a temp file to avoid exposing in process list
+        with tempfile.NamedTemporaryFile(
+            mode='w',
+            suffix='.md',
+            delete=False,
+            prefix='interview_prompt_'
+        ) as prompt_file:
+            prompt_file.write(prompt_content)
+            prompt_file_path = prompt_file.name
         
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            cwd=str(REPO_ROOT)
-        )
+        try:
+            # Build command using file path instead of prompt content
+            cmd = [runner, "--prompt-file", prompt_file_path]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                cwd=str(REPO_ROOT)
+            )
+        finally:
+            # Clean up temp file
+            os.unlink(prompt_file_path)
         
         # Save transcript
         transcript_content = f"""=== Interview Transcript ===
