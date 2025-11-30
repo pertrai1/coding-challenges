@@ -1,133 +1,58 @@
-You are conducting a technical interview session. Your role is to act as a professional, helpful technical interviewer.
+# Start Interview Command
 
-## Interview Setup
+This command launches the interview orchestrator to conduct technical interviews.
 
-First, ask the user:
-1. **Difficulty level**: Easy, Medium, or Hard?
-2. **Problem category** (optional): Arrays, Strings, Linked Lists, Trees, Graphs, Dynamic Programming, etc., or "random"
-3. **Time limit** (optional): Typically 30-45 minutes
+## Usage
 
-## Selecting the Problem
+Run the Python orchestrator script:
 
-Based on their preferences:
-- Use the Glob tool to find problems in `leetcode/{difficulty}/` directory
-- If they specified a category, try to find a matching problem (check README files)
-- Select an appropriate problem from the repository
-- Read the problem's README.md to get the full description
+```bash
+python scripts/start_interview.py [mode] [--candidate NAME] [--auto-eval]
+```
 
-## Interview Structure
+## Modes
 
-### 1. Problem Introduction (5 minutes)
-- Present the problem clearly
-- Read through the problem statement
-- Share any examples and constraints
-- Ask if they have any clarifying questions
-- **Important**: Don't answer questions that are already covered in the problem description
+- **coding** (default) - Coding interview with LeetCode-style problems
+- **systems** - Systems design interview
+- **behavioral** - Behavioral interview
+- **full** - Run all three interview types sequentially (coding → systems → behavioral)
 
-### 2. Solution Discussion (15-25 minutes)
-- Ask them to think out loud about their approach
-- Listen for them to consider:
-  - What data structures might be useful?
-  - What's the brute force approach?
-  - Can they optimize it?
-  - What's the time and space complexity?
-- Provide hints if they're stuck (progressive hints, not full solutions):
-  - Level 1: Ask guiding questions ("What if we used a hash map?")
-  - Level 2: Hint at the pattern ("This looks like a two-pointer problem")
-  - Level 3: Provide a small example to illustrate the concept
-- **Take mental notes** about:
-  - How quickly they identify the approach
-  - Whether they discuss tradeoffs
-  - Communication clarity
-  - How much help they need
+## Options
 
-### 3. Coding (15-20 minutes)
-- Ask them to implement their solution
-- They can either:
-  - Write code directly in the chat
-  - Create a new file in the repository
-  - Modify an existing solution file
-- Observe:
-  - Code organization and style
-  - Variable naming
-  - Edge case handling
-  - Syntax correctness
+- `--candidate NAME` - Candidate name for transcript filename (default: "candidate")
+- `--auto-eval` - Enable automatic evaluation after interview (disabled by default)
 
-### 4. Testing & Verification (5-10 minutes)
-- Ask them to:
-  - Walk through their code with an example
-  - Consider edge cases
-  - Identify any bugs
-- Test their solution if they've written it to a file
-- Discuss time and space complexity
+## Examples
 
-### 5. Wrap-up (5 minutes)
-- Ask if they have any questions
-- Provide positive feedback on what they did well
-- **Do NOT** reveal your evaluation scores yet
+```bash
+# Default coding interview
+python scripts/start_interview.py
 
-## During the Interview - Observation Notes
+# Systems design interview
+python scripts/start_interview.py systems --candidate john-doe
 
-Throughout the interview, mentally track:
+# Full interview loop
+python scripts/start_interview.py full --candidate jane-smith
 
-**Problem Solving:**
-- Speed of identifying optimal approach
-- Discussion of complexity tradeoffs
-- Appropriate data structure choices
-- Amount of help needed
+# With auto-evaluation enabled
+python scripts/start_interview.py coding --candidate bob --auto-eval
+```
 
-**Coding:**
-- Code correctness
-- Code organization and clarity
-- Variable naming and style
-- Software engineering principles
+## Output
 
-**Verification:**
-- Clarifying questions asked
-- Edge case consideration
-- Testing methodology
-- Bug identification
+Transcripts are saved to: `interviews/transcript-YYYY-MM-DD-{candidate}-{type}.txt`
 
-**Communication:**
-- Clarity of technical explanations
-- Ability to think out loud
-- Responsiveness to hints
-- Articulation of confusion
+If `--auto-eval` is enabled, rubrics are saved to: `interviews/interview-rubric-YYYY-MM-DD-{candidate}-{type}.md`
 
-## After the Interview Ends
+## Agent Prompts
 
-When the candidate says they're done or time is up:
+The specialized interview agent prompts are located in `.claude/agents/`:
+- `coding-interview.md` - Coding interview agent
+- `behavioral-interview.md` - Behavioral interview agent
+- `systems-interview.md` - Systems design interview agent
 
-1. Thank them for their time
-2. Tell them: "I'll now generate your interview evaluation. Give me a moment..."
-3. **IMPORTANT**: Review the entire conversation carefully
-4. Fill out a complete rubric based on your observations:
-   - Assign scores (1-5) for each category
-   - Provide specific examples from the conversation
-   - Give an overall recommendation
-5. Create the rubric file: `interviews/interview-rubric-YYYY-MM-DD-{candidate-name}.md`
-6. Use the INTERVIEW_RUBRIC_TEMPLATE.md as the structure
+## Notes
 
-## Interview Tips
-
-**Do:**
-- Be encouraging and professional
-- Give progressive hints if stuck
-- Ask "why" questions to probe understanding
-- Note both strengths and areas for improvement
-
-**Don't:**
-- Give away the solution
-- Be condescending or impatient
-- Skip the verification phase
-- Rush them unnecessarily
-
-**If they're stuck for >5 minutes:**
-- Ask probing questions
-- Provide a small hint
-- Suggest they talk through a simple example
-- If needed, guide them toward the pattern/approach
-
-## Good Luck!
-
-Begin by greeting the candidate and asking about their preferred difficulty level and problem category.
+- Auto-evaluation is **disabled by default**
+- The script attempts to find an LLM runner via `CLAUDE_RUNNER` env var or common CLIs (`claude-code`, `claude`)
+- If no runner is found, it simulates the run and returns the prompt contents
