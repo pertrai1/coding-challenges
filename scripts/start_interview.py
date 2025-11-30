@@ -21,6 +21,7 @@ Options:
 
 import argparse
 import os
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -36,6 +37,9 @@ AGENT_PROMPTS = {
     "systems": ".claude/agents/systems-interview.md",
     "behavioral": ".claude/agents/behavioral-interview.md",
 }
+
+# List of trusted runner executables
+TRUSTED_RUNNERS = ["claude-code", "claude"]
 
 
 def get_repo_root():
@@ -59,16 +63,16 @@ def find_runner():
     # Check CLAUDE_RUNNER env var first
     env_runner = os.environ.get("CLAUDE_RUNNER")
     if env_runner:
-        if os.path.isfile(env_runner) or subprocess.run(
-            ["which", env_runner], capture_output=True
-        ).returncode == 0:
+        # Use shutil.which for cross-platform compatibility
+        runner_path = shutil.which(env_runner)
+        if runner_path or os.path.isfile(env_runner):
             return env_runner, "env"
     
-    # Try common CLI tools
-    for cli in ["claude-code", "claude"]:
-        result = subprocess.run(["which", cli], capture_output=True, text=True)
-        if result.returncode == 0:
-            return cli, "cli"
+    # Try common CLI tools using shutil.which (cross-platform)
+    for cli in TRUSTED_RUNNERS:
+        runner_path = shutil.which(cli)
+        if runner_path:
+            return runner_path, "cli"
     
     return None, None
 
@@ -101,6 +105,35 @@ def read_prompt_file(repo_root, mode):
     return prompt_path.read_text()
 
 
+def is_trusted_runner(runner):
+    """
+    Validate that a runner is trusted before execution.
+    
+    Args:
+        runner: Path to the runner executable
+    
+    Returns:
+        bool: True if the runner is trusted
+    """
+    # Check if it's one of our trusted CLI tools
+    runner_basename = os.path.basename(runner)
+    if runner_basename in TRUSTED_RUNNERS:
+        return True
+    
+    # For CLAUDE_RUNNER env var, only allow if it resolves to a trusted tool
+    # or is an absolute path that exists
+    runner_path = shutil.which(runner)
+    if runner_path:
+        runner_basename = os.path.basename(runner_path)
+        return runner_basename in TRUSTED_RUNNERS
+    
+    # Allow absolute paths if they exist (user explicitly set CLAUDE_RUNNER)
+    if os.path.isabs(runner) and os.path.isfile(runner):
+        return True
+    
+    return False
+
+
 def run_interview(runner, runner_type, prompt_content, transcript_path):
     """
     Run an interview session using the LLM runner.
@@ -114,6 +147,11 @@ def run_interview(runner, runner_type, prompt_content, transcript_path):
     Returns:
         str: The transcript content
     """
+    # Validate runner before execution
+    if not is_trusted_runner(runner):
+        print(f"Error: Runner '{runner}' is not trusted.", file=sys.stderr)
+        return None
+    
     # Ensure interviews directory exists
     transcript_path.parent.mkdir(parents=True, exist_ok=True)
     
@@ -189,6 +227,11 @@ def run_evaluation(runner, transcript_path, rubric_path):
     Returns:
         bool: True if evaluation was successful
     """
+    # Validate runner before execution
+    if not is_trusted_runner(runner):
+        print(f"Error: Runner '{runner}' is not trusted.", file=sys.stderr)
+        return False
+    
     repo_root = get_repo_root()
     eval_prompt_path = repo_root / ".claude/commands/evaluate-interview.md"
     
