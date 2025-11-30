@@ -127,6 +127,9 @@ Review and adjust if needed.
 
 ```
 coding-challenges/
+├── docs/
+│   └── interviews/
+│       └── INTERVIEW_WORKFLOW.md        # This file
 ├── interviews/                          # Interview rubrics stored here
 │   ├── interview-rubric-2025-01-15-john-doe.md
 │   └── interview-rubric-2025-01-16-jane-smith.md
@@ -135,7 +138,6 @@ coding-challenges/
 │   ├── medium/
 │   └── hard/
 ├── INTERVIEW_RUBRIC_TEMPLATE.md         # Template structure
-├── INTERVIEW_WORKFLOW.md                # This file
 └── .claude/
     └── commands/
         ├── start-interview.md           # Automated interview command

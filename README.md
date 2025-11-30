@@ -2,6 +2,15 @@
 
 This repository contains solutions to various LeetCode problems, organized by difficulty and topic.
 
+## Interview Workflow
+
+Conduct AI-assisted technical interviews using this repository. See the
+[Interview Workflow documentation](./docs/interviews/INTERVIEW_WORKFLOW.md) for full details.
+
+CLI entrypoint for orchestrated interviews is `.claude/commands/start-interview.md` (runs `scripts/start_interview.py`).
+Machine prompts and agents live under `.claude/agents/` and `.claude/commands/`. Generated transcripts
+and rubrics are saved to `interviews/`.
+
 ## 📊 Statistics
 
 - **Total Problems**: 155 solved
@@ -17,6 +26,10 @@ Problems are organized by:
 - **Topic**: Arrays, Strings, Trees, [Math](./docs/topics/math.md), etc.
 - **Data Structures**: Hash Tables, Stacks, Queues, etc.
 - **Algorithms**: [Hash Lookup](./docs/techniques/HASH_LOOKUP.md), [Two Pointers](./docs/techniques/TWO_POINTERS.md), [Sliding Window](./docs/techniques/SLIDING_WINDOW.md), DFS, BFS, etc.
+
+## Interview workflow
+
+Conduct AI-assisted technical interviews using this repository. See the [Interview Workflow documentation](./docs/interviews/INTERVIEW_WORKFLOW.md) for full details. CLI prompt files are in `.claude/commands/` and generated rubrics are saved in `interviews/`.
 
 ## 🟢 Easy Problems
 
