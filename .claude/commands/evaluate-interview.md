@@ -1,48 +1,52 @@
-You are evaluating a technical interview session. The user will provide you with a transcript from an audio interview session conducted on Claude.ai.
+# Evaluate Interview Command
 
-## Your Task
+Generate a structured rubric from an interview transcript.
 
-1. **Read the transcript carefully** and analyze the candidate's performance across all four rubric categories
-2. **Create a new interview rubric file** in the `interviews/` directory with filename format: `interview-rubric-YYYY-MM-DD-candidate-name.md`
-3. **Fill out each section** of the INTERVIEW_RUBRIC_TEMPLATE.md with:
-   - A score (1-5) for each category
-   - Detailed justification with specific examples from the transcript
-   - Concrete observations that support the score
+## Usage
 
-## Evaluation Categories
+This evaluator prompt analyzes interview transcripts and generates completed rubrics using the INTERVIEW_RUBRIC_TEMPLATE.md format.
 
-### Problem Solving (1-5)
-- Algorithm discovery and optimization
-- Amount of help needed
-- Discussion of time/space complexity tradeoffs
-- Use of appropriate data structures
+## Input
 
-### Coding (1-5)
-- Translation of ideas into correct code
-- Code complexity and organization
-- Coding hygiene (naming, style, structure)
-- Software engineering principles
+Provide one of:
+1. A transcript file path: `interviews/transcript-YYYY-MM-DD-{candidate}-{type}.txt`
+2. Pasted transcript content directly
 
-### Verification (1-5)
-- Clarifying questions
-- Edge case consideration
-- Testing and correctness arguments
-- Bug identification and fixing
+## Output
 
-### Communication (1-5)
-- Clear technical communication
-- Ability to answer questions
-- Openness to feedback
-- Articulation of confusion/blockers
+A completed rubric file saved to: `interviews/interview-rubric-YYYY-MM-DD-{candidate}-{type}.md`
 
-### Overall Recommendation
-Provide one of: Recommend / Lean Recommend / Neutral / Lean No / Do Not Recommend
+## Evaluation Process
 
-## Instructions
+1. **Read the transcript** carefully, noting specific examples
+2. **Score each category** (1-5) with detailed justification:
+   - **Problem Solving**: Algorithm discovery, optimization, data structure choices, help needed
+   - **Coding**: Correctness, organization, naming, engineering principles
+   - **Verification**: Clarifying questions, edge cases, testing, bug identification
+   - **Communication**: Clarity, thinking aloud, responsiveness, articulation
+3. **Provide overall recommendation**: Recommend / Lean Recommend / Neutral / Lean No / Do Not Recommend
+4. **Include specific quotes** and observations from the transcript
 
-After the user provides the transcript, ask them:
-1. What problem was given? (if not clear from transcript)
-2. What is the candidate's name? (for the filename)
-3. Any additional context about the interview?
+## Scoring Guide
 
-Then generate the completed rubric file with thoughtful, specific feedback based on actual observations from the transcript.
+- **5 (Exceptional)**: Exceeds expectations, demonstrates mastery
+- **4 (Strong)**: Meets all expectations, minor areas for growth
+- **3 (Adequate)**: Meets most expectations, some gaps
+- **2 (Below Expectations)**: Significant gaps, needs improvement
+- **1 (Poor)**: Did not meet basic expectations
+
+## Information Required
+
+Before generating the rubric, confirm:
+- Candidate name (for filename)
+- Interview type (coding/systems/behavioral)
+- Problem given (if not clear from transcript)
+- Any additional context
+
+## Template Reference
+
+Use the structure from `INTERVIEW_RUBRIC_TEMPLATE.md` for the output format.
+
+## Note
+
+This is typically run automatically by the orchestrator when `--auto-eval` is enabled, but can also be invoked manually to evaluate transcripts from audio interviews conducted on Claude.ai.
