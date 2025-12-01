@@ -13,9 +13,9 @@ and rubrics are saved to `interviews/`.
 
 ## 📊 Statistics
 
-- **Total Problems**: 155 solved
+- **Total Problems**: 156 solved
 - **Easy**: 80 problems
-- **Medium**: 63 problems
+- **Medium**: 64 problems
 - **Hard**: 12 problems
 
 ## 📈 Progress Tracking
@@ -153,6 +153,7 @@ Conduct AI-assisted technical interviews using this repository. See the [Intervi
 - [0002 - Add Two Numbers](./leetcode/medium/0002-add-two-numbers) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0019 - Remove Nth Node From End of List](./leetcode/medium/0019-remove-nth-node-from-end-of-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0061 - Rotate List](./leetcode/medium/0061-rotate-list) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0086 - Partition List](./leetcode/medium/0086-partition-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Tree Problems
 
