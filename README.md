@@ -2,15 +2,6 @@
 
 This repository contains solutions to various LeetCode problems, organized by difficulty and topic.
 
-## Interview Workflow
-
-Conduct AI-assisted technical interviews using this repository. See the
-[Interview Workflow documentation](./docs/interviews/INTERVIEW_WORKFLOW.md) for full details.
-
-CLI entrypoint for orchestrated interviews is `.claude/commands/start-interview.md` (runs `scripts/start_interview.py`).
-Machine prompts and agents live under `.claude/agents/` and `.claude/commands/`. Generated transcripts
-and rubrics are saved to `interviews/`.
-
 ## 📊 Statistics
 
 - **Total Problems**: 156 solved
