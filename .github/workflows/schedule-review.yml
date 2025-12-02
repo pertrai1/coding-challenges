@@ -41,9 +41,9 @@ jobs:
           PR_URL="${{ github.event.pull_request.html_url }}"
           MERGED_AT="${{ github.event.pull_request.merged_at }}"
 
-          # Get changed files - only match actual solution files
+          # Get changed files - only match actual solution files from coding challenge platforms
           git fetch origin main
-          CHANGED_FILES=$(git diff --name-only "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" | grep -E 'leetcode/(easy|medium|hard)/[0-9]+-[^/]+/[^/]+\.(js|ts)$' || echo "")
+          CHANGED_FILES=$(git diff --name-only "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" | grep -E '(leetcode/(easy|medium|hard)|greatfrontend)/[0-9]+-[^/]+/[^/]+\.(js|ts)$' || echo "")
 
           echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
           echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
@@ -62,19 +62,22 @@ jobs:
           CHANGED_FILES="${{ steps.extract-info.outputs.changed_files }}"
 
           if [ -z "$CHANGED_FILES" ]; then
-            echo "⚠️ No LeetCode files changed in this PR"
-            echo "has_leetcode_files=false" >> $GITHUB_OUTPUT
+            echo "⚠️ No coding challenge files changed in this PR"
+            echo "has_challenge_files=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
-          echo "has_leetcode_files=true" >> $GITHUB_OUTPUT
+          echo "has_challenge_files=true" >> $GITHUB_OUTPUT
 
           # Find the main solution file (should match problem slug in filename)
           MAIN_FILE=""
+          PLATFORM=""
           for file in $CHANGED_FILES; do
             # Extract problem info from file path first
             # Example: leetcode/easy/0205-isomorphic-strings/isomorphic-strings.js
+            # Example: greatfrontend/blind-75/0001-two-sum/two-sum.js
             if [[ "$file" =~ leetcode/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+              PLATFORM="leetcode"
               DIFFICULTY="${BASH_REMATCH[1]}"
               PROBLEM_NUMBER="${BASH_REMATCH[2]}"
               PROBLEM_SLUG="${BASH_REMATCH[3]}"
@@ -84,24 +87,39 @@ jobs:
               if [[ "$FILE_NAME" == "$PROBLEM_SLUG" ]]; then
                 MAIN_FILE="$file"
                 echo "main_file=$MAIN_FILE" >> $GITHUB_OUTPUT
+                echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
                 break
               fi
+            elif [[ "$file" =~ greatfrontend/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+              PLATFORM="greatfrontend"
+              DIFFICULTY="${BASH_REMATCH[1]}"
+              PROBLEM_NUMBER="${BASH_REMATCH[2]}"
+              PROBLEM_SLUG="${BASH_REMATCH[3]}"
+              FILE_NAME="${BASH_REMATCH[4]}"
+
+              # For GreatFrontEnd, accept any main solution file
+              MAIN_FILE="$file"
+              echo "main_file=$MAIN_FILE" >> $GITHUB_OUTPUT
+              echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
+              break
             fi
           done
 
           if [[ -z "$MAIN_FILE" ]]; then
             echo "⚠️ No main solution file found matching expected pattern"
-            echo "has_leetcode_files=false" >> $GITHUB_OUTPUT
+            echo "has_challenge_files=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
           # Extract problem info from validated main file
-          if [[ "$MAIN_FILE" =~ leetcode/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
-            DIFFICULTY="${BASH_REMATCH[1]}"
-            PROBLEM_NUMBER="${BASH_REMATCH[2]}"
-            PROBLEM_SLUG="${BASH_REMATCH[3]}"
-            FILE_NAME="${BASH_REMATCH[4]}"
+          if [[ "$MAIN_FILE" =~ (leetcode|greatfrontend)/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+            PLATFORM="${BASH_REMATCH[1]}"
+            DIFFICULTY="${BASH_REMATCH[2]}"
+            PROBLEM_NUMBER="${BASH_REMATCH[3]}"
+            PROBLEM_SLUG="${BASH_REMATCH[4]}"
+            FILE_NAME="${BASH_REMATCH[5]}"
 
+            echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
             echo "difficulty=$DIFFICULTY" >> $GITHUB_OUTPUT
             echo "problem_number=$PROBLEM_NUMBER" >> $GITHUB_OUTPUT
             echo "problem_slug=$PROBLEM_SLUG" >> $GITHUB_OUTPUT
@@ -110,14 +128,14 @@ jobs:
             PROBLEM_NAME=$(echo "$PROBLEM_SLUG" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
             echo "problem_name=$PROBLEM_NAME" >> $GITHUB_OUTPUT
 
-            echo "✅ Parsed problem: #$PROBLEM_NUMBER - $PROBLEM_NAME ($DIFFICULTY)"
+            echo "✅ Parsed problem: $PLATFORM #$PROBLEM_NUMBER - $PROBLEM_NAME ($DIFFICULTY)"
           else
-            echo "⚠️ File doesn't match LeetCode pattern: $MAIN_FILE"
-            echo "has_leetcode_files=false" >> $GITHUB_OUTPUT
+            echo "⚠️ File doesn't match expected pattern: $MAIN_FILE"
+            echo "has_challenge_files=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Add to review schedule
-        if: steps.parse-problem.outputs.has_leetcode_files == 'true'
+        if: steps.parse-problem.outputs.has_challenge_files == 'true'
         run: |
           node << 'EOF'
           const fs = require('fs');
@@ -129,6 +147,7 @@ jobs:
 
           // Problem details
           const problemData = {
+            platform: '${{ steps.parse-problem.outputs.platform }}',
             problemNumber: '${{ steps.parse-problem.outputs.problem_number }}',
             problemName: '${{ steps.parse-problem.outputs.problem_name }}',
             problemSlug: '${{ steps.parse-problem.outputs.problem_slug }}',
@@ -172,7 +191,7 @@ jobs:
           EOF
 
       - name: Commit updated schedule
-        if: steps.parse-problem.outputs.has_leetcode_files == 'true'
+        if: steps.parse-problem.outputs.has_challenge_files == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -201,7 +220,7 @@ jobs:
           fi
 
       - name: Comment on PR
-        if: steps.parse-problem.outputs.has_leetcode_files == 'true'
+        if: steps.parse-problem.outputs.has_challenge_files == 'true'
         uses: actions/github-script@v7
         with:
           script: |

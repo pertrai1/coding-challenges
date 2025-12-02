@@ -1,10 +1,11 @@
-name: DSA Learning Mentor
+name: Coding Challenge Mentor
 
 on:
   pull_request:
     types: [opened, synchronize, labeled]
     paths:
       - 'leetcode/**'
+      - 'greatfrontend/**'
       - '*-*/**'
 
 permissions:
@@ -25,16 +26,26 @@ jobs:
         id: problem
         run: |
           # Get files changed in this PR
-          PROBLEM_PATH=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E '(leetcode|[0-9]+-[a-zA-Z0-9-]+)' | head -1)
+          PROBLEM_PATH=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E '(leetcode|greatfrontend|[0-9]+-[a-zA-Z0-9-]+)' | head -1)
 
           if [ -z "$PROBLEM_PATH" ]; then
-            echo "No LeetCode problem files found"
+            echo "No coding challenge files found"
             echo "found=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
           echo "found=true" >> $GITHUB_OUTPUT
           echo "path=$PROBLEM_PATH" >> $GITHUB_OUTPUT
+
+          # Determine platform
+          if echo "$PROBLEM_PATH" | grep -q "^leetcode/"; then
+            PLATFORM="LeetCode"
+          elif echo "$PROBLEM_PATH" | grep -q "^greatfrontend/"; then
+            PLATFORM="GreatFrontEnd"
+          else
+            PLATFORM="Unknown"
+          fi
+          echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
 
           # Extract difficulty from path (leetcode/easy/, leetcode/medium/, leetcode/hard/)
           if echo "$PROBLEM_PATH" | grep -q "leetcode/easy"; then
@@ -43,6 +54,8 @@ jobs:
             DIFFICULTY="Medium"
           elif echo "$PROBLEM_PATH" | grep -q "leetcode/hard"; then
             DIFFICULTY="Hard"
+          elif echo "$PROBLEM_PATH" | grep -q "greatfrontend"; then
+            DIFFICULTY="Varies"
           else
             DIFFICULTY="Unknown"
           fi
@@ -51,8 +64,14 @@ jobs:
           # Extract problem number and name
           # Pattern: 0001-two-sum or 1034-subarrays-with-k-different-integers
           PROBLEM_FOLDER=$(echo "$PROBLEM_PATH" | grep -oE '[0-9]+-[a-zA-Z0-9-]+' | head -1)
-          PROBLEM_NUM=$(echo "$PROBLEM_FOLDER" | grep -oE '^[0-9]+')
-          PROBLEM_NAME=$(echo "$PROBLEM_FOLDER" | sed 's/^[0-9]*-//' | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g')
+          if [ -n "$PROBLEM_FOLDER" ]; then
+            PROBLEM_NUM=$(echo "$PROBLEM_FOLDER" | grep -oE '^[0-9]+')
+            PROBLEM_NAME=$(echo "$PROBLEM_FOLDER" | sed 's/^[0-9]*-//' | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g')
+          else
+            # For non-numbered problems (e.g., GreatFrontEnd)
+            PROBLEM_NUM=""
+            PROBLEM_NAME=$(basename $(dirname "$PROBLEM_PATH") | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g')
+          fi
 
           echo "problem_num=$PROBLEM_NUM" >> $GITHUB_OUTPUT
           echo "problem_name=$PROBLEM_NAME" >> $GITHUB_OUTPUT
@@ -78,28 +97,31 @@ jobs:
             echo "space_complexity=$SPACE_COMPLEXITY" >> $GITHUB_OUTPUT
           fi
 
-      - name: Generate DSA Learning Card
+      - name: Generate Learning Card
         if: steps.problem.outputs.found == 'true'
         id: learning_card
         run: |
           cat > learning-card.md << 'EOF'
-          ## 📚 DSA Learning Card
+          ## 📚 Coding Challenge Learning Card
 
           | Property | Value |
           |----------|-------|
-          | **Problem** | ${{ steps.problem.outputs.problem_num }} - ${{ steps.problem.outputs.problem_name }} |
+          | **Platform** | ${{ steps.problem.outputs.platform }} |
+          | **Problem** | ${{ steps.problem.outputs.problem_num }}${{ steps.problem.outputs.problem_num && ' - ' || '' }}${{ steps.problem.outputs.problem_name }} |
           | **Difficulty** | ${{ steps.problem.outputs.difficulty }} |
           | **File** | `${{ steps.problem.outputs.path }}` |
 
           ---
 
-          ### 🎯 Pattern Recognition Checklist
+          ### 🎯 Learning Focus Checklist
 
           When reviewing this solution, identify:
 
-          - [ ] **Primary Pattern**: What main algorithmic pattern is used? (e.g., Sliding Window, Two Pointers, DP, BFS/DFS)
-          - [ ] **Secondary Patterns**: Are there supporting techniques? (e.g., Hash Map for O(1) lookup, Sorting as preprocessing)
-          - [ ] **Data Structures**: What data structures enable this solution?
+          - [ ] **Primary Pattern/Concept**: What main pattern or concept is used?
+            - Algorithms: Sliding Window, Two Pointers, DP, BFS/DFS, etc.
+            - Frontend: Closures, Event Delegation, Async Patterns, etc.
+          - [ ] **Secondary Techniques**: Are there supporting techniques?
+          - [ ] **Data Structures/APIs**: What enables this solution?
 
           ---
 
@@ -110,7 +132,7 @@ jobs:
           > Every problem has a non-obvious insight. For example:
           > - "Subarrays with K Distinct": `exactlyK = atMostK(k) - atMostK(k-1)`
           > - "Two Sum": Use hash map for O(1) complement lookup
-          > - "Sliding Window Maximum": Monotonic deque maintains max efficiently
+          > - "Debounce": Closures capture timer ID for cancellation
 
           ---
 
@@ -118,11 +140,11 @@ jobs:
 
           After solving this problem, try these related problems that use similar patterns:
 
-          | Difficulty | Problem | Pattern |
-          |------------|---------|---------|
-          | 🟢 Easy | *Identify easier prerequisite* | Same core pattern |
-          | 🟡 Medium | *Similar problem* | Same pattern, different constraints |
-          | 🔴 Hard | *Harder variation* | Extended pattern or combination |
+          | Platform | Problem | Pattern |
+          |----------|---------|---------|
+          | TBD | *Easier prerequisite* | Same core concept |
+          | TBD | *Similar problem* | Same pattern, different constraints |
+          | TBD | *Harder variation* | Extended or combined pattern |
 
           ---
 
@@ -130,19 +152,19 @@ jobs:
 
           - **Opening**: Start by clarifying the problem and identifying edge cases
           - **Approach**: Explain the brute force first, then optimize
-          - **Complexity**: Always state and explain time/space complexity
+          - **Complexity**: Always state and explain time/space complexity (for algorithmic problems)
           - **Trade-offs**: Discuss alternative approaches and their trade-offs
 
           ---
 
           ### ⚠️ Common Mistakes
 
-          Watch out for these typical mistakes with this pattern:
+          Watch out for these typical mistakes:
 
           1. **Off-by-one errors**: Check loop boundaries carefully
-          2. **Edge cases**: Empty input, single element, all same elements
-          3. **Constraint violations**: Integer overflow, negative numbers
-          4. **Cleanup**: Remember to clean up data structures when elements leave scope
+          2. **Edge cases**: Empty input, single element, null/undefined values
+          3. **Memory leaks**: Clean up event listeners, timers, references
+          4. **Async issues**: Handle promises properly, avoid race conditions
 
           ---
 
@@ -156,7 +178,7 @@ jobs:
           script: |
             const fs = require('fs');
 
-            let learningCard = '## 📚 DSA Learning Card\n\n';
+            let learningCard = '## 📚 Coding Challenge Learning Card\n\n';
             learningCard += '**Problem analysis pending...**\n\n';
 
             try {
@@ -174,7 +196,7 @@ jobs:
 
             const botComment = comments.find(comment =>
               comment.user.login === 'github-actions[bot]' &&
-              comment.body.includes('📚 DSA Learning Card')
+              comment.body.includes('📚 Coding Challenge Learning Card')
             );
 
             if (botComment) {
@@ -185,7 +207,7 @@ jobs:
                 comment_id: botComment.id,
                 body: learningCard
               });
-              console.log('Updated existing DSA Learning Card comment');
+              console.log('Updated existing Coding Challenge Learning Card comment');
             } else {
               // Create new comment
               await github.rest.issues.createComment({
@@ -194,5 +216,5 @@ jobs:
                 issue_number: context.issue.number,
                 body: learningCard
               });
-              console.log('Created new DSA Learning Card comment');
+              console.log('Created new Coding Challenge Learning Card comment');
             }
