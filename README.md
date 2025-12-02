@@ -4,9 +4,9 @@ This repository contains solutions to various LeetCode problems, organized by di
 
 ## 📊 Statistics
 
-- **Total Problems**: 156 solved
+- **Total Problems**: 157 solved
 - **Easy**: 80 problems
-- **Medium**: 64 problems
+- **Medium**: 65 problems
 - **Hard**: 12 problems
 
 ## 📈 Progress Tracking
@@ -145,6 +145,7 @@ Conduct AI-assisted technical interviews using this repository. See the [Intervi
 - [0019 - Remove Nth Node From End of List](./leetcode/medium/0019-remove-nth-node-from-end-of-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0061 - Rotate List](./leetcode/medium/0061-rotate-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0086 - Partition List](./leetcode/medium/0086-partition-list) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0148 - Sort List](./leetcode/medium/0148-sort-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Tree Problems
 

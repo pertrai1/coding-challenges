@@ -1,16 +1,13 @@
-/**
- * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
- */
+export class ListNode {
+  val: number;
+  next: ListNode | null;
+  constructor(val?: number, next?: ListNode | null) {
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+  }
+}
 
-function sortList(head: ListNode | null): ListNode | null {
+export function sortList(head: ListNode | null): ListNode | null {
   // 1. Implement the base cases.
   if (!head || !head.next) {
     return head;
@@ -55,4 +52,4 @@ function merge(l1: ListNode | null, l2: ListNode | null): ListNode | null {
   current.next = l1 !== null ? l1 : l2;
 
   return dummy.next;
-};
+}
