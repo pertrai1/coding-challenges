@@ -29,43 +29,43 @@ jobs:
           track_progress: true
 
           prompt: |
-            Review this PR as a DSA learning exercise. This repository is for practicing algorithmic problem-solving.
+            Review this PR as a coding challenge learning exercise. This repository contains solutions from multiple platforms (LeetCode, GreatFrontEnd, etc.).
 
             CONTEXT:
             - REPO: ${{ github.repository }}
             - PR NUMBER: ${{ github.event.pull_request.number }}
-            - Review according to guidelines in CLAUDE.md
+            - Review according to guidelines in CLAUDE.md (includes platform-specific guidelines)
 
             REVIEW CHECKLIST:
-            1. ALGORITHM CORRECTNESS
+            1. CORRECTNESS
                - Verify solution handles all edge cases
                - Test mental trace with the given examples
                - Identify any logical errors
 
-            2. COMPLEXITY ANALYSIS
+            2. COMPLEXITY ANALYSIS (for algorithmic problems)
                - State the actual time complexity with explanation
                - State the actual space complexity with explanation
                - Compare to optimal solution if known
                - Flag any inaccuracies in code comments
 
-            3. DSA LEARNING FOCUS
-               - Name the algorithmic pattern(s) used (e.g., sliding window, two pointers, DP)
-               - Explain WHY this pattern is suitable for this problem
-               - Suggest 2-3 related LeetCode problems for practice
-               - Mention common variations of this pattern
+            3. LEARNING FOCUS
+               - For algorithmic problems: Name the pattern(s) used (e.g., sliding window, two pointers, DP)
+               - For frontend problems: Identify key concepts (e.g., closure, event delegation, async patterns)
+               - Explain WHY this approach is suitable for this problem
+               - Suggest 2-3 related problems for practice
                - Provide a "Key Insight" - the non-obvious trick that makes this solution work
 
             4. CODE QUALITY
                - Variable naming clarity
                - Comment quality and accuracy
-               - Best practices adherence
+               - Platform-specific best practices (see CLAUDE.md)
 
             5. ALTERNATIVE APPROACHES
-               - Mention 1-2 alternative algorithms that could solve this
-               - Explain trade-offs (time vs space, simplicity vs efficiency)
+               - Mention 1-2 alternative approaches
+               - Explain trade-offs (time vs space, simplicity vs efficiency, browser compatibility, etc.)
 
             Provide detailed inline comments for specific issues.
-            End with a "Learning Summary" section highlighting key DSA concepts from this problem.
+            End with a "Learning Summary" section highlighting key concepts from this problem.
 
           claude_args: |
             --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"

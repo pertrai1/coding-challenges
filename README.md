@@ -1,28 +1,86 @@
 # Coding Challenges
 
-This repository contains solutions to various LeetCode problems, organized by difficulty and topic.
+A comprehensive collection of coding challenges from multiple platforms for learning data structures, algorithms, and frontend engineering.
 
-## 📊 Statistics
+## 📊 Overview
 
-- **Total Problems**: 157 solved
-- **Easy**: 80 problems
-- **Medium**: 65 problems
-- **Hard**: 12 problems
+|Platform|Focus Area|Problems Solved|
+|---|---|---|
+|[LeetCode](#-leetcode)|Data Structures & Algorithms|157|
+|[GreatFrontEnd](#-greatfrontend)|Frontend Engineering|0|
 
-## 📈 Progress Tracking
+## 🎯 Platforms
 
-Problems are organized by:
+### 🟢 LeetCode
 
-- **Difficulty Level**: [Easy](#-easy-problems), [Medium](#-medium-problems), [Hard](#-hard-problems)
-- **Topic**: Arrays, Strings, Trees, [Math](./docs/topics/math.md), etc.
-- **Data Structures**: Hash Tables, Stacks, Queues, etc.
-- **Algorithms**: [Hash Lookup](./docs/techniques/HASH_LOOKUP.md), [Two Pointers](./docs/techniques/TWO_POINTERS.md), [Sliding Window](./docs/techniques/SLIDING_WINDOW.md), DFS, BFS, etc.
+**Focus**: Data structures, algorithms, and problem-solving patterns
 
-## Interview workflow
+**Progress**:
 
-Conduct AI-assisted technical interviews using this repository. See the [Interview Workflow documentation](./docs/interviews/INTERVIEW_WORKFLOW.md) for full details. CLI prompt files are in `.claude/commands/` and generated rubrics are saved in `interviews/`.
+- Easy: 80 problems
+- Medium: 65 problems
+- Hard: 12 problems
 
-## 🟢 Easy Problems
+**Quick Links**:
+
+- [Browse LeetCode Solutions →](./leetcode/)
+- [LeetCode Platform Guide →](./docs/platforms/leetcode.md)
+- [Problems by Difficulty](#-problems-by-difficulty)
+- [Problems by Pattern](#-problems-by-pattern)
+
+**Resources**:
+
+- [Hash Lookup Technique](./docs/techniques/HASH_LOOKUP.md)
+- [Two Pointers Technique](./docs/techniques/TWO_POINTERS.md)
+- [Sliding Window Technique](./docs/techniques/SLIDING_WINDOW.md)
+- [Math Problems Guide](./docs/topics/math.md)
+
+---
+
+### 🎨 GreatFrontEnd
+
+**Focus**: Frontend engineering, JavaScript fundamentals, and system design
+
+**Progress**:
+
+- Blind 75: 0/75 problems
+
+**Quick Links**:
+
+- [Browse GreatFrontEnd Solutions →](./greatfrontend/)
+- [GreatFrontEnd Platform Guide →](./docs/platforms/greatfrontend.md)
+- [Blind 75 Progress →](./greatfrontend/blind-75/)
+
+**Coming Soon**:
+
+- JavaScript Challenges
+- React Challenges
+- Frontend System Design
+
+---
+
+## 📚 Learning Resources
+
+### Algorithmic Patterns
+
+- [Hash Lookup](./docs/techniques/HASH_LOOKUP.md) - O(1) lookups with hash tables
+- [Two Pointers](./docs/techniques/TWO_POINTERS.md) - Efficient array traversal
+- [Sliding Window](./docs/techniques/SLIDING_WINDOW.md) - Subarray/substring problems
+
+### Topic Guides
+
+- [Math Problems](./docs/topics/math.md) - Number theory and mathematical algorithms
+- More topic guides coming soon...
+
+### Interview Preparation
+
+- [Interview Workflow](./docs/interviews/INTERVIEW_WORKFLOW.md) - Conduct AI-assisted technical interviews
+- [Code Review Guidelines](./CLAUDE.md) - Standards for this repository
+
+## 🔍 Problems by Difficulty
+
+<details>
+<summary>🟢 Easy Problems (80 solved)</summary>
 
 ### Array & String
 
@@ -112,14 +170,17 @@ Conduct AI-assisted technical interviews using this repository. See the [Intervi
 - [1082 - Sum of Digits in the Minimum Number](./leetcode/easy/1082-sum-of-digits-in-the-minimum-number) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2442 - Number of Arithmetic Triplets](./leetcode/easy/2442-number-of-arithmetic-triplets) ![Easy](https://img.shields.io/badge/Easy-green)
 
-### Easy JavaScript/TypeScript
+### JavaScript/TypeScript
 
 - [2732 - Counter](./leetcode/easy/2732-counter) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2734 - Array Prototype Last](./leetcode/easy/2734-array-prototype-last) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2798 - Chunk Array](./leetcode/easy/2798-chunk-array) ![Easy](https://img.shields.io/badge/Easy-green)
 - [2859 - Add Two Promises](./leetcode/easy/2859-add-two-promises) ![Easy](https://img.shields.io/badge/Easy-green)
 
-## 🟡 Medium Problems
+</details>
+
+<details>
+<summary>🟡 Medium Problems (65 solved)</summary>
 
 ### Array & Two Pointers
 
@@ -147,7 +208,7 @@ Conduct AI-assisted technical interviews using this repository. See the [Intervi
 - [0086 - Partition List](./leetcode/medium/0086-partition-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0148 - Sort List](./leetcode/medium/0148-sort-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 
-### Tree Problems
+### Medium Tree Problems
 
 - [1008 - Construct Binary Search Tree from Preorder Traversal](./leetcode/medium/1050-construct-binary-search-tree-from-preorder-traversal) ![Medium](https://img.shields.io/badge/Medium-orange)
 
@@ -206,11 +267,14 @@ Conduct AI-assisted technical interviews using this repository. See the [Intervi
 - [2090 - Number of Ways to Arrive at Destination](./leetcode/medium/2090-number-of-ways-to-arrive-at-destination) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [3677 - Maximum Amount of Money Robot Can Earn](./leetcode/medium/3677-maximum-amount-of-money-robot-can-earn) ![Medium](https://img.shields.io/badge/Medium-orange)
 
-### JavaScript/TypeScript
+### Medium JavaScript/TypeScript
 
 - [2745 - Convert Object to JSON String](./leetcode/medium/2745-convert-object-to-json-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 
-## 🔴 Hard Problems
+</details>
+
+<details>
+<summary>🔴 Hard Problems (12 solved)</summary>
 
 ### Array & Dynamic Programming
 
@@ -230,11 +294,95 @@ Conduct AI-assisted technical interviews using this repository. See the [Intervi
 - [0877 - Shortest Path Visiting All Nodes](./leetcode/hard/0877-shortest-path-visiting-all-nodes) ![Hard](https://img.shields.io/badge/Hard-red)
 - [2439 - Longest Cycle in a Graph](./leetcode/hard/2439-longest-cycle-in-a-graph) ![Hard](https://img.shields.io/badge/Hard-red)
 
+</details>
+
+## 📈 Problems by Pattern
+
+### Two Pointers
+
+- [0016 - 3Sum Closest](./leetcode/medium/0016-3sum-closest) - Medium
+- [0018 - 4Sum](./leetcode/medium/0018-4sum) - Medium
+- [0080 - Remove Duplicates from Sorted Array II](./leetcode/medium/0080-remove-duplicates-from-sorted-array-ii) - Medium
+- [More in docs →](./docs/techniques/TWO_POINTERS.md)
+
+### Sliding Window
+
+- [0003 - Longest Substring Without Repeating Characters](./leetcode/medium/0003-longest-substring-without-repeating-characters) - Medium
+- [0159 - Longest Substring with At Most Two Distinct Characters](./leetcode/medium/0159-longest-substring-with-at-most-two-distinct-characters) - Medium
+- [0209 - Minimum Size Subarray Sum](./leetcode/medium/0209-minimum-size-subarray-sum) - Medium
+- [More in docs →](./docs/techniques/SLIDING_WINDOW.md)
+
+### Hash Table / Hash Map
+
+- [0001 - Two Sum](./leetcode/easy/0001-two-sum) - Easy
+- [0383 - Ransom Note](./leetcode/easy/0383-ransom-note) - Easy
+- [More in docs →](./docs/techniques/HASH_LOOKUP.md)
+
+### Dynamic Programming Pattern
+
+- [0053 - Maximum Subarray](./leetcode/medium/0053-maximum-subarray) - Medium
+- [0070 - Climbing Stairs](./leetcode/easy/0070-climbing-stairs) - Easy
+- [0198 - House Robber](./leetcode/medium/0198-house-robber) - Medium
+
+### Graphs (BFS/DFS)
+
+- [0133 - Clone Graph](./leetcode/medium/0133-clone-graph) - Medium
+- [0207 - Course Schedule](./leetcode/medium/0207-course-schedule) - Medium
+- [0210 - Course Schedule II](./leetcode/medium/0210-course-schedule-ii) - Medium
+
 ## 🚀 Getting Started
+
+### Structure
 
 Each problem directory contains:
 
 - `README.md` - Problem description and examples
-- Solution file(s) in various languages (JavaScript, Python, etc.)
+- Solution file(s) in JavaScript/TypeScript
+- Test files (where applicable)
+- Auto-generated analysis files in `docs/analysis/`
 
-To run a solution, navigate to the problem directory and execute the appropriate file.
+### Running Solutions
+
+```bash
+# Navigate to a problem directory
+cd leetcode/easy/0001-two-sum
+
+# Run the solution
+node two-sum.js
+```
+
+### Running Tests
+
+```bash
+# Install dependencies
+npm install
+
+# Run all tests
+npm test
+
+# Run specific test
+npm test -- two-sum.test.js
+```
+
+## 🤝 Contributing
+
+This is a personal learning repository, but suggestions and improvements are welcome! Please follow the guidelines in [CLAUDE.md](./CLAUDE.md) when contributing.
+
+## 📝 Code Review
+
+All solutions in this repository follow strict review guidelines. See [CLAUDE.md](./CLAUDE.md) for:
+
+- Algorithm correctness criteria
+- Complexity analysis standards
+- Code quality expectations
+- DSA learning focus areas
+
+## 🔄 Spaced Repetition System
+
+This repository includes an automated spaced repetition system for problem review:
+
+- Reviews scheduled at 1, 3, 7, 14, and 30 days after solving
+- Automatic GitHub issue creation for review reminders
+- Progress tracking in `docs/reviews/review-schedule.json`
+
+Learn more: [Interview Workflow Documentation](./docs/interviews/INTERVIEW_WORKFLOW.md)

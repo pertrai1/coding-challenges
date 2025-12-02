@@ -102,13 +102,22 @@ jobs:
               const today = new Date(new Date().toISOString().split('T')[0]);
               const daysSince = Math.floor((today - solvedDate) / (1000 * 60 * 60 * 24));
 
+              // Determine problem URL based on platform
+              let problemUrl = '#';
+              if (problem.platform === 'leetcode') {
+                problemUrl = `https://leetcode.com/problems/${problem.problemSlug}/`;
+              } else if (problem.platform === 'greatfrontend') {
+                problemUrl = `https://www.greatfrontend.com/questions/${problem.problemSlug}`;
+              }
+
               // Create issue body
               const issueBody = `## 🔄 ${reviewOrdinal} Review - Spaced Repetition
 
             It's time to review this problem to reinforce your understanding!
 
             ### 📊 Problem Details
-            - **Problem**: [#${problem.problemNumber} - ${problem.problemName}](https://leetcode.com/problems/${problem.problemSlug}/)
+            - **Platform**: ${problem.platform ? problem.platform.toUpperCase() : 'N/A'}
+            - **Problem**: [#${problem.problemNumber} - ${problem.problemName}](${problemUrl})
             - **Difficulty**: ${problem.difficulty.toUpperCase()}
             - **Originally Solved**: ${new Date(problem.solvedDate).toLocaleDateString()} (${daysSince} days ago)
             - **Original PR**: #${problem.prNumber}

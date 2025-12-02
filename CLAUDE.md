@@ -2,7 +2,11 @@
 
 ## Repository Purpose
 
-This repository contains LeetCode problem solutions for learning and practicing algorithmic problem-solving. Solutions are primarily written in JavaScript/TypeScript.
+This repository contains coding challenge solutions from multiple platforms for learning and practicing:
+- **LeetCode**: Data structures and algorithms
+- **GreatFrontEnd**: Frontend engineering and JavaScript fundamentals
+
+Solutions are primarily written in JavaScript/TypeScript.
 
 ## Code Review Focus
 
@@ -54,13 +58,52 @@ When reviewing array/string problems:
 Each problem directory should include a `README.md` containing:
 
 - Problem title and difficulty badge
-- Link to the LeetCode problem
+- Link to the problem on the respective platform (LeetCode, GreatFrontEnd, etc.)
 - Problem description
 - Examples and constraints
 
+## Platform-Specific Guidelines
+
+### LeetCode Solutions
+
+LeetCode solutions focus on algorithmic problem-solving and data structures. Follow the DSA Learning Focus guidelines below.
+
+### GreatFrontEnd Solutions
+
+When reviewing GreatFrontEnd solutions, focus on frontend-specific considerations:
+
+#### Browser & JavaScript APIs
+- Verify correct usage of browser APIs (DOM, Fetch, Storage, etc.)
+- Check for browser compatibility considerations
+- Validate event handling patterns (delegation, cleanup)
+- Ensure proper async/await and Promise usage
+
+#### Frontend Performance
+- Check for unnecessary re-renders or DOM manipulations
+- Verify efficient data structure usage for UI updates
+- Look for debouncing/throttling where appropriate
+- Consider memory leaks (event listeners, timers, closures)
+
+#### API Design
+- Evaluate the public API for clarity and usability
+- Check for consistent naming conventions
+- Verify parameter validation and error handling
+- Consider edge cases specific to browser environments
+
+#### Code Organization
+- Prefer functional patterns where appropriate
+- Keep functions small and focused
+- Use modern ES6+ features (optional chaining, nullish coalescing, etc.)
+- Consider separation of concerns (logic vs. presentation)
+
+#### Testing Considerations
+- Solutions should handle edge cases (empty inputs, invalid types, etc.)
+- Consider async operation handling
+- Verify cleanup logic (removing event listeners, clearing timeouts)
+
 ## DSA Learning Focus
 
-When reviewing LeetCode solutions, provide educational feedback that helps with pattern recognition and interview preparation:
+When reviewing algorithmic solutions, provide educational feedback that helps with pattern recognition and interview preparation:
 
 ### Pattern Identification
 
@@ -77,9 +120,10 @@ When reviewing LeetCode solutions, provide educational feedback that helps with 
 
 ### Related Problems
 
-- Suggest 2-3 similar LeetCode problems that use the same pattern
+- Suggest 2-3 similar problems (from any platform) that use the same pattern
 - This helps build pattern recognition skills
 - Group problems by pattern family (e.g., "variable sliding window" problems)
+- When applicable, mention if the same problem exists on different platforms
 
 ### Complexity Deep-Dive
 

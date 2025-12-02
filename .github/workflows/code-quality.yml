@@ -111,12 +111,16 @@ jobs:
 
                 # Extract problem name from file path for proper naming
                 # Examples: leetcode/easy/0205-isomorphic-strings/isomorphic-strings.js -> isomorphic-strings
-                # Examples: leetcode/medium/0003-longest-substring/longest-substring.ts -> longest-substring
+                # Examples: greatfrontend/blind-75/two-sum/solution.js -> two-sum
                 echo "Checking file pattern for: $file"
-                if [[ "$file" =~ leetcode/[^/]+/[0-9]+-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
-                  problem_name="${BASH_REMATCH[1]}"
+                if [[ "$file" =~ (leetcode|greatfrontend)/[^/]+/[0-9]+-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+                  problem_name="${BASH_REMATCH[2]}"
                   analysis_file="docs/analysis/${problem_name}-analysis.md"
-                  echo "✅ Matched LeetCode pattern. Problem: $problem_name"
+                  echo "✅ Matched numbered problem pattern. Problem: $problem_name"
+                elif [[ "$file" =~ (leetcode|greatfrontend)/[^/]+/([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+                  problem_name="${BASH_REMATCH[2]}"
+                  analysis_file="docs/analysis/${problem_name}-analysis.md"
+                  echo "✅ Matched platform pattern. Problem: $problem_name"
 
                   echo "Creating analysis file: $analysis_file"
 
@@ -146,8 +150,8 @@ jobs:
                     analysis_files_created="$analysis_files_created $analysis_file"
                   fi
                 else
-                  echo "⚠️ File does not match LeetCode pattern: $file"
-                  # For non-LeetCode files, use the original logic
+                  echo "⚠️ File does not match expected pattern: $file"
+                  # For non-standard files, use the original logic
                   base_name=$(basename "$file")
                   output_name="${base_name%.*}"
 
@@ -186,7 +190,7 @@ jobs:
             # Commit with descriptive message
             git commit -m "📊 Add automated complexity analysis for PR changes
 
-            - Generated analysis files for changed LeetCode solutions
+            - Generated analysis files for changed solutions
             - Files: ${{ steps.changed-files.outputs.files }}
             - Timestamp: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
@@ -200,11 +204,11 @@ jobs:
             echo "ℹ️ No analysis files to commit"
           fi
 
-      - name: Generate LeetCode solution summary
+      - name: Generate solution summary
         if: steps.changed-files.outputs.files != ''
         run: |
-          cat > leetcode-analysis.md << 'EOF'
-          # 🧮 LeetCode Solution Analysis
+          cat > solution-analysis.md << 'EOF'
+          # 🧮 Solution Analysis
 
           **PR:** ${{ github.event.pull_request.title }}
           **Files Changed:** ${{ steps.changed-files.outputs.files }}
@@ -235,32 +239,32 @@ jobs:
                 });
               }
             }
-            " >> leetcode-analysis.md
+            " >> solution-analysis.md
           fi
 
-          echo "" >> leetcode-analysis.md
-          echo "### 🔍 Algorithm Complexity Analysis" >> leetcode-analysis.md
-          echo "" >> leetcode-analysis.md
+          echo "" >> solution-analysis.md
+          echo "### 🔍 Complexity Analysis" >> solution-analysis.md
+          echo "" >> solution-analysis.md
 
           # Add complexity analysis for each changed file
           for file in analysis-results/*.md; do
             if [ -f "$file" ]; then
-              echo "#### $(basename "$file" .md)" >> leetcode-analysis.md
-              echo "" >> leetcode-analysis.md
-              cat "$file" >> leetcode-analysis.md
-              echo "" >> leetcode-analysis.md
+              echo "#### $(basename "$file" .md)" >> solution-analysis.md
+              echo "" >> solution-analysis.md
+              cat "$file" >> solution-analysis.md
+              echo "" >> solution-analysis.md
             fi
           done
 
           # Add tips section
-          cat >> leetcode-analysis.md << 'EOF'
+          cat >> solution-analysis.md << 'EOF'
 
-          ## 💡 Algorithm Analysis Tips
+          ## 💡 Analysis Tips
 
           - **Time Complexity**: Focus on the dominant operation in loops
           - **Space Complexity**: Consider auxiliary data structures
-          - **Optimization**: Look for opportunities to reduce nested loops
-          - **Edge Cases**: Ensure your solution handles empty inputs, single elements, etc.
+          - **Optimization**: Look for opportunities to improve efficiency
+          - **Edge Cases**: Ensure your solution handles empty inputs, null/undefined, edge conditions
 
           ## 📁 Analysis Files Created
 
@@ -271,7 +275,7 @@ jobs:
           1. Review any ESLint errors/warnings above
           2. Consider the complexity analysis - is this the optimal approach?
           3. Test with edge cases mentioned in the problem description
-          4. Add comments explaining the algorithm approach if complex
+          4. Add comments explaining complex logic
           5. Check the `docs/analysis/` directory for detailed complexity analysis files
 
           ---
@@ -288,10 +292,10 @@ jobs:
             // Read the analysis report
             let analysisContent = 'Analysis report not available';
             try {
-              analysisContent = fs.readFileSync('leetcode-analysis.md', 'utf8');
+              analysisContent = fs.readFileSync('solution-analysis.md', 'utf8');
             } catch (e) {
               console.log('Could not read analysis report:', e.message);
-              analysisContent = `## 🧮 LeetCode Solution Analysis
+              analysisContent = `## 🧮 Solution Analysis
 
               ❌ Analysis could not be completed. Please check the workflow logs.
 
@@ -307,7 +311,7 @@ jobs:
 
             const botComment = comments.find(comment =>
               comment.user.login === 'github-actions[bot]' &&
-              comment.body.includes('🧮 LeetCode Solution Analysis')
+              comment.body.includes('🧮 Solution Analysis')
             );
 
             if (botComment) {
@@ -334,9 +338,9 @@ jobs:
         if: steps.changed-files.outputs.files != ''
         uses: actions/upload-artifact@v4
         with:
-          name: leetcode-analysis-detailed
+          name: solution-analysis-detailed
           path: |
-            leetcode-analysis.md
+            solution-analysis.md
             analysis-results/
             eslint-report.json
           retention-days: 30
