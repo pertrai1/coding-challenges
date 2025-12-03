@@ -5,6 +5,7 @@ export default function isBalancedBrackets(str: string): boolean {
     '}': '{'
   };
   const stack: string[] = [];
+  const openBrackets = new Set(['(', '[', '{']);
 
   for (const val of str) {
     if (bracketMap[val] && stack.length > 0) {
@@ -12,7 +13,7 @@ export default function isBalancedBrackets(str: string): boolean {
       if (bracketMap[val] !== bracket) {
         return false;
       }
-    } else {
+    } else if (openBrackets.has(val)) {
       stack.push(val);
     }
   }

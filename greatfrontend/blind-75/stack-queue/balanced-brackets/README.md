@@ -30,7 +30,7 @@ Explanation: The string contains correctly paired and ordered parentheses.
 
 ## Constraints
 
-- 1 <= `strs.length` <= 1000
+- 1 <= `str.length` <= 1000
 - The string `str` contains only the characters `(`, `)`, `{`, `}`, `[` and `]`
 
 ## URL
