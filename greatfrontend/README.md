@@ -10,7 +10,7 @@ Solutions to GreatFrontEnd coding challenges, focusing on frontend engineering, 
 
 ## 📊 Progress
 
-- **Blind 75**: 0/75 completed
+- **Blind 75**: 1/75 completed
 
 ## 🔗 Resources
 

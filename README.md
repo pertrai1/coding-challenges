@@ -4,10 +4,10 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 ## 📊 Overview
 
-|Platform|Focus Area|Problems Solved|
-|---|---|---|
-|[LeetCode](#-leetcode)|Data Structures & Algorithms|157|
-|[GreatFrontEnd](#-greatfrontend)|Frontend Engineering|0|
+| Platform                         | Focus Area                   | Problems Solved |
+| -------------------------------- | ---------------------------- | --------------- |
+| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 157             |
+| [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 0               |
 
 ## 🎯 Platforms
 
@@ -43,7 +43,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 **Progress**:
 
-- Blind 75: 0/75 problems
+- Blind 75: 1/75 problems
 
 **Quick Links**:
 

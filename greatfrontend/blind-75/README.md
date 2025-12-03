@@ -4,19 +4,54 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 ## 📊 Progress Tracker
 
-### Status: 0 / 75 problems completed
+### Status: 1 / 75 problems completed
 
 ### Progress by Category
 
-| Category           | Completed | Total | Percentage |
-| ------------------ | --------- | ----- | ---------- |
-| Arrays | 0 | 15 | 0% |
-| Strings | 0 | 10 | 0% |
-| Linked Lists | 0 | 8 | 0% |
-| Trees | 0 | 12 | 0% |
-| Dynamic Programming | 0 | 15 | 0% |
-| Graphs | 0 | 10 | 0% |
-| Other | 0 | 5 | 0% |
+| Category            | Completed | Total | Percentage |
+| ------------------- | --------- | ----- | ---------- |
+| Arrays              | 0         | 15    | 0%         |
+| Strings             | 0         | 10    | 0%         |
+| Stack & Queue       | 1         | 8     | 12.5%      |
+| Linked Lists        | 0         | 8     | 0%         |
+| Trees               | 0         | 12    | 0%         |
+| Dynamic Programming | 0         | 15    | 0%         |
+| Graphs              | 0         | 10    | 0%         |
+| Other               | 0         | 5     | 0%         |
+
+## ✅ Completed Problems
+
+### Stack & Queue (1/8)
+
+- [Valid Parentheses / Balanced Brackets](./stack-queue/balanced-brackets/) - Easy
+
+### Arrays (0/15)
+
+No problems completed yet
+
+### Strings (0/10)
+
+No problems completed yet
+
+### Linked Lists (0/8)
+
+No problems completed yet
+
+### Trees (0/12)
+
+No problems completed yet
+
+### Dynamic Programming (0/15)
+
+No problems completed yet
+
+### Graphs (0/10)
+
+No problems completed yet
+
+### Other (0/5)
+
+No problems completed yet
 
 ## 🎯 Learning Approach
 
@@ -35,6 +70,7 @@ Problems will be organized by category:
 blind-75/
 ├── arrays/
 ├── strings/
+├── stack-queue/
 ├── linked-lists/
 ├── trees/
 ├── dynamic-programming/
