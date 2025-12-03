@@ -58,9 +58,9 @@ describe('isBalancedBrackets', () => {
     });
 
     it('should return true for single closing bracket (closing brackets without opening are ignored when stack is empty)', () => {
-      expect(isBalancedBrackets(')')).toBe(true);
-      expect(isBalancedBrackets(']')).toBe(true);
-      expect(isBalancedBrackets('}')).toBe(true);
+      expect(isBalancedBrackets(')')).toBe(false);
+      expect(isBalancedBrackets(']')).toBe(false);
+      expect(isBalancedBrackets('}')).toBe(false);
     });
 
     it('should return false for mismatched bracket types', () => {
@@ -79,8 +79,8 @@ describe('isBalancedBrackets', () => {
     });
 
     it('should return true for missing opening bracket (extra closing brackets are ignored when stack is empty)', () => {
-      expect(isBalancedBrackets('())')).toBe(true);
-      expect(isBalancedBrackets('[]]]')).toBe(true);
+      expect(isBalancedBrackets('())')).toBe(false);
+      expect(isBalancedBrackets('[]]]')).toBe(false);
       expect(isBalancedBrackets('}{')).toBe(false); // closing ignored, but opening { remains on stack
     });
 
@@ -97,9 +97,9 @@ describe('isBalancedBrackets', () => {
     });
 
     it('should return true for multiple missing opening brackets (closing brackets without opening are ignored)', () => {
-      expect(isBalancedBrackets(')))')).toBe(true);
-      expect(isBalancedBrackets('())))')).toBe(true);
-      expect(isBalancedBrackets(']})')).toBe(true);
+      expect(isBalancedBrackets(')))')).toBe(false);
+      expect(isBalancedBrackets('())))')).toBe(false);
+      expect(isBalancedBrackets(']})')).toBe(false);
     });
   });
 
@@ -125,7 +125,7 @@ describe('isBalancedBrackets', () => {
 
     it('should return false for unbalanced brackets with characters', () => {
       expect(isBalancedBrackets('(abc')).toBe(false);
-      expect(isBalancedBrackets('hello]')).toBe(true); // closing bracket ignored when stack is empty
+      expect(isBalancedBrackets('hello]')).toBe(false);
       expect(isBalancedBrackets('([)]')).toBe(false);
     });
 
@@ -148,7 +148,7 @@ describe('isBalancedBrackets', () => {
     });
 
     it('should return true for closing bracket before any opening (leading closing brackets are ignored)', () => {
-      expect(isBalancedBrackets(')()')).toBe(true);
+      expect(isBalancedBrackets(')()')).toBe(false);
       expect(isBalancedBrackets('][][')).toBe(false); // ] ignored, but [[  leaves one unclosed
       expect(isBalancedBrackets('}{}{')).toBe(false); // } ignored, but {}{ has trailing {
     });
