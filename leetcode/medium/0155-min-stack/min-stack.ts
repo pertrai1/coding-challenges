@@ -1,15 +1,13 @@
 class MinStack {
   stack = [];
 
-  constructor() {
-        
-  }
+  constructor() {}
 
   push(val: number): void {
     this.stack.push({
       val,
       min: this.stack.length === 0 ? val : Math.min(val, this.getMin())
-    })
+    });
   }
 
   pop(): void {
