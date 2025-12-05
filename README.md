@@ -7,7 +7,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 | Platform                         | Focus Area                   | Problems Solved |
 | -------------------------------- | ---------------------------- | --------------- |
 | [LeetCode](#-leetcode)           | Data Structures & Algorithms | 158             |
-| [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 1               |
+| [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 3               |
 
 ## 🎯 Platforms
 
@@ -43,7 +43,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 **Progress**:
 
-- GFE 75: 1/75 problems
+- GFE 75: 2/75 problems
 - Blind 75: 1/75 problems
 
 **Quick Links**:
