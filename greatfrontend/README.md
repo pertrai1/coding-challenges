@@ -4,18 +4,22 @@ Solutions to GreatFrontEnd coding challenges, focusing on frontend engineering, 
 
 ## 📂 Structure
 
-- **[blind-75/](./blind-75/)** - GreatFrontEnd's curated Blind 75 collection
+- **[Blind 75/](./blind-75/)** - GreatFrontEnd's curated Blind 75 collection
+- **[GFE 75/](./gfe-75/)** - GreatFrontEnd's curated GFE 75 collection
 - **javascript/** - JavaScript-specific challenges (coming soon)
-- **react/** - React framework challenges (coming soon)
 
 ## 📊 Progress
 
-- **Blind 75**: 1/75 completed
+- **Blind 75**: 1/75 completed (1.3%)
+- **GFE 75**: 1/75 completed (1.3%)
+
+Both collections are organized by category for easier pattern recognition and learning.
 
 ## 🔗 Resources
 
 - [GreatFrontEnd Platform](https://www.greatfrontend.com/)
-- [GreatFrontEnd Blind 75](https://www.greatfrontend.com/questions)
+- [GreatFrontEnd Blind 75](https://www.greatfrontend.com/interviews/blind75)
+- [GreatFrontEnd GFE 75](https://www.greatfrontend.com/interviews/gfe75)
 
 ## 🎯 Focus Areas
 

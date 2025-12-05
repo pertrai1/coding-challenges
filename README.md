@@ -43,18 +43,18 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 **Progress**:
 
+- GFE 75: 1/75 problems
 - Blind 75: 1/75 problems
 
 **Quick Links**:
 
 - [Browse GreatFrontEnd Solutions →](./greatfrontend/)
 - [GreatFrontEnd Platform Guide →](./docs/platforms/greatfrontend.md)
+- [GFE 75 Progress →](./greatfrontend/gfe-75/)
 - [Blind 75 Progress →](./greatfrontend/blind-75/)
 
 **Coming Soon**:
 
-- JavaScript Challenges
-- React Challenges
 - Frontend System Design
 
 ---
