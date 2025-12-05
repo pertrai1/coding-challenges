@@ -7,6 +7,7 @@ Essential JavaScript utility functions that are commonly asked in frontend inter
 ### Completed ✅
 
 - [Debounce](./debounce/) - Medium
+- [Flatten](./flatten/) - Medium
 
 ### To Do 📝
 
@@ -16,7 +17,6 @@ Essential JavaScript utility functions that are commonly asked in frontend inter
 - **Partial** - Medium - Pre-fill function arguments
 - **Deep Clone** - Medium - Clone nested objects/arrays
 - **Deep Equal** - Medium - Compare nested objects
-- **Flatten** - Easy - Flatten nested arrays
 - **Get** - Easy - Access nested object properties safely
 - **Set** - Medium - Set nested object properties
 - **Pick** - Easy - Select object properties

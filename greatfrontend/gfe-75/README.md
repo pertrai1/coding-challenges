@@ -10,7 +10,7 @@ The GFE 75 is GreatFrontEnd's curated collection of 75 essential frontend coding
 
 | Category             | Completed | Total | Percentage |
 | -------------------- | --------- | ----- | ---------- |
-| JavaScript Utilities | 1         | 20    | 5%         |
+| JavaScript Utilities | 2         | 20    | 10%        |
 | DOM Manipulation     | 0         | 15    | 0%         |
 | Async Programming    | 0         | 12    | 0%         |
 | Components           | 0         | 10    | 0%         |
@@ -19,9 +19,10 @@ The GFE 75 is GreatFrontEnd's curated collection of 75 essential frontend coding
 
 ## ✅ Completed Problems
 
-### JavaScript Utilities (1/20)
+### JavaScript Utilities (2/20)
 
 - [Debounce](./javascript-utilities/debounce/) - Medium
+- [Flatten](./javascript-utilities/flatten/) - Medium
 
 ### DOM Manipulation (0/15)
 
