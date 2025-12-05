@@ -5,9 +5,9 @@ Complexity
 Time: O(n) where n the number of items copied from value
 Space: O(n) where n is the length of the copy array
 */
-export default function flatten(value: Array<ArrayValue>): Array<any> {
+export function flatten(value: Array<ArrayValue>): Array<any> {
   const copy = value.slice();
-  const result = [];
+  const result: any[] = [];
 
   while (copy.length > 0) {
     const val = copy.shift();
@@ -26,7 +26,7 @@ export default function flatten(value: Array<ArrayValue>): Array<any> {
 // Trade-off: More efficient but harder to reason about because of the need to reverse
 export function flattenReverse(value: Array<ArrayValue>): Array<any> {
   const stack = [...value].reverse();
-  const result = [];
+  const result: any[] = [];
 
   while (stack.length > 0) {
     const val = stack.pop();
