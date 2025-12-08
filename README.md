@@ -44,7 +44,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 **Progress**:
 
 - GFE 75: 2/75 problems
-- Blind 75: 1/75 problems
+- Blind 75: 2/75 problems
 
 **Quick Links**:
 
