@@ -1,5 +1,61 @@
 {
-  "problems": [],
-  "reviewIntervals": [1, 3, 7, 14, 30],
-  "lastUpdated": null
+  "problems": [
+    {
+      "platform": "leetcode",
+      "problemNumber": "2759",
+      "problemName": "Flatten Deeply Nested Array",
+      "problemSlug": "flatten-deeply-nested-array",
+      "difficulty": "medium",
+      "prNumber": "53",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/53",
+      "filePath": "leetcode/medium/2759-flatten-deeply-nested-array/flatten-deeply-nested-array.ts",
+      "solvedDate": "2025-12-08T14:59:12Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2025-12-09",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 2,
+          "scheduledDate": "2025-12-11",
+          "interval": 3,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 3,
+          "scheduledDate": "2025-12-15",
+          "interval": 7,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 4,
+          "scheduledDate": "2025-12-22",
+          "interval": 14,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 5,
+          "scheduledDate": "2026-01-07",
+          "interval": 30,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
+    }
+  ],
+  "reviewIntervals": [
+    1,
+    3,
+    7,
+    14,
+    30
+  ],
+  "lastUpdated": "2025-12-08T14:59:24.749Z"
 }
