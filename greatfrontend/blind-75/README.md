@@ -25,7 +25,7 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 - [Valid Parentheses / Balanced Brackets](./stack-queue/balanced-brackets/) - Easy
 
-### Arrays (0/15)
+### Arrays (1/15)
 
 - [Find Element in Rotated Array](./array/array-rotated-find/) - Medium
 

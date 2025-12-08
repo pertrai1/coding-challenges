@@ -32,5 +32,5 @@ Explanation: The original array [4] was rotated 0 times and became [4]. 2 is not
 ### Constraints
 
 - 1 <= `numbers.length` <= 1000
-- 10,000 <= `numbers[i]` <= 10,000
-- 10,000 <= `target` <= 10,000
+- -10,000 <= `numbers[i]` <= 10,000
+- -10,000 <= `target` <= 10,000

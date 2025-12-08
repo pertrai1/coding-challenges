@@ -2,11 +2,11 @@ import { describe, it, expect } from 'vitest';
 import findInRotatedArray from './array-rotated-find';
 
 describe('findInRotatedArray', () => {
-  it('should find in a ascending array', () => {
+  it('should find in an ascending array', () => {
     expect(findInRotatedArray([0, 1, 2, 3, 4], 2)).toStrictEqual(2);
   });
 
-  it('should find in a random array', () => {
+  it('should find target after rotation point', () => {
     expect(findInRotatedArray([2, 3, 4, 0, 1], 0)).toStrictEqual(3);
   });
 

@@ -1,6 +1,6 @@
 /*
-@time: O(n) where n is the number in the numbers array
-@space: O(1) because each identifier stores a constant value
+@time: O(log n) where n is the length of the numbers array (binary search)
+@space: O(1) because we only use a constant number of variables
 */
 export default function findInRotatedArray(
   numbers: number[],
@@ -17,14 +17,15 @@ export default function findInRotatedArray(
       return mid;
     }
 
+    // Check if left half is sorted
     if (numbers[low] <= numbers[mid]) {
-      if (numbers[low] <= target && target <= numbers[mid]) {
+      if (numbers[low] <= target && target < numbers[mid]) {
         high = mid - 1;
       } else {
         low = mid + 1;
       }
     } else {
-      if (target <= numbers[high] && target >= numbers[mid]) {
+      if (target <= numbers[high] && target > numbers[mid]) {
         low = mid + 1;
       } else {
         high = mid - 1;
