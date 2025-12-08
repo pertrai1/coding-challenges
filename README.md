@@ -7,7 +7,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 | Platform                         | Focus Area                   | Problems Solved |
 | -------------------------------- | ---------------------------- | --------------- |
 | [LeetCode](#-leetcode)           | Data Structures & Algorithms | 159             |
-| [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 3               |
+| [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 4               |
 
 ## 🎯 Platforms
 
