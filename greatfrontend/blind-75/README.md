@@ -10,7 +10,7 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 | Category            | Completed | Total | Percentage |
 | ------------------- | --------- | ----- | ---------- |
-| Arrays              | 0         | 15    | 0%         |
+| Arrays              | 1         | 15    | 6.67%      |
 | Strings             | 0         | 10    | 0%         |
 | Stack & Queue       | 1         | 8     | 12.5%      |
 | Linked Lists        | 0         | 8     | 0%         |
@@ -25,9 +25,9 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 - [Valid Parentheses / Balanced Brackets](./stack-queue/balanced-brackets/) - Easy
 
-### Arrays (0/15)
+### Arrays (1/15)
 
-No problems completed yet
+- [Find Element in Rotated Array](./array/array-rotated-find/) - Medium
 
 ### Strings (0/10)
 
