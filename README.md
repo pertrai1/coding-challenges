@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                         | Focus Area                   | Problems Solved |
 | -------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 158             |
+| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 159             |
 | [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 3               |
 
 ## 🎯 Platforms
@@ -18,7 +18,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 **Progress**:
 
 - Easy: 80 problems
-- Medium: 66 problems
+- Medium: 67 problems
 - Hard: 12 problems
 
 **Quick Links**:
@@ -180,7 +180,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 </details>
 
 <details>
-<summary>🟡 Medium Problems (66 solved)</summary>
+<summary>🟡 Medium Problems (67 solved)</summary>
 
 ### Stack & Design
 
@@ -274,6 +274,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 ### Medium JavaScript/TypeScript
 
 - [2745 - Convert Object to JSON String](./leetcode/medium/2745-convert-object-to-json-string) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [2759 - Flatten Deeply Nested Array](./leetcode/medium/2759-flatten-deeply-nested-array) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 </details>
 
