@@ -155,8 +155,7 @@ jobs:
               patterns.push('BFS (Breadth-First Search)');
             }
             
-            if (/function.*dfs|const.*dfs|\.dfs\(|DFS|recursion/i.test(code) || 
-                (/function \w+\(/.test(code) && /\1\(/.test(code))) {
+            if (/function.*dfs|const.*dfs|\.dfs\(|DFS|recursion/i.test(code)) {
               patterns.push('DFS (Depth-First Search)');
             }
             
@@ -188,7 +187,7 @@ jobs:
               patterns.push('Union-Find');
             }
             
-            if (/<<|>>|&|\||\^|~|\bxor\b/i.test(code) && !/&&|\|\|/.test(code)) {
+            if (/<<|>>|&[^&]|\|[^|]|\^|~|\bxor\b/i.test(code)) {
               patterns.push('Bit Manipulation');
             }
             
@@ -670,7 +669,7 @@ jobs:
               '| Problem | Title | Relationship |\n' +
               '|---------|-------|--------------|\n' +
               relatedProblems.slice(0, 5).map(p => {
-                const link = p.id ? '[' + p.id + '](https://leetcode.com/problems/' + p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + ')' : 'LeetCode';
+                const link = p.id ? 'LC ' + p.id : 'LeetCode';
                 return '| ' + link + ' | ' + p.name + ' | ' + p.level + ' |';
               }).join('\n') + '\n\n' +
               '---\n\n' +
