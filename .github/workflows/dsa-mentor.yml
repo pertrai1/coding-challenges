@@ -122,6 +122,10 @@ jobs:
           const fs = require('fs');
           const https = require('https');
 
+          // Configuration constants
+          const MAX_RELATED_PROBLEMS = 5;
+          const OPENAI_TIMEOUT_MS = 10000;
+
           // Read solution content
           const solutionContent = fs.readFileSync('solution-content.txt', 'utf8');
           const platform = process.env.PLATFORM || 'Unknown';
@@ -155,7 +159,7 @@ jobs:
               patterns.push('BFS (Breadth-First Search)');
             }
             
-            if (/function.*dfs|const.*dfs|\.dfs\(|DFS|recursion/i.test(code)) {
+            if (/\bfunction\s+\w*dfs\b|\bconst\s+\w*dfs\b|\.dfs\(|DFS|recursion/i.test(code)) {
               patterns.push('DFS (Depth-First Search)');
             }
             
@@ -187,7 +191,7 @@ jobs:
               patterns.push('Union-Find');
             }
             
-            if (/<<|>>|&[^&]|\|[^|]|\^|~|\bxor\b/i.test(code)) {
+            if (/<<|>>|&(?![&=])|\|(?![\|=])|\^(?!=)|~|\bxor\b/i.test(code)) {
               patterns.push('Bit Manipulation');
             }
             
@@ -211,8 +215,8 @@ jobs:
             if (/new Map|Map\(/.test(code)) dataStructures.push('Map');
             if (/new Set|Set\(/.test(code)) dataStructures.push('Set');
             if (/new Array|\[\]/.test(code)) dataStructures.push('Array');
-            if (/\.push\(.*\.pop\(|stack/i.test(code)) dataStructures.push('Stack');
-            if (/\.push\(.*\.shift\(|queue/i.test(code)) dataStructures.push('Queue');
+            if (/\.push\(.*?\.pop\(|stack/i.test(code)) dataStructures.push('Stack');
+            if (/\.push\(.*?\.shift\(|queue/i.test(code)) dataStructures.push('Queue');
             if (/TreeNode|\.left|\.right|tree/i.test(code)) dataStructures.push('Binary Tree');
             if (/ListNode|\.next|linked.*list/i.test(code)) dataStructures.push('Linked List');
             if (/graph\[|adjacency|edges/i.test(code)) dataStructures.push('Graph');
@@ -606,7 +610,8 @@ jobs:
                   'Authorization': 'Bearer ' + apiKey,
                   'Content-Length': requestData.length
                 },
-                timeout: 10000
+                // HTTP timeout for the request (10 seconds)
+                timeout: OPENAI_TIMEOUT_MS
               };
 
               const req = https.request(options, (res) => {
@@ -668,7 +673,7 @@ jobs:
               'After solving this problem, try these related problems that use similar patterns:\n\n' +
               '| Problem | Title | Relationship |\n' +
               '|---------|-------|--------------|\n' +
-              relatedProblems.slice(0, 5).map(p => {
+              relatedProblems.slice(0, MAX_RELATED_PROBLEMS).map(p => {
                 const link = p.id ? 'LC ' + p.id : 'LeetCode';
                 return '| ' + link + ' | ' + p.name + ' | ' + p.level + ' |';
               }).join('\n') + '\n\n' +
