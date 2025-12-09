@@ -90,86 +90,528 @@ jobs:
 
           if [ -n "$SOLUTION_FILE" ] && [ -f "$SOLUTION_FILE" ]; then
             echo "file=$SOLUTION_FILE" >> $GITHUB_OUTPUT
-            # Extract complexity comments if present
-            TIME_COMPLEXITY=$(grep -i "time.*O(" "$SOLUTION_FILE" | head -1 || echo "Not specified")
-            SPACE_COMPLEXITY=$(grep -i "space.*O(" "$SOLUTION_FILE" | head -1 || echo "Not specified")
-            echo "time_complexity=$TIME_COMPLEXITY" >> $GITHUB_OUTPUT
-            echo "space_complexity=$SPACE_COMPLEXITY" >> $GITHUB_OUTPUT
+            # Copy solution to workspace for Node.js script to read
+            cp "$SOLUTION_FILE" solution-file.txt
+            echo "Solution file: $SOLUTION_FILE"
+          else
+            echo "No solution file found"
+            echo "file=" >> $GITHUB_OUTPUT
           fi
 
-      - name: Generate Learning Card
-        if: steps.problem.outputs.found == 'true'
-        id: learning_card
+      - name: Generate Learning Card with AI
+        if: steps.problem.outputs.found == 'true' && steps.solution.outputs.file != ''
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PLATFORM: ${{ steps.problem.outputs.platform }}
+          PROBLEM_NUM: ${{ steps.problem.outputs.problem_num }}
+          PROBLEM_NAME: ${{ steps.problem.outputs.problem_name }}
+          DIFFICULTY: ${{ steps.problem.outputs.difficulty }}
+          FILE_PATH: ${{ steps.problem.outputs.path }}
         run: |
-          cat > learning-card.md << 'EOF'
-          ## 📚 Coding Challenge Learning Card
+          node << 'NODESCRIPT'
+          const fs = require('fs');
+          const https = require('https');
 
-          | Property | Value |
-          |----------|-------|
-          | **Platform** | ${{ steps.problem.outputs.platform }} |
-          | **Problem** | ${{ steps.problem.outputs.problem_num }}${{ steps.problem.outputs.problem_num && ' - ' || '' }}${{ steps.problem.outputs.problem_name }} |
-          | **Difficulty** | ${{ steps.problem.outputs.difficulty }} |
-          | **File** | `${{ steps.problem.outputs.path }}` |
+          // Read solution file
+          let solutionCode = '';
+          try {
+            solutionCode = fs.readFileSync('solution-file.txt', 'utf8');
+          } catch (e) {
+            console.log('Could not read solution file:', e.message);
+          }
 
-          ---
+          // Pattern detection heuristics
+          function detectPatterns(code) {
+            const patterns = {
+              primary: [],
+              secondary: [],
+              dataStructures: []
+            };
 
-          ### 🎯 Learning Focus Checklist
+            const lowerCode = code.toLowerCase();
 
-          When reviewing this solution, identify:
+            // Primary patterns
+            if (/\bleft\b.*\bright\b|two.*pointer/i.test(code) ||
+                (/\bleft\s*[=<>]/.test(code) && /\bright\s*[=<>]/.test(code))) {
+              patterns.primary.push('Two Pointers');
+            }
+            if (/sliding.*window|window/i.test(code) ||
+                (lowerCode.includes('left') && lowerCode.includes('right') && /map|set/i.test(code))) {
+              patterns.primary.push('Sliding Window');
+            }
+            if (/\bdp\b|memo|tabulation|dynamic.*programming/i.test(code) ||
+                code.includes('dp[')) {
+              patterns.primary.push('Dynamic Programming');
+            }
+            if (/\bbfs\b|breadth.*first|queue.*level/i.test(code) ||
+                (code.includes('queue') && /while.*queue\.length|queue\.shift/i.test(code))) {
+              patterns.primary.push('BFS');
+            }
+            if (/\bdfs\b|depth.*first|recursive.*tree|recursive.*graph/i.test(code) ||
+                (/function.*\(.*node|function.*\(.*root/.test(code) && /return.*\(.*node|return.*\(.*root/.test(code))) {
+              patterns.primary.push('DFS');
+            }
+            if (/new Map\(|new Set\(|hash.*map|hash.*set/i.test(code)) {
+              patterns.primary.push('Hashing');
+            }
+            if (/greedy|local.*optimal|minimal.*maximal/i.test(code)) {
+              patterns.primary.push('Greedy');
+            }
+            if (/\.sort\(|quick.*sort|merge.*sort|heap.*sort/i.test(code)) {
+              patterns.primary.push('Sorting');
+            }
+            if (/new.*heap|priority.*queue|heapify/i.test(code)) {
+              patterns.primary.push('Heap');
+            }
+            if (/stack|push.*pop|lifo/i.test(code) ||
+                (/\.push\(/.test(code) && /\.pop\(/.test(code))) {
+              patterns.primary.push('Stack');
+            }
+            if (/union.*find|disjoint.*set|parent\[|rank\[/i.test(code)) {
+              patterns.primary.push('Union-Find');
+            }
+            if (/trie|prefix.*tree|trie.*node/i.test(code)) {
+              patterns.primary.push('Trie');
+            }
+            if (/bit.*manipulation|bitwise|<<|>>|&|\||\^/i.test(code) ||
+                /[&|^]/.test(code)) {
+              patterns.primary.push('Bit Manipulation');
+            }
+            if (/backtrack|permutation|combination|subset/i.test(code)) {
+              patterns.primary.push('Backtracking');
+            }
+            if (/binary.*search|left.*mid.*right|while.*left.*<=.*right/i.test(code)) {
+              patterns.primary.push('Binary Search');
+            }
+            if (/topological|indegree|outdegree|kahn/i.test(code)) {
+              patterns.primary.push('Topological Sort');
+            }
 
-          - [ ] **Primary Pattern/Concept**: What main pattern or concept is used?
-            - Algorithms: Sliding Window, Two Pointers, DP, BFS/DFS, etc.
-            - Frontend: Closures, Event Delegation, Async Patterns, etc.
-          - [ ] **Secondary Techniques**: Are there supporting techniques?
-          - [ ] **Data Structures/APIs**: What enables this solution?
+            // Data structures
+            if (/new Map\(/i.test(code)) patterns.dataStructures.push('Map');
+            if (/new Set\(/i.test(code)) patterns.dataStructures.push('Set');
+            if (/\[\]|\[.*\]|Array/i.test(code)) patterns.dataStructures.push('Array');
+            if (/queue|Queue/i.test(code)) patterns.dataStructures.push('Queue');
+            if (/stack|Stack/i.test(code)) patterns.dataStructures.push('Stack');
+            if (/heap|Heap|PriorityQueue/i.test(code)) patterns.dataStructures.push('Heap');
+            if (/tree|Tree|TreeNode/i.test(code)) patterns.dataStructures.push('Tree');
+            if (/graph|Graph|adjacency/i.test(code)) patterns.dataStructures.push('Graph');
+            if (/linked.*list|ListNode/i.test(code)) patterns.dataStructures.push('Linked List');
 
-          ---
+            // Secondary techniques
+            if (/memoization|cache|memo/i.test(code)) patterns.secondary.push('Memoization');
+            if (/prefix.*sum|cumulative/i.test(code)) patterns.secondary.push('Prefix Sum');
+            if (/reverse|reversed/i.test(code)) patterns.secondary.push('Reversal');
+            if (/in.*place|in-place/i.test(code)) patterns.secondary.push('In-place modification');
+            if (/sentinel|dummy/i.test(code)) patterns.secondary.push('Sentinel/Dummy nodes');
 
-          ### 🧠 Key Insight Question
+            return patterns;
+          }
 
-          > *What is the "aha!" moment that makes this solution work?*
-          >
-          > Every problem has a non-obvious insight. For example:
-          > - "Subarrays with K Distinct": `exactlyK = atMostK(k) - atMostK(k-1)`
-          > - "Two Sum": Use hash map for O(1) complement lookup
-          > - "Debounce": Closures capture timer ID for cancellation
+          // Extract complexity from code
+          function extractComplexity(code) {
+            const timeMatch = code.match(/time[:\s]*O\([^)]+\)/i) ||
+                             code.match(/@time[:\s]*O\([^)]+\)/i);
+            const spaceMatch = code.match(/space[:\s]*O\([^)]+\)/i) ||
+                              code.match(/@space[:\s]*O\([^)]+\)/i);
 
-          ---
+            return {
+              time: timeMatch ? timeMatch[0] : null,
+              space: spaceMatch ? spaceMatch[0] : null
+            };
+          }
 
-          ### 📖 Related Problems to Practice
+          // Generate key insight based on pattern
+          function generateKeyInsight(patterns, problemName, code) {
+            const primary = patterns.primary[0] || 'General Algorithm';
 
-          After solving this problem, try these related problems that use similar patterns:
+            const insights = {
+              'Two Pointers': `The key insight is using two pointers to efficiently traverse the data structure from different positions, reducing time complexity from O(n²) to O(n). This works because we can make decisions based on the relationship between elements at both pointers.`,
+              'Sliding Window': `The crucial insight is maintaining a window of elements that satisfies certain conditions, expanding or contracting it as needed. This transforms a potentially O(n²) nested loop solution into an O(n) single-pass solution by reusing computations.`,
+              'Dynamic Programming': `The key breakthrough is recognizing that this problem has overlapping subproblems and optimal substructure. By storing solutions to subproblems, we avoid redundant calculations and reduce exponential time complexity to polynomial.`,
+              'BFS': `The essential insight is that BFS explores nodes level by level, guaranteeing the shortest path in unweighted graphs. Using a queue ensures we process nodes in the order they were discovered.`,
+              'DFS': `The key insight is that DFS explores as deep as possible before backtracking, making it ideal for exploring all paths or detecting cycles. The recursive nature naturally handles the call stack.`,
+              'Hashing': `The crucial realization is that hash maps provide O(1) lookup time, transforming a search problem. Instead of nested loops to find complements or duplicates, we can check existence in constant time.`,
+              'Greedy': `The key insight is that locally optimal choices lead to a globally optimal solution. This works when the problem has the greedy-choice property and optimal substructure.`,
+              'Stack': `The essential insight is using LIFO (Last In, First Out) property to track elements in reverse order or maintain valid states. Stacks are perfect for matching pairs, tracking previous elements, or undoing operations.`,
+              'Binary Search': `The key breakthrough is recognizing the search space is sorted or can be made monotonic, allowing us to eliminate half the possibilities with each comparison, achieving O(log n) complexity.`,
+              'Backtracking': `The crucial insight is systematically exploring all possibilities by making choices, exploring consequences, and undoing choices (backtracking) when they don't lead to solutions.`,
+              'Union-Find': `The key insight is efficiently tracking and merging connected components using path compression and union by rank, achieving near-constant time operations for connectivity queries.`,
+              'Topological Sort': `The essential insight is that we can order nodes such that for every directed edge u→v, u comes before v. This requires detecting cycles (impossible if cycle exists) and processing nodes with no dependencies first.`
+            };
 
-          | Platform | Problem | Pattern |
-          |----------|---------|---------|
-          | TBD | *Easier prerequisite* | Same core concept |
-          | TBD | *Similar problem* | Same pattern, different constraints |
-          | TBD | *Harder variation* | Extended or combined pattern |
+            return insights[primary] || `The key insight for this ${problemName.toLowerCase()} problem is to ${primary.toLowerCase()} to solve it efficiently. This approach leverages the specific properties of the problem to optimize the solution.`;
+          }
 
-          ---
+          // Get related problems based on pattern
+          function getRelatedProblems(patterns, difficulty) {
+            const primary = patterns.primary[0];
 
-          ### 💡 Interview Tips
+            const problemSets = {
+              'Two Pointers': [
+                { num: '167', name: 'Two Sum II - Input Array Is Sorted', difficulty: 'Easy', relation: 'Foundation: Basic two pointers' },
+                { num: '15', name: 'Three Sum', difficulty: 'Medium', relation: 'Same pattern with three pointers' },
+                { num: '42', name: 'Trapping Rain Water', difficulty: 'Hard', relation: 'Advanced: Two pointers with complex logic' }
+              ],
+              'Sliding Window': [
+                { num: '209', name: 'Minimum Size Subarray Sum', difficulty: 'Medium', relation: 'Foundation: Variable-size window' },
+                { num: '3', name: 'Longest Substring Without Repeating Characters', difficulty: 'Medium', relation: 'Similar: Window with HashSet' },
+                { num: '76', name: 'Minimum Window Substring', difficulty: 'Hard', relation: 'Advanced: Complex window conditions' }
+              ],
+              'Dynamic Programming': [
+                { num: '70', name: 'Climbing Stairs', difficulty: 'Easy', relation: 'Foundation: Basic DP' },
+                { num: '322', name: 'Coin Change', difficulty: 'Medium', relation: 'Similar: Unbounded knapsack variant' },
+                { num: '72', name: 'Edit Distance', difficulty: 'Hard', relation: 'Advanced: 2D DP' }
+              ],
+              'BFS': [
+                { num: '102', name: 'Binary Tree Level Order Traversal', difficulty: 'Medium', relation: 'Foundation: Level-by-level BFS' },
+                { num: '207', name: 'Course Schedule', difficulty: 'Medium', relation: 'Similar: BFS for cycle detection' },
+                { num: '127', name: 'Word Ladder', difficulty: 'Hard', relation: 'Advanced: BFS with transformations' }
+              ],
+              'DFS': [
+                { num: '104', name: 'Maximum Depth of Binary Tree', difficulty: 'Easy', relation: 'Foundation: Basic recursive DFS' },
+                { num: '200', name: 'Number of Islands', difficulty: 'Medium', relation: 'Similar: DFS on grid' },
+                { num: '140', name: 'Word Break II', difficulty: 'Hard', relation: 'Advanced: DFS with backtracking' }
+              ],
+              'Hashing': [
+                { num: '1', name: 'Two Sum', difficulty: 'Easy', relation: 'Foundation: HashMap for complement lookup' },
+                { num: '49', name: 'Group Anagrams', difficulty: 'Medium', relation: 'Similar: HashMap for grouping' },
+                { num: '432', name: 'All O`one Data Structure', difficulty: 'Hard', relation: 'Advanced: Multiple HashMaps' }
+              ],
+              'Stack': [
+                { num: '20', name: 'Valid Parentheses', difficulty: 'Easy', relation: 'Foundation: Basic stack matching' },
+                { num: '155', name: 'Min Stack', difficulty: 'Medium', relation: 'Similar: Stack with extra tracking' },
+                { num: '84', name: 'Largest Rectangle in Histogram', difficulty: 'Hard', relation: 'Advanced: Monotonic stack' }
+              ],
+              'Greedy': [
+                { num: '455', name: 'Assign Cookies', difficulty: 'Easy', relation: 'Foundation: Simple greedy' },
+                { num: '55', name: 'Jump Game', difficulty: 'Medium', relation: 'Similar: Greedy with range tracking' },
+                { num: '135', name: 'Candy', difficulty: 'Hard', relation: 'Advanced: Two-pass greedy' }
+              ],
+              'Binary Search': [
+                { num: '704', name: 'Binary Search', difficulty: 'Easy', relation: 'Foundation: Classic binary search' },
+                { num: '33', name: 'Search in Rotated Sorted Array', difficulty: 'Medium', relation: 'Similar: Modified binary search' },
+                { num: '4', name: 'Median of Two Sorted Arrays', difficulty: 'Hard', relation: 'Advanced: Binary search on answer' }
+              ],
+              'Backtracking': [
+                { num: '78', name: 'Subsets', difficulty: 'Medium', relation: 'Foundation: Basic backtracking' },
+                { num: '46', name: 'Permutations', difficulty: 'Medium', relation: 'Similar: Backtracking with order' },
+                { num: '51', name: 'N-Queens', difficulty: 'Hard', relation: 'Advanced: Complex constraints' }
+              ]
+            };
 
-          - **Opening**: Start by clarifying the problem and identifying edge cases
-          - **Approach**: Explain the brute force first, then optimize
-          - **Complexity**: Always state and explain time/space complexity (for algorithmic problems)
-          - **Trade-offs**: Discuss alternative approaches and their trade-offs
+            return problemSets[primary] || [
+              { num: '1', name: 'Two Sum', difficulty: 'Easy', relation: 'Foundation problem' },
+              { num: '200', name: 'Number of Islands', difficulty: 'Medium', relation: 'Practice with similar concepts' },
+              { num: '297', name: 'Serialize and Deserialize Binary Tree', difficulty: 'Hard', relation: 'Advanced variation' }
+            ];
+          }
 
-          ---
+          // Generate interview tips
+          function generateInterviewTips(patterns) {
+            const primary = patterns.primary[0] || 'General';
 
-          ### ⚠️ Common Mistakes
+            return {
+              opening: [
+                "Clarify input constraints: array size, value ranges, edge cases (empty, single element, duplicates)",
+                "Confirm expected output format and edge case handling",
+                "Ask about follow-up constraints (space optimization, streaming data, etc.)"
+              ],
+              approach: [
+                "Start with brute force: Explain the naive O(n²) or O(2^n) approach to show understanding",
+                `Identify the optimization: Explain why ${primary} helps reduce complexity`,
+                "Walk through a small example to validate the approach",
+                "Discuss time/space complexity before coding"
+              ],
+              implementation: [
+                "Think aloud while coding to show your thought process",
+                "Handle edge cases as you code (empty input, single element, etc.)",
+                "Use meaningful variable names that reflect the algorithm"
+              ],
+              testing: [
+                "Test with the example cases first",
+                "Propose edge cases: empty input, single element, all same values",
+                "Consider boundary conditions specific to your algorithm"
+              ],
+              tradeoffs: patterns.primary.includes('Sliding Window')
+                ? ["Space vs. Time: Using a hash map costs O(k) space but achieves O(n) time", "Could use brute force with O(1) space but O(n²) time"]
+                : patterns.primary.includes('Dynamic Programming')
+                ? ["Memoization (top-down) vs. Tabulation (bottom-up): Tabulation avoids recursion overhead", "Space optimization: Can often reduce DP space from O(n²) to O(n) or O(1)"]
+                : ["Discuss iterative vs. recursive approaches", "Consider space/time tradeoffs in your solution"]
+            };
+          }
 
-          Watch out for these typical mistakes:
+          // Generate common mistakes based on pattern
+          function generateCommonMistakes(patterns) {
+            const primary = patterns.primary[0];
 
-          1. **Off-by-one errors**: Check loop boundaries carefully
-          2. **Edge cases**: Empty input, single element, null/undefined values
-          3. **Memory leaks**: Clean up event listeners, timers, references
-          4. **Async issues**: Handle promises properly, avoid race conditions
+            const mistakes = {
+              'Two Pointers': [
+                "**Incorrect pointer movement**: Moving both pointers simultaneously when you should move only one based on a condition",
+                "**Missing edge case**: Not handling when pointers cross or equal each other",
+                "**Off-by-one errors**: Incorrect loop conditions like `while (left < right)` vs `while (left <= right)`",
+                "**Not considering sorted requirement**: Two pointers often requires sorted input - verify or sort first"
+              ],
+              'Sliding Window': [
+                "**Expanding without contracting**: Forgetting to shrink window when condition is violated",
+                "**Wrong window validity check**: Checking validity before updating rather than after",
+                "**Not updating result at the right time**: Should update result after window is valid, not before",
+                "**HashMap cleanup**: Forgetting to remove elements from map when they leave the window"
+              ],
+              'Dynamic Programming': [
+                "**Incorrect base cases**: Not properly initializing DP array or missing base cases",
+                "**Wrong iteration order**: Iterating in wrong direction, causing use of uncomputed values",
+                "**State definition confusion**: Unclear what dp[i] represents, leading to incorrect transitions",
+                "**Missing state**: Not tracking all necessary dimensions (e.g., position + remainder, not just position)"
+              ],
+              'BFS': [
+                "**Using stack instead of queue**: DFS uses stack/recursion, BFS requires queue for level-order",
+                "**Not marking visited**: Causing infinite loops or redundant work",
+                "**Processing visited nodes**: Marking visited after adding to queue instead of before",
+                "**Wrong level tracking**: Not properly tracking current level in level-order traversal"
+              ],
+              'DFS': [
+                "**No base case**: Recursion without proper termination condition causes stack overflow",
+                "**Not backtracking**: Forgetting to undo changes when returning from recursive calls",
+                "**Incorrect visited tracking**: For graphs, need global visited set; for backtracking, need local tracking",
+                "**Missing return value**: Forgetting to return result from recursive calls"
+              ],
+              'Hashing': [
+                "**Using array index as hash when values can be negative**: Need to handle negative numbers differently",
+                "**Not checking map.has() before map.get()**: Assuming key exists without verification",
+                "**Comparing objects by reference**: Objects as keys don't work without serialization",
+                "**Integer overflow in hash function**: For custom hashing, watch for overflow"
+              ],
+              'Stack': [
+                "**Not checking stack.length before pop()**: Causes errors on empty stack",
+                "**Using queue instead of stack**: Confusing FIFO with LIFO",
+                "**Forgetting what's on stack**: Losing track of what elements represent",
+                "**Not handling remaining elements**: After main loop, stack might still have elements to process"
+              ],
+              'Binary Search': [
+                "**Infinite loop**: Wrong mid calculation or update conditions (use `mid = left + (right - left) / 2`)",
+                "**Off-by-one**: Confusion about whether to use `left < right` or `left <= right`",
+                "**Integer overflow**: `(left + right) / 2` overflows; use `left + (right - left) / 2`",
+                "**Not considering answer range**: For binary search on answer, ensure min/max bounds are correct"
+              ],
+              'Greedy': [
+                "**Assuming greedy works without proof**: Not all problems have greedy property - verify!",
+                "**Wrong sorting criteria**: Sorting by wrong key leads to suboptimal solution",
+                "**Not considering all constraints**: Greedy choice must satisfy all problem constraints",
+                "**Overlooking counterexamples**: Test greedy approach with edge cases before implementing"
+              ]
+            };
 
-          ---
+            return mistakes[primary] || [
+              "**Edge cases**: Always test empty input, single element, and boundary values",
+              "**Off-by-one errors**: Carefully check array indices and loop bounds",
+              "**Null/undefined checks**: Verify objects and arrays exist before accessing",
+              "**Complexity analysis**: Ensure your solution meets the expected time/space requirements"
+            ];
+          }
 
-          *💬 AI reviewers will fill in the specific details for this problem based on the solution code.*
-          EOF
+          // Call OpenAI API if key is available
+          async function callOpenAI(solutionCode, problemName, pattern) {
+            const apiKey = process.env.OPENAI_API_KEY;
+            if (!apiKey) {
+              console.log('No OpenAI API key found, using heuristics only');
+              return null;
+            }
+
+            const prompt = `Analyze this coding solution for "${problemName}".
+
+Solution code:
+\`\`\`
+${solutionCode}
+\`\`\`
+
+Detected pattern: ${pattern}
+
+Provide a brief, actionable analysis in JSON format:
+{
+  "keyInsight": "One sentence explaining the core 'aha!' moment",
+  "complexity": {
+    "time": "O(...) with brief explanation",
+    "space": "O(...) with brief explanation"
+  }
+}
+
+Keep it concise and practical.`;
+
+            return new Promise((resolve) => {
+              const data = JSON.stringify({
+                model: 'gpt-4o-mini',
+                messages: [{ role: 'user', content: prompt }],
+                temperature: 0.7,
+                max_tokens: 300
+              });
+
+              const options = {
+                hostname: 'api.openai.com',
+                path: '/v1/chat/completions',
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${apiKey}`,
+                  'Content-Length': data.length
+                },
+                timeout: 10000
+              };
+
+              const req = https.request(options, (res) => {
+                let responseData = '';
+                res.on('data', (chunk) => { responseData += chunk; });
+                res.on('end', () => {
+                  try {
+                    if (res.statusCode === 200) {
+                      const json = JSON.parse(responseData);
+                      const content = json.choices[0].message.content;
+                      const extracted = content.match(/\{[\s\S]*\}/);
+                      if (extracted) {
+                        resolve(JSON.parse(extracted[0]));
+                      } else {
+                        resolve(null);
+                      }
+                    } else {
+                      console.log(`OpenAI API error: ${res.statusCode}`);
+                      resolve(null);
+                    }
+                  } catch (e) {
+                    console.log('Error parsing OpenAI response:', e.message);
+                    resolve(null);
+                  }
+                });
+              });
+
+              req.on('error', (e) => {
+                console.log('OpenAI request error:', e.message);
+                resolve(null);
+              });
+
+              req.on('timeout', () => {
+                req.destroy();
+                console.log('OpenAI request timeout');
+                resolve(null);
+              });
+
+              req.write(data);
+              req.end();
+            });
+          }
+
+          // Main generation logic
+          async function generateLearningCard() {
+            const platform = process.env.PLATFORM || 'LeetCode';
+            const problemNum = process.env.PROBLEM_NUM || '';
+            const problemName = process.env.PROBLEM_NAME || 'Problem';
+            const difficulty = process.env.DIFFICULTY || 'Medium';
+            const filePath = process.env.FILE_PATH || '';
+
+            const patterns = detectPatterns(solutionCode);
+            const complexity = extractComplexity(solutionCode);
+            const primaryPattern = patterns.primary[0] || 'General Algorithm';
+
+            // Try OpenAI enhancement
+            let aiInsight = null;
+            try {
+              aiInsight = await callOpenAI(solutionCode, problemName, primaryPattern);
+            } catch (e) {
+              console.log('OpenAI call failed:', e.message);
+            }
+
+            const keyInsight = aiInsight?.keyInsight || generateKeyInsight(patterns, problemName, solutionCode);
+            const relatedProblems = getRelatedProblems(patterns, difficulty);
+            const interviewTips = generateInterviewTips(patterns);
+            const commonMistakes = generateCommonMistakes(patterns);
+
+            // Format complexity
+            let timeComplexity = complexity.time || (aiInsight?.complexity?.time) || 'O(n) - Analyze based on loops';
+            let spaceComplexity = complexity.space || (aiInsight?.complexity?.space) || 'O(1) - Analyze based on data structures';
+
+            // Build the learning card
+            let card = `## 📚 Coding Challenge Learning Card\n\n`;
+            card += `| Property | Value |\n`;
+            card += `|----------|-------|\n`;
+            card += `| **Platform** | ${platform} |\n`;
+            card += `| **Problem** | ${problemNum ? problemNum + ' - ' : ''}${problemName} |\n`;
+            card += `| **Difficulty** | ${difficulty} |\n`;
+            card += `| **File** | \`${filePath}\` |\n\n`;
+            card += `---\n\n`;
+
+            card += `### 🎯 Pattern & Techniques\n\n`;
+            card += `**Primary Pattern:** ${primaryPattern}\n\n`;
+            if (patterns.secondary.length > 0) {
+              card += `**Secondary Techniques:** ${patterns.secondary.join(', ')}\n\n`;
+            }
+            if (patterns.dataStructures.length > 0) {
+              card += `**Data Structures Used:** ${patterns.dataStructures.join(', ')}\n\n`;
+            }
+            card += `---\n\n`;
+
+            card += `### 🧠 Key Insight\n\n`;
+            card += `${keyInsight}\n\n`;
+            card += `---\n\n`;
+
+            card += `### 📖 Related Problems\n\n`;
+            card += `Practice these problems to reinforce the same pattern:\n\n`;
+            card += `| Problem | Difficulty | Relationship |\n`;
+            card += `|---------|------------|-------------|\n`;
+            relatedProblems.forEach(p => {
+              card += `| [${p.num}. ${p.name}](https://leetcode.com/problems/${p.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}/) | ${p.difficulty} | ${p.relation} |\n`;
+            });
+            card += `\n---\n\n`;
+
+            card += `### 💡 Interview Tips\n\n`;
+            card += `**Clarifying Questions:**\n`;
+            interviewTips.opening.forEach(tip => {
+              card += `- ${tip}\n`;
+            });
+            card += `\n**Solution Approach:**\n`;
+            interviewTips.approach.forEach(tip => {
+              card += `- ${tip}\n`;
+            });
+            card += `\n**During Implementation:**\n`;
+            interviewTips.implementation.forEach(tip => {
+              card += `- ${tip}\n`;
+            });
+            card += `\n**Testing Strategy:**\n`;
+            interviewTips.testing.forEach(tip => {
+              card += `- ${tip}\n`;
+            });
+            card += `\n**Discussing Trade-offs:**\n`;
+            interviewTips.tradeoffs.forEach(tip => {
+              card += `- ${tip}\n`;
+            });
+            card += `\n---\n\n`;
+
+            card += `### ⚠️ Common Mistakes with ${primaryPattern}\n\n`;
+            commonMistakes.forEach((mistake, idx) => {
+              card += `${idx + 1}. ${mistake}\n`;
+            });
+            card += `\n---\n\n`;
+
+            card += `### 📊 Complexity Analysis\n\n`;
+            card += `- **Time Complexity:** ${timeComplexity}\n`;
+            card += `- **Space Complexity:** ${spaceComplexity}\n\n`;
+            card += `---\n\n`;
+            card += `*🤖 This learning card was auto-generated with ${aiInsight ? 'AI assistance' : 'heuristic analysis'}*\n`;
+
+            return card;
+          }
+
+          // Execute
+          generateLearningCard()
+            .then(card => {
+              fs.writeFileSync('learning-card.md', card);
+              console.log('Learning card generated successfully!');
+            })
+            .catch(err => {
+              console.error('Error generating learning card:', err);
+              // Fallback minimal card
+              const fallback = `## 📚 Coding Challenge Learning Card\n\n**Problem:** ${process.env.PROBLEM_NAME}\n\n*Analysis in progress...*\n`;
+              fs.writeFileSync('learning-card.md', fallback);
+            });
+          NODESCRIPT
 
       - name: Post Learning Card Comment
         if: steps.problem.outputs.found == 'true'
