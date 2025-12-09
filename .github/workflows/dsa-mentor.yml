@@ -276,7 +276,7 @@ jobs:
               'Hashing': [
                 { num: '1', name: 'Two Sum', difficulty: 'Easy', relation: 'Foundation: HashMap for complement lookup' },
                 { num: '49', name: 'Group Anagrams', difficulty: 'Medium', relation: 'Similar: HashMap for grouping' },
-                { num: '432', name: 'All O`one Data Structure', difficulty: 'Hard', relation: 'Advanced: Multiple HashMaps' }
+                { num: '432', name: 'All O(1) Data Structure', difficulty: 'Hard', relation: 'Advanced: Multiple HashMaps' }
               ],
               'Stack': [
                 { num: '20', name: 'Valid Parentheses', difficulty: 'Easy', relation: 'Foundation: Basic stack matching' },
@@ -637,7 +637,7 @@ Keep it concise and practical.`;
             });
 
             const botComment = comments.find(comment =>
-              comment.user.login === 'github-actions[bot]' &&
+              comment.user && comment.user.login === 'github-actions[bot]' &&
               comment.body.includes('📚 Coding Challenge Learning Card')
             );
 
