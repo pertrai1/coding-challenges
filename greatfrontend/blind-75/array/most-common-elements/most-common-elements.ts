@@ -1,8 +1,11 @@
 /*
-@time - O(n) where n is the length of numbers
-@space - O(n) where n is the number of unique numbers in numbers
+@time - O(n + m log m) where n is the length of the numbers and m is the number of unique elements in numbers. In the worst case (all elements unique), this is O(n log n).
+@space - O(m) where m is the number of unique numbers in numbers
 */
-export function mostCommonElements(numbers: number[], k: number): number[] {
+export default function mostCommonElements(
+  numbers: number[],
+  k: number
+): number[] {
   const frequencyMap = new Map<number, number>();
 
   for (const num of numbers) {
