@@ -4,13 +4,13 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 ## 📊 Progress Tracker
 
-### Status: 1 / 75 problems completed
+### Status: 3 / 75 problems completed
 
 ### Progress by Category
 
 | Category            | Completed | Total | Percentage |
 | ------------------- | --------- | ----- | ---------- |
-| Arrays              | 1         | 15    | 6.67%      |
+| Arrays              | 2         | 15    | 13.33%     |
 | Strings             | 0         | 10    | 0%         |
 | Stack & Queue       | 1         | 8     | 12.5%      |
 | Linked Lists        | 0         | 8     | 0%         |
@@ -25,9 +25,10 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 - [Valid Parentheses / Balanced Brackets](./stack-queue/balanced-brackets/) - Easy
 
-### Arrays (1/15)
+### Arrays (2/15)
 
 - [Find Element in Rotated Array](./array/array-rotated-find/) - Medium
+- [Most Common Elements](./array/most-common-elements/) - Medium
 
 ### Strings (0/10)
 
