@@ -462,6 +462,48 @@ jobs:
                 '**Algorithm**: "At each step, I\'ll choose [criterion] which is provably optimal for [reason]."',
                 '**Complexity**: "Time: O(n log n) if sorting needed, O(n) otherwise, Space: O(1) or O(n) depending on sorting"',
                 '**Alternative**: "If greedy doesn\'t work, I\'d fall back to DP which considers all possibilities"'
+              ],
+              'Backtracking': [
+                '**Opening**: "This requires exploring all possibilities with constraints. I\'ll build solutions incrementally and backtrack when constraints are violated."',
+                '**Pruning Strategy**: "The key optimization is pruning branches early - as soon as we detect a partial solution can\'t lead to a valid answer, we backtrack immediately."',
+                '**State Management**: "I\'ll carefully track the current state (path/choices made) and ensure I properly undo changes when backtracking to explore other branches."',
+                '**Building Partial Solutions**: "At each step, I\'ll make a choice, recurse to build on it, then undo that choice to try alternatives - this is the core backtracking pattern."',
+                '**Complexity**: "Time: O(b^d) where b is branching factor and d is depth, Space: O(d) for recursion stack"'
+              ],
+              'Union-Find': [
+                '**Opening**: "This is a connectivity/grouping problem. Union-Find with path compression and union by rank gives us near-constant time operations."',
+                '**Path Compression**: "In find(), I\'ll compress paths by making nodes point directly to root - this flattens the tree and speeds up future operations."',
+                '**Union by Rank/Size**: "When unioning, I\'ll attach the smaller tree under the larger one to keep trees shallow. This prevents degradation to O(n)."',
+                '**Cycle Detection**: "For graph problems, if find(u) == find(v), they\'re already connected - adding an edge creates a cycle."',
+                '**Common Pitfalls**: "Don\'t forget to initialize parent[i] = i. Always use find() before comparing roots - don\'t compare parent[] directly after unions."'
+              ],
+              'Trie': [
+                '**Opening**: "A Trie is perfect for prefix-based operations. Each path from root to node represents a prefix, and we can share common prefixes."',
+                '**Use Cases**: "Tries excel at autocomplete, spell check, IP routing, and any problem requiring efficient prefix matching or prefix counting."',
+                '**Memory vs Speed**: "Tries trade memory (O(ALPHABET_SIZE × N × M) where N is word count and M is length) for O(M) search time. Consider a hash set if memory is constrained."',
+                '**Node Design**: "Each TrieNode needs children (Map or Array) and an isEndOfWord flag. For frequency counting, add a count field."',
+                '**Operations**: "Insert: traverse/create nodes for each char. Search: traverse and check isEndOfWord. Delete: mark isEndOfWord false or remove nodes if no other words share the path."'
+              ],
+              'Bit Manipulation': [
+                '**Opening**: "Bit manipulation can solve this elegantly with O(1) space. Let me identify which bitwise operators apply here."',
+                '**Common Tricks**: "XOR for finding unique elements (a ^ a = 0, a ^ 0 = a), AND for checking bits (x & (1 << i)), OR for setting bits (x | (1 << i)), XOR for toggling (x ^ (1 << i))."',
+                '**Operator Precedence**: "Critical: bitwise operators have LOWER precedence than comparisons. Always use parentheses: if ((x & mask) == 0) not if (x & mask == 0)."',
+                '**Signed vs Unsigned**: "In JavaScript, >> is arithmetic shift (preserves sign), >>> is logical shift (zero-fills). Be careful with negative numbers."',
+                '**Counting Bits**: "Use Brian Kernighan\'s algorithm: n & (n-1) removes the rightmost 1-bit. Or use built-in __builtin_popcount() in C++."'
+              ],
+              'Heap': [
+                '**Opening**: "A heap gives us O(log n) insert/delete and O(1) peek of min/max element. Perfect for top-K problems and priority-based processing."',
+                '**Building a Heap**: "heapify() builds a heap in O(n) time, which is faster than inserting n elements at O(n log n). Start from last non-leaf node and sift down."',
+                '**Push/Pop Complexity**: "Both push and pop are O(log n). For k smallest/largest, maintain a heap of size k and replace root if needed - O(n log k) total."',
+                '**As Priority Queue**: "Use a max heap when you need largest elements first, min heap for smallest. In JavaScript, implement with an array and maintain heap property manually."',
+                '**Common Optimizations**: "For median finding, use two heaps (max heap for lower half, min heap for upper half). For k-way merge, use a heap with k elements."'
+              ],
+              'Sorting': [
+                '**Opening**: "Let me choose the right sorting approach. Is stability required? What\'s the input size and range?"',
+                '**Algorithm Choice**: "QuickSort: O(n log n) average, unstable, in-place. MergeSort: O(n log n) worst-case, stable, O(n) space. HeapSort: O(n log n) worst-case, unstable, in-place."',
+                '**Stability Requirements**: "Stable sorts (MergeSort, TimSort) preserve relative order of equal elements. Critical when sorting objects by multiple keys."',
+                '**Comparator Design**: "For custom sorting, define clear comparison logic. Return negative if a < b, positive if a > b, zero if equal. Be consistent to avoid runtime errors."',
+                '**Special Cases**: "For nearly sorted data, InsertionSort is O(n). For small ranges, CountingSort is O(n+k). For 0-1-2 (Dutch Flag), use three-way partitioning."'
               ]
             };
 
