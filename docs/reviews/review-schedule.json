@@ -25,7 +25,8 @@
           "scheduledDate": "2025-12-11",
           "interval": 3,
           "completed": false,
-          "issueNumber": null
+          "issueNumber": 63,
+          "issueCreatedAt": "2025-12-11T09:06:17.201Z"
         },
         {
           "reviewNumber": 3,
@@ -65,5 +66,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-10T01:57:22.116Z"
+  "lastUpdated": "2025-12-11T09:06:17.202Z"
 }
