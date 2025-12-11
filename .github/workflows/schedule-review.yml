@@ -1,9 +1,5 @@
 name: Schedule Spaced Repetition Review
 
-concurrency:
-  group: review-schedule-updates
-  cancel-in-progress: false
-
 on:
   pull_request:
     types: [closed]
@@ -43,7 +39,7 @@ jobs:
 
           # Get changed files - only match actual solution files from coding challenge platforms
           git fetch origin main
-          CHANGED_FILES=$(git diff --name-only "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" | grep -E '(leetcode/(easy|medium|hard)|greatfrontend)/[0-9]+-[^/]+/[^/]+\.(js|ts)$' || echo "")
+          CHANGED_FILES=$(git diff --name-only "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" | grep -E '(leetcode/(easy|medium|hard)/[0-9]+-[^/]+|greatfrontend/[^/]+/[^/]+(/[^/]+)*)/[^/]+\.(js|ts)$' || echo "")
 
           echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
           echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
@@ -75,7 +71,7 @@ jobs:
           for file in $CHANGED_FILES; do
             # Extract problem info from file path first
             # Example: leetcode/easy/0205-isomorphic-strings/isomorphic-strings.js
-            # Example: greatfrontend/blind-75/0001-two-sum/two-sum.js
+            # Example: greatfrontend/blind-75/array/most-common-elements/most-common-elements.js
             if [[ "$file" =~ leetcode/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
               PLATFORM="leetcode"
               DIFFICULTY="${BASH_REMATCH[1]}"
@@ -90,18 +86,32 @@ jobs:
                 echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
                 break
               fi
-            elif [[ "$file" =~ greatfrontend/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+            elif [[ "$file" =~ greatfrontend/([^/]+)/([^/]+)/(([^/]+)/)?([^/]+)/([^/]+)\.(js|ts)$ ]]; then
+              # Match: greatfrontend/[category]/[topic]/[problem-folder]/[problem-file].ts
+              # OR: greatfrontend/[category]/[problem-folder]/[problem-file].ts
               PLATFORM="greatfrontend"
-              DIFFICULTY="${BASH_REMATCH[1]}"
-              PROBLEM_NUMBER="${BASH_REMATCH[2]}"
-              PROBLEM_SLUG="${BASH_REMATCH[3]}"
-              FILE_NAME="${BASH_REMATCH[4]}"
+              CATEGORY="${BASH_REMATCH[1]}"  # blind-75, gfe-75, etc.
+              TOPIC="${BASH_REMATCH[2]}"     # array, javascript-utilities, etc.
+              PROBLEM_FOLDER="${BASH_REMATCH[5]}"  # most-common-elements, flatten, etc.
+              FILE_NAME="${BASH_REMATCH[6]}"
 
-              # For GreatFrontEnd, accept any main solution file
-              MAIN_FILE="$file"
-              echo "main_file=$MAIN_FILE" >> $GITHUB_OUTPUT
-              echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
-              break
+              # Validate that the filename matches the problem folder (main solution file)
+              if [[ "$FILE_NAME" == "$PROBLEM_FOLDER" ]] && [[ ! "$FILE_NAME" =~ \.test$ ]]; then
+                MAIN_FILE="$file"
+                PROBLEM_SLUG="$PROBLEM_FOLDER"
+                # Use category/topic as difficulty indicator
+                DIFFICULTY="$CATEGORY/$TOPIC"
+                # Extract problem number from folder name if it exists
+                if [[ "$PROBLEM_FOLDER" =~ ^([0-9]+)- ]]; then
+                  PROBLEM_NUMBER="${BASH_REMATCH[1]}"
+                else
+                  # Use a placeholder for problems without numbers
+                  PROBLEM_NUMBER="GFE-$(echo $PROBLEM_FOLDER | md5sum | cut -c1-4)"
+                fi
+                echo "main_file=$MAIN_FILE" >> $GITHUB_OUTPUT
+                echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
+                break
+              fi
             fi
           done
 
@@ -111,14 +121,8 @@ jobs:
             exit 0
           fi
 
-          # Extract problem info from validated main file
-          if [[ "$MAIN_FILE" =~ (leetcode|greatfrontend)/([^/]+)/([0-9]+)-([^/]+)/([^/]+)\.(js|ts)$ ]]; then
-            PLATFORM="${BASH_REMATCH[1]}"
-            DIFFICULTY="${BASH_REMATCH[2]}"
-            PROBLEM_NUMBER="${BASH_REMATCH[3]}"
-            PROBLEM_SLUG="${BASH_REMATCH[4]}"
-            FILE_NAME="${BASH_REMATCH[5]}"
-
+          # Extract problem info from validated main file (already set in the loop above)
+          if [[ -n "$MAIN_FILE" ]]; then
             echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
             echo "difficulty=$DIFFICULTY" >> $GITHUB_OUTPUT
             echo "problem_number=$PROBLEM_NUMBER" >> $GITHUB_OUTPUT
