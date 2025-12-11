@@ -24,9 +24,10 @@
           "reviewNumber": 2,
           "scheduledDate": "2025-12-11",
           "interval": 3,
-          "completed": false,
+          "completed": true,
           "issueNumber": 63,
-          "issueCreatedAt": "2025-12-11T09:06:17.201Z"
+          "issueCreatedAt": "2025-12-11T09:06:17.201Z",
+          "completedAt": "2025-12-11T13:24:35.534Z"
         },
         {
           "reviewNumber": 3,
@@ -55,6 +56,11 @@
           "reviewNumber": 1,
           "completedAt": "2025-12-10T01:57:22.116Z",
           "issueNumber": 55
+        },
+        {
+          "reviewNumber": 2,
+          "completedAt": "2025-12-11T13:24:35.534Z",
+          "issueNumber": 63
         }
       ]
     }
@@ -66,5 +72,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-11T09:06:17.202Z"
+  "lastUpdated": "2025-12-11T13:24:35.534Z"
 }
