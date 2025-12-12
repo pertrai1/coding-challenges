@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                         | Focus Area                   | Problems Solved |
 | -------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 160             |
+| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 161             |
 | [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 5               |
 
 ## 🎯 Platforms
@@ -18,7 +18,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 **Progress**:
 
 - Easy: 80 problems
-- Medium: 68 problems
+- Medium: 69 problems
 - Hard: 12 problems
 
 **Quick Links**:
@@ -180,7 +180,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 </details>
 
 <details>
-<summary>🟡 Medium Problems (68 solved)</summary>
+<summary>🟡 Medium Problems (69 solved)</summary>
 
 ### Stack & Design
 
@@ -209,6 +209,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 - [0002 - Add Two Numbers](./leetcode/medium/0002-add-two-numbers) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0019 - Remove Nth Node From End of List](./leetcode/medium/0019-remove-nth-node-from-end-of-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0061 - Rotate List](./leetcode/medium/0061-rotate-list) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0082 - Remove Duplicates from Sorted List II](./leetcode/medium/0082-remove-duplicates-from-sorted-list-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0086 - Partition List](./leetcode/medium/0086-partition-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0148 - Sort List](./leetcode/medium/0148-sort-list) ![Medium](https://img.shields.io/badge/Medium-orange)
 

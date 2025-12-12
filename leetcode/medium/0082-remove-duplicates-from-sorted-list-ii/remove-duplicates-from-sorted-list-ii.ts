@@ -1,4 +1,4 @@
-class ListNode {
+export class ListNode {
   val: number;
   next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
@@ -8,8 +8,8 @@ class ListNode {
 }
 
 /*
-@time - O(n) where n is the length of the linked list
-@space - O(1) because of the need for pointers
+@time - O(n) - where n is the length of the linked list
+@space - O(1) - only uses a constant number of pointers regardless of input size
 */
 export function deleteDuplicates(head: ListNode | null): ListNode | null {
   // Handle empty list

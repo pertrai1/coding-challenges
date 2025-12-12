@@ -1,14 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { deleteDuplicates } from './remove-duplicates-from-sorted-list-ii';
-
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
+import { deleteDuplicates, ListNode } from './remove-duplicates-from-sorted-list-ii';
 
 // Helper function to create linked list from array
 function createList(values: number[]): ListNode | null {
