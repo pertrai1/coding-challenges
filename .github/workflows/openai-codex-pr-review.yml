@@ -1,0 +1,25 @@
+name: OpenAI Code Review
+
+on:
+  pull_request:
+    types: [review_requested, labeled]
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    if: github.actor == 'pertrai1' && contains(github.event.pull_request.labels.*.name, 'code challenge')
+
+    steps:
+      - name: Add codex comment
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: '@codex review'
