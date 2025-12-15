@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                         | Focus Area                   | Problems Solved |
 | -------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 161             |
+| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 162             |
 | [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 5               |
 
 ## 🎯 Platforms
@@ -18,7 +18,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 **Progress**:
 
 - Easy: 80 problems
-- Medium: 69 problems
+- Medium: 70 problems
 - Hard: 12 problems
 
 **Quick Links**:
@@ -180,11 +180,12 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 </details>
 
 <details>
-<summary>🟡 Medium Problems (69 solved)</summary>
+<summary>🟡 Medium Problems (70 solved)</summary>
 
 ### Stack & Design
 
 - [0155 - Min Stack](./leetcode/medium/0155-min-stack) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0208 - Implement Trie (Prefix Tree)](./leetcode/medium/0208-implement-trie-prefix-tree) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Array & Two Pointers
 
