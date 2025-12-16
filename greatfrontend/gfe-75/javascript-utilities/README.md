@@ -8,10 +8,10 @@ Essential JavaScript utility functions that are commonly asked in frontend inter
 
 - [Debounce](./debounce/) - Medium
 - [Flatten](./flatten/) - Medium
+- [Throttle](./throttle/) - Medium
 
 ### To Do 📝
 
-- **Throttle** - Medium - Limit function execution rate
 - **Memoize** - Medium - Cache function results
 - **Curry** - Medium - Transform multi-argument function
 - **Partial** - Medium - Pre-fill function arguments
@@ -163,5 +163,3 @@ These utilities are found in popular libraries:
 - Edge cases: empty, null, undefined
 
 ---
-
-Category progress: 1/20 completed (5%)
