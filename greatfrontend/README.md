@@ -11,7 +11,7 @@ Solutions to GreatFrontEnd coding challenges, focusing on frontend engineering, 
 ## 📊 Progress
 
 - **Blind 75**: 3/75 completed
-- **GFE 75**: 2/75 completed
+- **GFE 75**: 3/75 completed
 
 Both collections are organized by category for easier pattern recognition and learning.
 
