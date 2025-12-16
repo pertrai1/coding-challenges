@@ -120,6 +120,55 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "greatfrontend",
+      "problemNumber": "GFE-ecbf",
+      "problemName": "Throttle",
+      "problemSlug": "throttle",
+      "difficulty": "gfe-75/javascript-utilities",
+      "prNumber": "70",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/70",
+      "filePath": "greatfrontend/gfe-75/javascript-utilities/throttle/throttle.ts",
+      "solvedDate": "2025-12-16T19:13:03Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2025-12-17",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 2,
+          "scheduledDate": "2025-12-19",
+          "interval": 3,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 3,
+          "scheduledDate": "2025-12-23",
+          "interval": 7,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 4,
+          "scheduledDate": "2025-12-30",
+          "interval": 14,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 5,
+          "scheduledDate": "2026-01-15",
+          "interval": 30,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -129,5 +178,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-16T13:24:54.849Z"
+  "lastUpdated": "2025-12-16T19:13:13.087Z"
 }
