@@ -19,7 +19,7 @@ class Trie {
       current = current.children[char];
     }
 
-    current.word = word; 
+    current.word = word;
   }
 
   search(word: string): boolean {
@@ -46,7 +46,7 @@ class Trie {
   }
 }
 
-function findWords(board: string[][], words: string[]): string[] { 
+function findWords(board: string[][], words: string[]): string[] {
   if (board.length < 1 || words.length < 1) {
     return [];
   }
@@ -58,7 +58,7 @@ function findWords(board: string[][], words: string[]): string[] {
   for (const word of words) {
     trie.insert(word);
   }
-  
+
   // Loop through every cell in board
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[0].length; j++) {
@@ -80,17 +80,24 @@ function findWords(board: string[][], words: string[]): string[] {
     }
     const temp = board[i][j];
     // mark cell as visited
-    board[i][j] = "#";
+    board[i][j] = '#';
 
-    const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]; 
+    const directions = [
+      [0, 1],
+      [1, 0],
+      [0, -1],
+      [-1, 0]
+    ];
     // continue DFS in 4 directions
     for (const [dx, dy] of directions) {
       const ni = i + dx;
       const nj = j + dy;
       if (
-        ni >= 0 && ni < board.length &&
-        nj >= 0 && nj < board[0].length &&
-        board[ni][nj] !== "#" &&
+        ni >= 0 &&
+        ni < board.length &&
+        nj >= 0 &&
+        nj < board[0].length &&
+        board[ni][nj] !== '#' &&
         node.children[board[ni][nj]]
       ) {
         backtrackDFS(ni, nj, node.children[board[ni][nj]]);
@@ -102,4 +109,4 @@ function findWords(board: string[][], words: string[]): string[] {
   }
 
   return Array.from(wordsFound);
-};
+}
