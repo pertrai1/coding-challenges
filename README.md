@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                         | Focus Area                   | Problems Solved |
 | -------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 162             |
+| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 163             |
 | [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 6               |
 
 ## 🎯 Platforms
@@ -19,7 +19,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 - Easy: 80 problems
 - Medium: 70 problems
-- Hard: 12 problems
+- Hard: 13 problems
 
 **Quick Links**:
 
@@ -283,12 +283,16 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 </details>
 
 <details>
-<summary>🔴 Hard Problems (12 solved)</summary>
+<summary>🔴 Hard Problems (13 solved)</summary>
 
 ### Array & Dynamic Programming
 
 - [0689 - Maximum Sum of 3 Non-Overlapping Subarrays](./leetcode/hard/0689-maximum-sum-of-3-non-overlapping-subarrays) ![Hard](https://img.shields.io/badge/Hard-red)
 - [1034 - Subarrays with K Different Integers](./leetcode/hard/1034-subarrays-with-k-different-integers) ![Hard](https://img.shields.io/badge/Hard-red)
+
+### Backtracking & Trie
+
+- [0212 - Word Search II](./leetcode/hard/0212-word-search-ii) ![Hard](https://img.shields.io/badge/Hard-red)
 
 ### Graph Problems
 
