@@ -170,6 +170,55 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0212",
+      "problemName": "Word Search Ii",
+      "problemSlug": "word-search-ii",
+      "difficulty": "hard",
+      "prNumber": "72",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/72",
+      "filePath": "leetcode/hard/0212-word-search-ii/word-search-ii.ts",
+      "solvedDate": "2025-12-17T18:59:57Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2025-12-18",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 2,
+          "scheduledDate": "2025-12-20",
+          "interval": 3,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 3,
+          "scheduledDate": "2025-12-24",
+          "interval": 7,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 4,
+          "scheduledDate": "2025-12-31",
+          "interval": 14,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 5,
+          "scheduledDate": "2026-01-16",
+          "interval": 30,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -179,5 +228,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-17T09:07:28.948Z"
+  "lastUpdated": "2025-12-17T19:00:07.695Z"
 }
