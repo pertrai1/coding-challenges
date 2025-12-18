@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                         | Focus Area                   | Problems Solved |
 | -------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 163             |
+| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 164             |
 | [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 6               |
 
 ## 🎯 Platforms
@@ -18,7 +18,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 **Progress**:
 
 - Easy: 80 problems
-- Medium: 70 problems
+- Medium: 71 problems
 - Hard: 13 problems
 
 **Quick Links**:
@@ -181,7 +181,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 </details>
 
 <details>
-<summary>🟡 Medium Problems (70 solved)</summary>
+<summary>🟡 Medium Problems (71 solved)</summary>
 
 ### Stack & Design
 
@@ -234,6 +234,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 ### Dynamic Programming
 
 - [0053 - Maximum Subarray](./leetcode/medium/0053-maximum-subarray) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0139 - Word Break](./leetcode/medium/0139-word-break) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0198 - House Robber](./leetcode/medium/0198-house-robber) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0413 - Arithmetic Slices](./leetcode/medium/0413-arithmetic-slices) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0718 - Maximum Length of Repeated Subarray](./leetcode/medium/0718-maximum-length-of-repeated-subarray) ![Medium](https://img.shields.io/badge/Medium-orange)
