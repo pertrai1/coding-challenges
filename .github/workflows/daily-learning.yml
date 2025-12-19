@@ -1,0 +1,126 @@
+name: Daily Gemini Active Recall (Agent Architect)
+
+on:
+  schedule:
+    - cron: '0 13 * * *' # 9:00 AM EST
+  workflow_dispatch:
+
+jobs:
+  generate-topic:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Authorize manual run
+        if: ${{ github.event_name == 'workflow_dispatch' && github.actor != 'pertrai1' }}
+        run: |
+          echo "Unauthorized actor '${{ github.actor }}' for manual dispatch."
+          exit 1
+
+      - name: Get Random Previous Issue
+        id: previous
+        run: |
+          ISSUES=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues?labels=active-recall&state=closed&per_page=100")
+          ISSUE_COUNT=$(echo $ISSUES | jq 'length')
+          if [ $ISSUE_COUNT -gt 0 ]; then
+            RANDOM_INDEX=$((RANDOM % ISSUE_COUNT))
+            RANDOM_ISSUE=$(echo $ISSUES | jq -r ".[$RANDOM_INDEX].number")
+            echo "issue_number=$RANDOM_ISSUE" >> $GITHUB_OUTPUT
+          else
+            echo "issue_number=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get Topic from Gemini
+        id: gemini
+        run: |
+          # The PROMPT is now focused on your specific stack
+          PROMPT="You are a senior AI Engineer. Generate a difficult active recall challenge for someone building Natural Language Interfaces and AI Agents.
+          Focus on: NL2SQL (schema linking, disambiguation), Agentic RAG (routing, self-correction), or Agent State Management (memory, tool-calling loops).
+          Provide:
+          1. Topic: A specific technical concept.
+          2. Difficulty: [Intermediate/Advanced]
+          3. Expected Time: [15-30 mins]
+          4. Question: A 'How' or 'Why' question that tests deep architectural understanding.
+          5. Scenario: A real-world bug or limitation related to this topic for the user to diagnose. Describe symptoms, constraints, and what signals are available (logs/metrics/traces). Avoid long code.
+          6. Learning Objectives: 2-3 specific concepts to master.
+          7. Common Pitfalls: 1-2 mistakes people often make with this concept.
+          8. Self-Check: 3-5 criteria the user can use to grade their own answer.
+          9. Follow-up Drill: 1 small variation that forces transfer (a different failure mode or constraint).
+          Constraints:
+          - Do NOT provide the solution.
+          - Do NOT include step-by-step instructions.
+          - Do NOT ask the user to write code.
+          Format: Topic: [Topic] | Difficulty: [Level] | Time: [Minutes] | Question: [Question] | Scenario: [Scenario] | Objectives: [List] | Pitfalls: [List] | Self-Check: [List] | Follow-up Drill: [One variation]"
+
+          RESPONSE=$(curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
+            -H 'Content-Type: application/json' \
+            -X POST \
+            -d '{
+              "contents": [{
+                "parts":[{"text": "'"$PROMPT"'"}]
+              }]
+            }')
+
+          TOPIC_DATA=$(echo $RESPONSE | jq -r '.candidates[0].content.parts[0].text')
+          echo "topic_data=$TOPIC_DATA" >> $GITHUB_OUTPUT
+
+      - name: Create Daily Issue
+        uses: imjohnbo/issue-bot@v3
+        with:
+          labels: 'active-recall, agents, nl2sql'
+          title: '🤖 Agent Recall: ${{ steps.gemini.outputs.topic_data }}'
+          body: |
+            ## Today's Engineering Challenge
+            ${{ steps.gemini.outputs.topic_data }}
+
+            ---
+            ### 🔄 Spaced Repetition Review
+            ${{ steps.previous.outputs.issue_number && format('Before starting, review your solution to [Issue #{0}](https://github.com/{1}/issues/{0}) and note what you learned.', steps.previous.outputs.issue_number, github.repository) || 'No previous challenges to review yet - this is your first one!' }}
+
+            ---
+            ### 🧠 Active Recall Session
+            1. **Definition + Boundary (2 min, no notes):** “X is ___; it is not ___.”
+            2. **Failure Statement (2 min):** “The system fails when ___ because ___.”
+            3. **Mental Model (6 min, no notes):** Draw a text-based diagram (Mermaid optional) of components + data flow + where uncertainty/errors enter.
+            4. **Mechanism (5 min):** Explain *why* the model works using 3–5 linked causal statements.
+            5. **Constraints & Trade-offs (5 min):** List 3 constraints (latency/cost/correctness/safety/observability). Justify one trade-off.
+            6. **Failure Modes (5 min):** List 3 failure modes + 1 detection signal + 1 mitigation each.
+            7. **Compare Approaches (3 min):** A vs B (simplest alternative) — what do you gain/lose?
+            8. **Q/E/C (3 min):
+              - **Question:** Restate the challenge in your own words.
+              - **Evidence:** Facts/constraints you assume are true.
+              - **Conclusion:** Best practice you’d choose and why.
+            9. **Self-Grade (2 min):** Confidence 0–100% + one experiment/eval you’d run to validate your reasoning.
+            10. **Flashcards (2 min):** Write 2 Q→A cards (one definition, one failure mode).
+
+            ---
+            ### ✅ Completion Checklist
+            - [ ] Reviewed previous challenge (if available)
+            - [ ] Wrote a definition + boundary
+            - [ ] Wrote a one-sentence failure statement
+            - [ ] Produced a mental model diagram
+            - [ ] Explained the mechanism (why it works)
+            - [ ] Listed constraints + justified a trade-off
+            - [ ] Listed failure modes + detection + mitigation
+            - [ ] Compared against the simplest alternative
+            - [ ] Completed Q/E/C template
+            - [ ] Self-graded + named one eval/experiment
+            - [ ] Extracted 2 flashcards
+
+            ---
+            ### 📝 Post-Session Reflection
+            **Key Insight:** (What was the main "aha" moment?)
+
+            **Project Connection:** (How does this relate to your current work?)
+
+            **Next Time:** (What would you do differently?)
+
+            ---
+            ### 📚 Relevant Resources
+            - [ ] Add links to docs/papers you found helpful
+            - [ ] Note any related repo code: [file](path)
+
+            *Consistency builds expertise. Good luck!*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
