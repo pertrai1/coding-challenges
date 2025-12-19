@@ -22,8 +22,6 @@ No problems completed yet
 
 - [Promise.all](./async-programming/promise-all/) - Medium
 
-No problems completed yet
-
 ### Components (0/10)
 
 No problems completed yet

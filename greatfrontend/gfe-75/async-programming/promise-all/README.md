@@ -2,7 +2,7 @@
 
 > `Promise.all()` is a method that takes an iterable of elements (usually `Promises`) as an input, and returns a single `Promise` that resolves to an array of the results of the input promises. - [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)
 
-## Exampes
+## Examples
 
 ```JavaScript
 // Resolved example.

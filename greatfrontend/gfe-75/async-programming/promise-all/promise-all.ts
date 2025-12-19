@@ -4,32 +4,37 @@ export function promiseAll<T extends readonly unknown[] | []>(
 ): Promise<ReturnValue<T>> {
   return new Promise((resolve, reject) => {
     if (!Array.isArray(iterable)) {
-      return reject(new TypeError('The iterable is not an iterator'));
+      return reject(new TypeError('Argument must be an array'));
     }
 
     const n = iterable.length;
-    const result = Array(n);
-    let pending = n;
-
-    if (pending === 0) {
-      resolve(result as ReturnValue<T>);
+    if (n === 0) {
+      resolve([] as ReturnValue<T>);
       return;
     }
 
-    iterable.forEach(async (value, index) => {
-      try {
-        const val = await value;
-        result[index] = val;
-      } catch (err) {
-        reject(err);
-      }
+    const result = Array(n);
+    let pending = n;
+    let rejected = false;
 
-      pending--;
+    iterable.forEach((value, index) => {
+      Promise.resolve(value)
+        .then((val) => {
+          if (rejected) return;
 
-      if (pending === 0) {
-        resolve(result as ReturnValue<T>);
-      }
+          result[index] = val;
+          pending--;
+
+          if (pending === 0) {
+            resolve(result as ReturnValue<T>);
+          }
+        })
+        .catch((err) => {
+          if (!rejected) {
+            rejected = true;
+            reject(err);
+          }
+        });
     });
-    return result;
   });
 }
