@@ -2,7 +2,7 @@ name: Daily AI Active Recall (Agent Architect)
 
 on:
   schedule:
-    - cron: '0 15 * * *' # 10:00 AM EST
+    - cron: '0 12 * * *' # 7:00 AM EST
   workflow_dispatch:
 
 jobs:
