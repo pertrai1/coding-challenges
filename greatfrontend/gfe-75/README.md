@@ -4,18 +4,7 @@ The GFE 75 is GreatFrontEnd's curated collection of 75 essential frontend coding
 
 ## 📊 Progress Tracker
 
-### Status: 3 / 75 problems completed
-
-### Progress by Category
-
-| Category             | Completed | Total | Percentage |
-| -------------------- | --------- | ----- | ---------- |
-| JavaScript Utilities | 3         | 20    | 10%        |
-| DOM Manipulation     | 0         | 15    | 0%         |
-| Async Programming    | 0         | 12    | 0%         |
-| Components           | 0         | 10    | 0%         |
-| Data Structures      | 0         | 10    | 0%         |
-| Algorithms           | 0         | 8     | 0%         |
+### Status: 4 / 75 problems completed
 
 ## ✅ Completed Problems
 
@@ -29,9 +18,9 @@ The GFE 75 is GreatFrontEnd's curated collection of 75 essential frontend coding
 
 No problems completed yet
 
-### Async Programming (0/12)
+### Async Programming (1/12)
 
-No problems completed yet
+- [Promise.all](./async-programming/promise-all/) - Medium
 
 ### Components (0/10)
 
@@ -154,5 +143,3 @@ Many GFE 75 problems build upon fundamental computer science concepts. When appl
 6. **Review implementations** - Study how popular libraries solve similar problems
 
 ---
-
-_Last updated: [Date]_
