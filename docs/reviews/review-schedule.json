@@ -241,6 +241,55 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0139",
+      "problemName": "Word Break",
+      "problemSlug": "word-break",
+      "difficulty": "medium",
+      "prNumber": "75",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/75",
+      "filePath": "leetcode/medium/0139-word-break/word-break.ts",
+      "solvedDate": "2025-12-19T02:13:40Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2025-12-20",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 2,
+          "scheduledDate": "2025-12-22",
+          "interval": 3,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 3,
+          "scheduledDate": "2025-12-26",
+          "interval": 7,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 4,
+          "scheduledDate": "2026-01-02",
+          "interval": 14,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 5,
+          "scheduledDate": "2026-01-18",
+          "interval": 30,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -250,5 +299,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-18T14:18:30.851Z"
+  "lastUpdated": "2025-12-19T02:13:51.107Z"
 }
