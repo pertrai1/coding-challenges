@@ -160,7 +160,8 @@
           "scheduledDate": "2025-12-19",
           "interval": 3,
           "completed": false,
-          "issueNumber": null
+          "issueNumber": 76,
+          "issueCreatedAt": "2025-12-19T09:06:14.337Z"
         },
         {
           "reviewNumber": 3,
@@ -299,5 +300,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-19T02:13:51.107Z"
+  "lastUpdated": "2025-12-19T09:06:14.338Z"
 }
