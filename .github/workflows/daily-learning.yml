@@ -2,7 +2,7 @@ name: Daily Gemini Active Recall (Agent Architect)
 
 on:
   schedule:
-    - cron: '30 14 * * *' # 9:30 AM EST
+    - cron: '0 15 * * *' # 10:00 AM EST
   workflow_dispatch:
 
 jobs:
@@ -53,7 +53,7 @@ jobs:
           - Do NOT ask the user to write code.
           Format: Topic: [Topic] | Difficulty: [Level] | Time: [Minutes] | Question: [Question] | Scenario: [Scenario] | Objectives: [List] | Pitfalls: [List] | Self-Check: [List] | Follow-up Drill: [One variation]"
 
-          RESPONSE=$(curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
+          RESPONSE=$(curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
             -H 'Content-Type: application/json' \
             -X POST \
             -d '{
@@ -62,14 +62,25 @@ jobs:
               }]
             }')
 
-          TOPIC_DATA=$(echo $RESPONSE | jq -r '.candidates[0].content.parts[0].text')
-          echo "topic_data=$TOPIC_DATA" >> $GITHUB_OUTPUT
+          # Extract the full response text
+          TOPIC_DATA=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text // "Error: Failed to generate challenge"')
+
+          # Extract just the topic name for the title (everything after "Topic: " and before the first "|")
+          TOPIC_NAME=$(echo "$TOPIC_DATA" | grep -oP 'Topic:\s*\K[^|]+' | head -1 | xargs || echo "AI Agent Challenge")
+
+          # Use EOF delimiter for multiline output
+          {
+            echo "topic_data<<EOF"
+            echo "$TOPIC_DATA"
+            echo "EOF"
+            echo "topic_name=$TOPIC_NAME"
+          } >> $GITHUB_OUTPUT
 
       - name: Create Daily Issue
         uses: imjohnbo/issue-bot@v3
         with:
           labels: 'active-recall, agents, nl2sql'
-          title: '🤖 Agent Recall: ${{ steps.gemini.outputs.topic_data }}'
+          title: '🤖 Agent Recall: ${{ steps.gemini.outputs.topic_name }}'
           body: |
             ## Today's Engineering Challenge
             ${{ steps.gemini.outputs.topic_data }}
