@@ -2,7 +2,7 @@ name: Daily Gemini Active Recall (Agent Architect)
 
 on:
   schedule:
-    - cron: '0 13 * * *' # 9:00 AM EST
+    - cron: '30 14 * * *' # 9:30 AM EST
   workflow_dispatch:
 
 jobs:
