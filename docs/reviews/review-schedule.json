@@ -291,6 +291,55 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "greatfrontend",
+      "problemNumber": "GFE-af3c",
+      "problemName": "Promise All",
+      "problemSlug": "promise-all",
+      "difficulty": "gfe-75/async-programming",
+      "prNumber": "77",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/77",
+      "filePath": "greatfrontend/gfe-75/async-programming/promise-all/promise-all.ts",
+      "solvedDate": "2025-12-19T14:47:23Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2025-12-20",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 2,
+          "scheduledDate": "2025-12-22",
+          "interval": 3,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 3,
+          "scheduledDate": "2025-12-26",
+          "interval": 7,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 4,
+          "scheduledDate": "2026-01-02",
+          "interval": 14,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 5,
+          "scheduledDate": "2026-01-18",
+          "interval": 30,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -300,5 +349,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-19T09:06:14.338Z"
+  "lastUpdated": "2025-12-19T14:47:33.821Z"
 }

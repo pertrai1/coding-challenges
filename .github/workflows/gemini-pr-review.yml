@@ -88,23 +88,93 @@ jobs:
               }
             }' > payload.json
 
-          # 2. Call Gemini API (v1beta endpoint for latest models)
-          # Using gemini-2.5-flash as requested. If not available, fallback to gemini-1.5-flash
-          curl -s \
-            -H "Content-Type: application/json" \
-            -d @payload.json \
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$API_KEY" > response.json
+          # 2. Call Gemini API with retry logic and model fallback
+          # Models to try in order: gemini-2.5-flash, gemini-2.0-flash
+          MODELS=("gemini-2.5-flash" "gemini-2.0-flash")
+          MAX_RETRIES=3
+          SUCCESS=false
+          USED_MODEL=""
 
-          # 3. Extract Review Text
-          REVIEW_TEXT=$(cat response.json | jq -r '.candidates[0].content.parts[0].text // empty')
+          for MODEL in "${MODELS[@]}"; do
+            if [ "$SUCCESS" = true ]; then
+              break
+            fi
 
-          if [ -z "$REVIEW_TEXT" ]; then
-            echo "⚠️ Failed to extract review from Gemini API." > review_comment.md
-            echo "<details><summary>Debug Response</summary><pre>" >> review_comment.md
-            cat response.json >> review_comment.md
-            echo "</pre></details>" >> review_comment.md
+            echo "Trying model: $MODEL"
+            RETRY_COUNT=0
+
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              echo "  Attempt $((RETRY_COUNT + 1)) of $MAX_RETRIES..."
+
+              # Make API request
+              HTTP_CODE=$(curl -s -w "%{http_code}" -o response.json \
+                -H "Content-Type: application/json" \
+                -d @payload.json \
+                "https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=$API_KEY")
+
+              # Check if request was successful
+              if [ "$HTTP_CODE" = "200" ]; then
+                # Verify we got valid content
+                REVIEW_TEXT=$(cat response.json | jq -r '.candidates[0].content.parts[0].text // empty')
+                if [ -n "$REVIEW_TEXT" ]; then
+                  echo "✓ Successfully received review from $MODEL"
+                  SUCCESS=true
+                  USED_MODEL="$MODEL"
+                  break
+                fi
+              fi
+
+              # Check for specific error codes
+              ERROR_CODE=$(cat response.json | jq -r '.error.code // empty')
+              ERROR_STATUS=$(cat response.json | jq -r '.error.status // empty')
+              ERROR_MESSAGE=$(cat response.json | jq -r '.error.message // "Unknown error"')
+
+              echo "  HTTP Code: $HTTP_CODE, Error: $ERROR_MESSAGE"
+
+              # If it's a 503/UNAVAILABLE or 429/RESOURCE_EXHAUSTED, retry with backoff
+              if [ "$HTTP_CODE" = "503" ] || [ "$HTTP_CODE" = "429" ] || \
+                 [ "$ERROR_STATUS" = "UNAVAILABLE" ] || [ "$ERROR_STATUS" = "RESOURCE_EXHAUSTED" ]; then
+                RETRY_COUNT=$((RETRY_COUNT + 1))
+                if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                  SLEEP_TIME=$((2 ** RETRY_COUNT))  # Exponential backoff: 2, 4, 8 seconds
+                  echo "  ⏳ API overloaded. Waiting ${SLEEP_TIME}s before retry..."
+                  sleep $SLEEP_TIME
+                fi
+              else
+                # For other errors (400, 404, etc.), don't retry - try next model
+                echo "  ❌ Non-retryable error, trying next model..."
+                break
+              fi
+            done
+          done
+
+          # 3. Handle final result
+          if [ "$SUCCESS" = true ]; then
+            echo "---" > review_comment.md
+            echo "**🤖 Gemini Code Review** (Model: \`$USED_MODEL\`)" >> review_comment.md
+            echo "" >> review_comment.md
+            echo "$REVIEW_TEXT" >> review_comment.md
           else
-            echo "$REVIEW_TEXT" > review_comment.md
+            echo "⚠️ **Failed to get review from Gemini API**" > review_comment.md
+            echo "" >> review_comment.md
+            echo "All models failed after multiple retry attempts. This usually indicates:" >> review_comment.md
+            echo "- The Gemini API is experiencing high load across all models" >> review_comment.md
+            echo "- There may be an issue with your API key or quota" >> review_comment.md
+            echo "" >> review_comment.md
+            echo "**Last Error:**" >> review_comment.md
+            echo '```' >> review_comment.md
+            echo "$ERROR_MESSAGE" >> review_comment.md
+            echo '```' >> review_comment.md
+            echo "" >> review_comment.md
+            echo "The review will be attempted again on the next PR update." >> review_comment.md
+            echo "" >> review_comment.md
+            echo "<details><summary>Debug Response</summary>" >> review_comment.md
+            echo "" >> review_comment.md
+            echo '```json' >> review_comment.md
+            cat response.json | jq '.' >> review_comment.md
+            echo '```' >> review_comment.md
+            echo "" >> review_comment.md
+            echo "</details>" >> review_comment.md
           fi
 
       - name: Post Comment to PR
