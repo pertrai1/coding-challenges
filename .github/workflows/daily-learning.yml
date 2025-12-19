@@ -53,17 +53,34 @@ jobs:
           - Do NOT ask the user to write code.
           Format: Topic: [Topic] | Difficulty: [Level] | Time: [Minutes] | Question: [Question] | Scenario: [Scenario] | Objectives: [List] | Pitfalls: [List] | Self-Check: [List] | Follow-up Drill: [One variation]"
 
+          # Create JSON payload properly
+          PAYLOAD=$(jq -n \
+            --arg prompt "$PROMPT" \
+            '{
+              "model": "gpt-4o-mini",
+              "messages": [{"role": "user", "content": $prompt}],
+              "temperature": 0.7
+            }')
+
+          # Make API call
           RESPONSE=$(curl -s https://api.openai.com/v1/chat/completions \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
-            -d "{
-              \"model\": \"gpt-4o-mini\",
-              \"messages\": [{\"role\": \"user\", \"content\": $(echo "$PROMPT" | jq -Rs .)}],
-              \"temperature\": 0.7
-            }")
+            -d "$PAYLOAD")
+
+          # Debug: Print response (will be visible in workflow logs)
+          echo "API Response:"
+          echo "$RESPONSE" | jq '.'
 
           # Extract the full response text
           TOPIC_DATA=$(echo "$RESPONSE" | jq -r '.choices[0].message.content // .error.message // "Error: Failed to generate challenge"')
+
+          # Check if we got an error
+          if echo "$RESPONSE" | jq -e '.error' > /dev/null 2>&1; then
+            ERROR_MSG=$(echo "$RESPONSE" | jq -r '.error.message')
+            echo "OpenAI API Error: $ERROR_MSG"
+            TOPIC_DATA="Error: OpenAI API - $ERROR_MSG"
+          fi
 
           # Extract just the topic name for the title (everything after "Topic: " and before the first "|")
           TOPIC_NAME=$(echo "$TOPIC_DATA" | grep -oP 'Topic:\s*\K[^|]+' | head -1 | xargs || echo "AI Agent Challenge")
