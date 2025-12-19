@@ -1,4 +1,4 @@
-name: Daily Gemini Active Recall (Agent Architect)
+name: Daily AI Active Recall (Agent Architect)
 
 on:
   schedule:
@@ -31,8 +31,8 @@ jobs:
             echo "issue_number=" >> $GITHUB_OUTPUT
           fi
 
-      - name: Get Topic from Gemini
-        id: gemini
+      - name: Get Topic from OpenAI
+        id: openai
         run: |
           # The PROMPT is now focused on your specific stack
           PROMPT="You are a senior AI Engineer. Generate a difficult active recall challenge for someone building Natural Language Interfaces and AI Agents.
@@ -53,17 +53,17 @@ jobs:
           - Do NOT ask the user to write code.
           Format: Topic: [Topic] | Difficulty: [Level] | Time: [Minutes] | Question: [Question] | Scenario: [Scenario] | Objectives: [List] | Pitfalls: [List] | Self-Check: [List] | Follow-up Drill: [One variation]"
 
-          RESPONSE=$(curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
-            -H 'Content-Type: application/json' \
-            -X POST \
-            -d '{
-              "contents": [{
-                "parts":[{"text": "'"$PROMPT"'"}]
-              }]
-            }')
+          RESPONSE=$(curl -s https://api.openai.com/v1/chat/completions \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
+            -d "{
+              \"model\": \"gpt-4o-mini\",
+              \"messages\": [{\"role\": \"user\", \"content\": $(echo "$PROMPT" | jq -Rs .)}],
+              \"temperature\": 0.7
+            }")
 
           # Extract the full response text
-          TOPIC_DATA=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text // "Error: Failed to generate challenge"')
+          TOPIC_DATA=$(echo "$RESPONSE" | jq -r '.choices[0].message.content // .error.message // "Error: Failed to generate challenge"')
 
           # Extract just the topic name for the title (everything after "Topic: " and before the first "|")
           TOPIC_NAME=$(echo "$TOPIC_DATA" | grep -oP 'Topic:\s*\K[^|]+' | head -1 | xargs || echo "AI Agent Challenge")
@@ -80,17 +80,17 @@ jobs:
         uses: imjohnbo/issue-bot@v3
         with:
           labels: 'active-recall, agents, nl2sql'
-          title: '🤖 Agent Recall: ${{ steps.gemini.outputs.topic_name }}'
+          title: 'Daily Active Recall Session: ${{ steps.openai.outputs.topic_name }}'
           body: |
-            ## Today's Engineering Challenge
-            ${{ steps.gemini.outputs.topic_data }}
+            ## Today's Challenge
+            ${{ steps.openai.outputs.topic_data }}
 
             ---
-            ### 🔄 Spaced Repetition Review
+            ### Spaced Repetition Review
             ${{ steps.previous.outputs.issue_number && format('Before starting, review your solution to [Issue #{0}](https://github.com/{1}/issues/{0}) and note what you learned.', steps.previous.outputs.issue_number, github.repository) || 'No previous challenges to review yet - this is your first one!' }}
 
             ---
-            ### 🧠 Active Recall Session
+            ### Active Recall Session
             1. **Definition + Boundary (2 min, no notes):** “X is ___; it is not ___.”
             2. **Failure Statement (2 min):** “The system fails when ___ because ___.”
             3. **Mental Model (6 min, no notes):** Draw a text-based diagram (Mermaid optional) of components + data flow + where uncertainty/errors enter.
@@ -106,7 +106,7 @@ jobs:
             10. **Flashcards (2 min):** Write 2 Q→A cards (one definition, one failure mode).
 
             ---
-            ### ✅ Completion Checklist
+            ### Completion Checklist
             - [ ] Reviewed previous challenge (if available)
             - [ ] Wrote a definition + boundary
             - [ ] Wrote a one-sentence failure statement
@@ -120,7 +120,7 @@ jobs:
             - [ ] Extracted 2 flashcards
 
             ---
-            ### 📝 Post-Session Reflection
+            ### Post-Session Reflection
             **Key Insight:** (What was the main "aha" moment?)
 
             **Project Connection:** (How does this relate to your current work?)
@@ -128,7 +128,7 @@ jobs:
             **Next Time:** (What would you do differently?)
 
             ---
-            ### 📚 Relevant Resources
+            ### Relevant Resources
             - [ ] Add links to docs/papers you found helpful
             - [ ] Note any related repo code: [file](path)
 
