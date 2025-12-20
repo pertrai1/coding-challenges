@@ -16,7 +16,6 @@ env:
     Agents
     Agents Architecture
     Evaluation & Metrics
-    Guardrails
     Failure Analysis
     Observability
     Prompt Engineering
@@ -27,27 +26,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Select random topic
         id: topic
         run: |
           readarray -t TOPICS <<< "${{ env.LEARNING_BUCKETS }}"
           COUNT=${#TOPICS[@]}
           INDEX=$(( RANDOM % COUNT ))
-          echo "TOPIC=${TOPICS[$INDEX]}" >> $GITHUB_OUTPUT
+          echo "TOPIC=${TOPICS[$INDEX]}" >> $GITHUB_ENV
 
-      - name: Get today’s date
-        id: date
+      - name: Set date
         run: |
-          echo "TODAY=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
       - name: Create daily learning issue
         uses: JasonEtco/create-an-issue@v2.9.1
         with:
-          template: .github/ISSUE_TEMPLATES/daily-learning.md
-          title: 'Daily Recall: ${{ steps.topic.outputs.TOPIC }} — ${{ steps.date.outputs.TODAY }}'
+          filename: .github/ISSUE_TEMPLATES/daily-learning.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TOPIC: ${{ steps.topic.outputs.TOPIC }}
-          DATE: ${{ steps.date.outputs.TODAY }}
           CONFIDENCE: '__'
           SYSTEM_TYPE: '__'
