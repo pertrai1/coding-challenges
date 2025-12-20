@@ -1,7 +1,7 @@
 ---
 name: Daily Learning Recall
 about: Active recall with expert evaluation
-title: Daily Recall
+title: 'Daily Recall: {{ env.BUCKET }} — {{ env.FOCUS }}'
 labels: ['daily-learning']
 assignees: []
 ---
@@ -15,7 +15,8 @@ date: {{ env.DATE }}
 
 ## Learning Objective
 
-**Topic:** {{ env.TOPIC }}  
+**Bucket:** {{ env.BUCKET }}  
+**Focus:** {{ env.FOCUS }}  
 **Date:** {{ env.DATE }}
 
 (What system, concept, or failure surface am I reconstructing from memory?)

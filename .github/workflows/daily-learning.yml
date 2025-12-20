@@ -2,24 +2,12 @@ name: Daily Learning Issue
 
 on:
   schedule:
-    - cron: '0 12 * * *' # 7:00 AM EST
+    - cron: '0 12 * * *' # 7am ET
   workflow_dispatch:
 
 permissions:
   issues: write
-
-env:
-  LEARNING_BUCKETS: |
-    NL Interfaces
-    LLM Architecture
-    RAG Systems
-    Agents
-    Agents Architecture
-    Evaluation & Metrics
-    Failure Analysis
-    Observability
-    Prompt Engineering
-    Retrieval-Augmented Generation
+  contents: read
 
 jobs:
   create_learning_issue:
@@ -29,13 +17,67 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Select random topic
-        id: topic
+      - name: Define learning buckets
+        id: buckets
         run: |
-          readarray -t TOPICS <<< "${{ env.LEARNING_BUCKETS }}"
-          COUNT=${#TOPICS[@]}
-          INDEX=$(( RANDOM % COUNT ))
-          echo "TOPIC=${TOPICS[$INDEX]}" >> $GITHUB_ENV
+          cat << 'EOF' > buckets.json
+          {
+            "Prompt Engineering": [
+              "Instruction-following vs completion behavior",
+              "Prompt brittleness under schema changes",
+              "Over-specification vs under-specification",
+              "Prompt leakage failure modes",
+              "Multi-step prompt degradation"
+            ],
+            "Agents": [
+              "Tool selection failure modes",
+              "Planning vs execution separation",
+              "Agent loop termination conditions",
+              "State drift over long horizons",
+              "Error compounding across tool calls"
+            ],
+            "Evaluation": [
+              "Offline vs online evaluation mismatch",
+              "LLM-as-judge failure modes",
+              "Metric gaming risks",
+              "Ground truth ambiguity",
+              "Confidence calibration errors"
+            ]
+          }
+          EOF
+
+      - name: Fetch recent focuses
+        id: recent
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue list \
+            --limit 5 \
+            --label daily-learning \
+            --json body \
+            --jq '[.[] | capture("Focus:\\s*(?<f>.*)")?.f] | map(select(. != null))' \
+            > recent.json
+
+      - name: Select bucket and focus
+        id: select
+        run: |
+          BUCKET=$(jq -r 'keys[]' buckets.json | shuf -n 1)
+
+          RECENT=$(jq -r '.[]' recent.json || true)
+
+          jq -r --arg bucket "$BUCKET" '
+            .[$bucket][]' buckets.json \
+          | grep -vxF "$RECENT" \
+          | shuf -n 1 \
+          > focus.txt
+
+          # Fallback if all were recently used
+          if [ ! -s focus.txt ]; then
+            jq -r --arg bucket "$BUCKET" '.[$bucket][]' buckets.json | shuf -n 1 > focus.txt
+          fi
+
+          echo "BUCKET=$BUCKET" >> $GITHUB_ENV
+          echo "FOCUS=$(cat focus.txt)" >> $GITHUB_ENV
 
       - name: Set date
         run: |
