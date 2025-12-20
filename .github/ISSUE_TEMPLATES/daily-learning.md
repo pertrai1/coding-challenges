@@ -15,6 +15,8 @@ date: {{ env.DATE }}
 
 ## Learning Objective
 
+> “What do I currently believe, and how could that belief be wrong?”
+
 **Bucket:** {{ env.BUCKET }}  
 **Focus:** {{ env.FOCUS }}  
 **Date:** {{ env.DATE }}
