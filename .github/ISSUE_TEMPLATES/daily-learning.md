@@ -1,7 +1,7 @@
 ---
 name: Daily Learning Recall
 about: Active recall with expert evaluation
-title: 'Daily Recall: {{ env.BUCKET }} — {{ env.FOCUS }}'
+title: 'Active Recall Session: {{ env.BUCKET }} — {{ env.FOCUS }}'
 labels: ['daily-learning']
 assignees: []
 ---
@@ -61,17 +61,7 @@ date: {{ env.DATE }}
 
 ---
 
-### 6. Failure Modes
-
-| Failure Mode | Detection Signal | Mitigation |
-| ------------ | ---------------- | ---------- |
-|              |                  |            |
-|              |                  |            |
-|              |                  |            |
-
----
-
-### 7. Transfer Test
+### 6. Transfer Test
 
 (How would this idea change in another domain or system?)
 
@@ -119,3 +109,10 @@ date: {{ env.DATE }}
 - [ ] Identified ≥1 real failure mode
 - [ ] Made a falsifiable claim
 - [ ] Scored honestly
+
+### Confidence Delta Reflection (Fill After Review)
+
+- Initial confidence:
+- Reviewer signal (over / under / calibrated):
+- My assessment:
+- What I will adjust next time:

@@ -7,7 +7,6 @@
 
 import { spawn } from 'child_process';
 import fs from 'fs/promises';
-import path from 'path';
 
 class QualityChecker {
   constructor() {
@@ -242,7 +241,7 @@ class QualityChecker {
       '## 🔒 Security Audit',
       this.results.security?.passed
         ? `✅ **Passed** - ${this.results.security.totalVulnerabilities || 0} total vulnerabilities, ${this.results.security.highSeverity || 0} high/critical`
-        : `❌ **Failed** - Security issues detected`,
+        : '❌ **Failed** - Security issues detected',
       '',
       '## 🎯 Quality Gates',
       ''

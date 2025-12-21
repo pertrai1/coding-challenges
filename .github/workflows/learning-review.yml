@@ -1,0 +1,93 @@
+name: Learning Review Bot
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write # Required to post review comments
+  contents: read # Required to checkout repository
+
+concurrency:
+  group: learning-review-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    timeout-minutes: 5
+    if: |
+      vars.LEARNING_REVIEW_ENABLED == 'true' &&
+      github.actor == 'pertrai1' &&
+      contains(github.event.comment.body, 'review') &&
+      contains(github.event.comment.body, '@learning-review-bot')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize skip flag
+        run: echo "SKIP=false" >> $GITHUB_ENV
+
+      - name: Fetch issue and comments
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue view ${{ github.event.issue.number }} \
+            --json body,comments \
+            > issue.json
+
+      - name: Check for existing review
+        run: |
+          if jq -e '.comments[].body | contains("Learning Review")' issue.json > /dev/null; then
+            echo "Review already exists. Exiting."
+            echo "SKIP=true" >> $GITHUB_ENV
+          fi
+
+      - name: Exit if already reviewed
+        if: env.SKIP == 'true'
+        run: |
+          echo "Skipping LLM call."
+          exit 0
+
+      - name: Check daily review limit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get count of reviews posted today
+          TODAY=$(date -u +%Y-%m-%d)
+          COUNT=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!) {
+              repository(owner: $owner, name: $repo) {
+                issueComments(first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
+                  nodes {
+                    body
+                    createdAt
+                  }
+                }
+              }
+            }' -f owner='pertrai1' -f repo='coding-challenges' \
+            | jq "[.data.repository.issueComments.nodes[] | select(.body | contains(\"Learning Review\")) | select(.createdAt | startswith(\"$TODAY\"))] | length")
+
+          if [ "$COUNT" -ge 3 ]; then
+            echo "Daily review limit reached."
+            echo "SKIP=true" >> $GITHUB_ENV
+          fi
+
+      - name: Exit if daily limit reached
+        if: env.SKIP == 'true'
+        run: |
+          echo "Skipping due to daily rate limit."
+          exit 0
+
+      - name: Generate review
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          node scripts/llm-review.js issue.json > review.md
+
+      - name: Post review
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --body-file review.md

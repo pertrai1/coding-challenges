@@ -34,6 +34,9 @@
     "quality:fix": "npm run lint:fix && npm run format",
     "quality:full": "node scripts/quality-check.js"
   },
+  "dependencies": {
+    "openai": "^4.0.0"
+  },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
