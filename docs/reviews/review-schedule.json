@@ -392,6 +392,55 @@
           "issueNumber": 92
         }
       ]
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0072",
+      "problemName": "Edit Distance",
+      "problemSlug": "edit-distance",
+      "difficulty": "medium",
+      "prNumber": "95",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/95",
+      "filePath": "leetcode/medium/0072-edit-distance/edit-distance.ts",
+      "solvedDate": "2025-12-22T14:44:56Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2025-12-23",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 2,
+          "scheduledDate": "2025-12-25",
+          "interval": 3,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 3,
+          "scheduledDate": "2025-12-29",
+          "interval": 7,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 4,
+          "scheduledDate": "2026-01-05",
+          "interval": 14,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 5,
+          "scheduledDate": "2026-01-21",
+          "interval": 30,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -401,5 +450,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-22T14:44:12.831Z"
+  "lastUpdated": "2025-12-22T14:45:06.024Z"
 }
