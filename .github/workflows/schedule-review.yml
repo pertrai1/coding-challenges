@@ -86,7 +86,8 @@ jobs:
               FILE_NAME="${BASH_REMATCH[4]}"
 
               # Validate that the filename matches the problem slug (main solution file)
-              if [[ "$FILE_NAME" == "$PROBLEM_SLUG" ]]; then
+              # Exclude test files explicitly
+              if [[ "$FILE_NAME" == "$PROBLEM_SLUG" ]] && [[ ! "$FILE_NAME" =~ \.test$ ]]; then
                 MAIN_FILE="$file"
                 echo "main_file=$MAIN_FILE" >> $GITHUB_OUTPUT
                 echo "platform=$PLATFORM" >> $GITHUB_OUTPUT
