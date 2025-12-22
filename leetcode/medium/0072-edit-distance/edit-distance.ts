@@ -2,7 +2,7 @@
  * @time - O(m * n) where m is the length of word 1 and n is the length of word2
  * @space - O(m * n) for the DP table
  */
-function minDistance(word1: string, word2: string): number {
+export function minDistance(word1: string, word2: string): number {
   const m = word1.length;
   const n = word2.length;
 
@@ -24,9 +24,9 @@ function minDistance(word1: string, word2: string): number {
         dp[i - 1][j - 1] + (word1[i - 1] === word2[j - 1] ? 0 : 1),
         dp[i - 1][j] + 1,
         dp[i][j - 1] + 1
-      )
+      );
     }
   }
 
   return dp[m][n];
-};
+}
