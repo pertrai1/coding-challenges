@@ -2,7 +2,7 @@
 
 ## Problem
 
-Given two inputs, `word1: string`, `word2: string`, return the total number of operations needed to have `word1` match `word2`. The operations available are `insert`, `update`, `delete`.
+Given two inputs, `word1: string`, `word2: string`, return the total number of operations needed to have `word1` match `word2`. The operations available are `insert`, `replace`, `delete`.
 
 - **Problem Name:** Edit Distance
 - **Problem Link (if applicable):** [https://leetcode.com/problems/edit-distance](https://leetcode.com/problems/edit-distance)
@@ -37,7 +37,7 @@ Given two inputs, `word1: string`, `word2: string`, return the total number of o
 
 ### What triggers or patterns did I find or miss?
 
-- I missed dyanmic programming being the most efficient way of solving this distance problem
+- I missed dynamic programming being the most efficient way of solving this distance problem
 
 ## Mistakes & Bugs
 
