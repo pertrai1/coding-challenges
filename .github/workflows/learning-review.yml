@@ -64,18 +64,8 @@ jobs:
         run: |
           # Get count of reviews posted today
           TODAY=$(date -u +%Y-%m-%d)
-          COUNT=$(gh api graphql -f query='
-            query($owner: String!, $repo: String!) {
-              repository(owner: $owner, name: $repo) {
-                issueComments(first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
-                  nodes {
-                    body
-                    createdAt
-                  }
-                }
-              }
-            }' -f owner='pertrai1' -f repo='coding-challenges' \
-            | jq "[.data.repository.issueComments.nodes[] | select(.body | contains(\"Learning Review\")) | select(.createdAt | startswith(\"$TODAY\"))] | length")
+          COUNT=$(gh api "/repos/pertrai1/coding-challenges/issues/comments?since=${TODAY}T00:00:00Z&per_page=100" \
+            --jq "[.[] | select(.body | contains(\"Learning Review\")) | select(.created_at | startswith(\"$TODAY\"))] | length")
 
           if [ "$COUNT" -ge 3 ]; then
             echo "Daily review limit reached."
