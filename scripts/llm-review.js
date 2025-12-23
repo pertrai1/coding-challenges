@@ -119,7 +119,7 @@ ${issue.body}
           content: REVIEW_PROMPT
         }
       ],
-      max_output_tokens: MAX_OUTPUT_TOKENS
+      max_tokens: MAX_OUTPUT_TOKENS
     });
 
     responseText = response.choices[0]?.message?.content?.trim();
