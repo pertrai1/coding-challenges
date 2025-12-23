@@ -1,6 +1,6 @@
 /**
  * @time - O(sLen * tLen) where sLen is the length of s and tLen is the length of t
- * @space - O(tLen) where tLen is the length of t 
+ * @space - O(tLen) where tLen is the length of t
  */
 function numDistinct(s: string, t: string): number {
   const sLen = s.length;
