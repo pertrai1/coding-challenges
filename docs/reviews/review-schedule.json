@@ -455,6 +455,55 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0115",
+      "problemName": "Distinct Subsequences",
+      "problemSlug": "distinct-subsequences",
+      "difficulty": "hard",
+      "prNumber": "99",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/99",
+      "filePath": "leetcode/hard/0115-distinct-subsequences/distinct-subsequences.ts",
+      "solvedDate": "2025-12-23T20:15:45Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2025-12-24",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 2,
+          "scheduledDate": "2025-12-26",
+          "interval": 3,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 3,
+          "scheduledDate": "2025-12-30",
+          "interval": 7,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 4,
+          "scheduledDate": "2026-01-06",
+          "interval": 14,
+          "completed": false,
+          "issueNumber": null
+        },
+        {
+          "reviewNumber": 5,
+          "scheduledDate": "2026-01-22",
+          "interval": 30,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -464,5 +513,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-23T16:59:05.172Z"
+  "lastUpdated": "2025-12-23T20:15:55.773Z"
 }
