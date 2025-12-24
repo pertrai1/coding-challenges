@@ -66,6 +66,7 @@ Your job is to surface:
 - Hidden assumptions
 - Missing failure surfaces
 - Calibration quality
+- Links to related reseach papers
 
 Review the artifact using ONLY the following structure.
 Do not add sections.
@@ -91,6 +92,9 @@ Do not add sections.
 Based on the artifact, answer:
 - Does the author appear overconfident, underconfident, or well-calibrated?
 - Do NOT assign a numeric score.
+
+### 7. External Research
+(Share any research that has been conducted on the topic.)
 
 ---
 
