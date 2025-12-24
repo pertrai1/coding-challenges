@@ -9,13 +9,13 @@ Essential JavaScript utility functions that are commonly asked in frontend inter
 - [Debounce](./debounce/) - Medium
 - [Flatten](./flatten/) - Medium
 - [Throttle](./throttle/) - Medium
+- [Deep Clone](./deep-clone/) - Medium
 
 ### To Do 📝
 
 - **Memoize** - Medium - Cache function results
 - **Curry** - Medium - Transform multi-argument function
 - **Partial** - Medium - Pre-fill function arguments
-- **Deep Clone** - Medium - Clone nested objects/arrays
 - **Deep Equal** - Medium - Compare nested objects
 - **Get** - Easy - Access nested object properties safely
 - **Set** - Medium - Set nested object properties

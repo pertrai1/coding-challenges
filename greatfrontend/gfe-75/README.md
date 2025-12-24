@@ -4,33 +4,34 @@ The GFE 75 is GreatFrontEnd's curated collection of 75 essential frontend coding
 
 ## 📊 Progress Tracker
 
-### Status: 4 / 75 problems completed
+### Status: 5 / 75 problems completed
 
 ## ✅ Completed Problems
 
-### JavaScript Utilities (2/20)
+### JavaScript Utilities
 
 - [Debounce](./javascript-utilities/debounce/) - Medium
 - [Flatten](./javascript-utilities/flatten/) - Medium
 - [Throttle](./javascript-utilities/throttle/) - Medium
+- [Deep Clone](./javascript-utilities/deep-clone/) - Medium
 
-### DOM Manipulation (0/15)
+### DOM Manipulation
 
 No problems completed yet
 
-### Async Programming (1/12)
+### Async Programming
 
 - [Promise.all](./async-programming/promise-all/) - Medium
 
-### Components (0/10)
+### Components
 
 No problems completed yet
 
-### Data Structures (0/10)
+### Data Structures
 
 No problems completed yet
 
-### Algorithms (0/8)
+### Algorithms
 
 No problems completed yet
 
