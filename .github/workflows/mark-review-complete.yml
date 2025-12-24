@@ -65,15 +65,42 @@ jobs:
                   issueNumber: issueNumber
                 });
 
+                console.log(`✅ Marked complete: ${problem.problemName} - Review ${review.reviewNumber}`);
+
+                // Schedule the next review if this isn't the last one
+                const intervals = schedule.reviewIntervals; // [1, 3, 7, 14, 30]
+                const nextReviewNumber = review.reviewNumber + 1;
+
+                if (nextReviewNumber <= intervals.length) {
+                  // Calculate next review date based on completion date
+                  const completedDate = new Date(review.completedAt);
+                  const nextInterval = intervals[nextReviewNumber - 1];
+                  const nextReviewDate = new Date(completedDate);
+                  nextReviewDate.setDate(nextReviewDate.getDate() + nextInterval);
+
+                  // Add next review to schedule
+                  problem.reviewsDue.push({
+                    reviewNumber: nextReviewNumber,
+                    scheduledDate: nextReviewDate.toISOString().split('T')[0],
+                    interval: nextInterval,
+                    completed: false,
+                    issueNumber: null
+                  });
+
+                  console.log(`📅 Scheduled review ${nextReviewNumber} for ${nextReviewDate.toISOString().split('T')[0]} (${nextInterval} days from completion)`);
+                }
+
                 problemInfo = {
                   name: problem.problemName,
                   number: problem.problemNumber,
                   reviewNumber: review.reviewNumber,
-                  totalReviews: problem.reviewsDue.length,
-                  completedReviews: problem.reviewsCompleted.length
+                  totalReviews: intervals.length,
+                  completedReviews: problem.reviewsCompleted.length,
+                  nextReviewScheduled: nextReviewNumber <= intervals.length,
+                  nextReviewDate: nextReviewNumber <= intervals.length
+                    ? new Date(new Date(review.completedAt).getTime() + intervals[nextReviewNumber - 1] * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                    : null
                 };
-
-                console.log(`✅ Marked complete: ${problem.problemName} - Review ${review.reviewNumber}`);
               }
             });
           });
@@ -139,8 +166,10 @@ jobs:
             - ✅ Completed: ${reviewInfo.completedReviews}/${reviewInfo.totalReviews} reviews
             - 📅 Remaining: ${remaining} review(s)
 
-            ${remaining > 0 ? `### 🔜 Next Steps
-            Your next review will be automatically scheduled. Keep up the great work!` : `### 🎉 All Reviews Complete!
+            ${reviewInfo.nextReviewScheduled ? `### 🔜 Next Review Scheduled
+            Your next review (**Review ${reviewInfo.reviewNumber + 1}**) has been automatically scheduled for **${reviewInfo.nextReviewDate}**.
+
+            The review is spaced based on when you completed *this* review, ensuring optimal retention intervals even if you're a few days late! 🧠` : `### 🎉 All Reviews Complete!
             You've completed all spaced repetition reviews for this problem. The knowledge is now solidly in your long-term memory!`}
 
             ### 🧠 Keep Learning

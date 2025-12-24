@@ -171,22 +171,25 @@ jobs:
             reviewsCompleted: []
           };
 
-          // Calculate review dates
+          // Only schedule the first review initially
+          // Subsequent reviews will be scheduled when previous ones are completed
           const solvedDate = new Date(problemData.solvedDate);
           const intervals = schedule.reviewIntervals; // [1, 3, 7, 14, 30]
 
-          intervals.forEach((days, index) => {
-            const reviewDate = new Date(solvedDate);
-            reviewDate.setDate(reviewDate.getDate() + days);
+          // Schedule only the first review (1 day after solving)
+          const firstReviewDate = new Date(solvedDate);
+          firstReviewDate.setDate(firstReviewDate.getDate() + intervals[0]);
 
-            problemData.reviewsDue.push({
-              reviewNumber: index + 1,
-              scheduledDate: reviewDate.toISOString().split('T')[0],
-              interval: days,
-              completed: false,
-              issueNumber: null
-            });
+          problemData.reviewsDue.push({
+            reviewNumber: 1,
+            scheduledDate: firstReviewDate.toISOString().split('T')[0],
+            interval: intervals[0],
+            completed: false,
+            issueNumber: null
           });
+
+          console.log(`Scheduled first review for ${firstReviewDate.toISOString().split('T')[0]}`);
+          console.log(`Remaining reviews will be scheduled upon completion of previous reviews`);
 
           // Add to schedule
           schedule.problems.push(problemData);
@@ -197,8 +200,8 @@ jobs:
 
           console.log('✅ Added problem to review schedule:');
           console.log(`   Problem: ${problemData.problemName}`);
-          console.log(`   Reviews scheduled: ${problemData.reviewsDue.length}`);
-          console.log(`   Next review: ${problemData.reviewsDue[0].scheduledDate}`);
+          console.log(`   First review scheduled: ${problemData.reviewsDue[0].scheduledDate}`);
+          console.log(`   Total reviews planned: ${intervals.length}`);
           EOF
 
       - name: Commit updated schedule
@@ -220,7 +223,7 @@ jobs:
 
             Problem: #${{ steps.parse-problem.outputs.problem_number }} - ${{ steps.parse-problem.outputs.problem_name }}
             PR: #${{ steps.extract-info.outputs.pr_number }}
-            Reviews scheduled: 5 (days 1, 3, 7, 14, 30)
+            First review scheduled (subsequent reviews auto-scheduled on completion)
 
             [skip ci]"
 
@@ -241,24 +244,25 @@ jobs:
 
             To help you retain this knowledge long-term, I've scheduled **5 review sessions** using spaced repetition:
 
-            | Review | Days After | Approximate Date |
-            |--------|-----------|------------------|
-            | 1st Review | 1 day | Tomorrow |
-            | 2nd Review | 3 days | In 3 days |
-            | 3rd Review | 7 days | In 1 week |
-            | 4th Review | 14 days | In 2 weeks |
-            | 5th Review | 30 days | In 1 month |
+            | Review | Interval | Schedule Logic |
+            |--------|----------|----------------|
+            | 1st Review | 1 day after solving | Scheduled now |
+            | 2nd Review | 3 days after 1st review | Auto-scheduled when 1st completes |
+            | 3rd Review | 7 days after 2nd review | Auto-scheduled when 2nd completes |
+            | 4th Review | 14 days after 3rd review | Auto-scheduled when 3rd completes |
+            | 5th Review | 30 days after 4th review | Auto-scheduled when 4th completes |
 
             ### What to expect:
-            - GitHub issues will be automatically created for each review
+            - Your **1st review** is scheduled for tomorrow
+            - Each subsequent review is scheduled **automatically** when you complete the previous one
+            - This ensures proper spacing even if you complete a review a few days late
+            - GitHub issues will be created automatically for each review
             - Each issue will link back to your solution
-            - You'll be reminded to solve the problem again or review your approach
-            - This helps move knowledge from short-term to long-term memory!
 
             ### 🧠 Why Spaced Repetition?
-            Research shows that reviewing material at increasing intervals dramatically improves retention. This is your learning superpower!
+            Research shows that reviewing material at increasing intervals dramatically improves retention. This adaptive scheduling ensures optimal spacing based on when you *actually* complete each review!
 
-            _Check \`docs/reviews/review-schedule.json\` to see your full review schedule._`;
+            _Check \`docs/reviews/review-schedule.json\` to see your review schedule._`;
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
