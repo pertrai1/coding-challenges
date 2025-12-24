@@ -144,7 +144,7 @@ ${issue.body}
   }
 
   const output = `
-##Learning Review
+## Learning Review
 
 ${responseText}
 
