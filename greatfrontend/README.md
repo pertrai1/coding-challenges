@@ -8,13 +8,6 @@ Solutions to GreatFrontEnd coding challenges, focusing on frontend engineering, 
 - **[GFE 75/](./gfe-75/)** - GreatFrontEnd's curated GFE 75 collection
 - **javascript/** - JavaScript-specific challenges (coming soon)
 
-## 📊 Progress
-
-- **Blind 75**: 3/75 completed
-- **GFE 75**: 4/75 completed
-
-Both collections are organized by category for easier pattern recognition and learning.
-
 ## 🔗 Resources
 
 - [GreatFrontEnd Platform](https://www.greatfrontend.com/)
