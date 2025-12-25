@@ -435,9 +435,10 @@
           "reviewNumber": 1,
           "scheduledDate": "2025-12-23",
           "interval": 1,
-          "completed": false,
+          "completed": true,
           "issueNumber": 97,
-          "issueCreatedAt": "2025-12-23T09:06:30.829Z"
+          "issueCreatedAt": "2025-12-23T09:06:30.829Z",
+          "completedAt": "2025-12-25T14:32:06.743Z"
         },
         {
           "reviewNumber": 2,
@@ -467,9 +468,22 @@
           "interval": 30,
           "completed": false,
           "issueNumber": null
+        },
+        {
+          "reviewNumber": 2,
+          "scheduledDate": "2025-12-28",
+          "interval": 3,
+          "completed": false,
+          "issueNumber": null
         }
       ],
-      "reviewsCompleted": []
+      "reviewsCompleted": [
+        {
+          "reviewNumber": 1,
+          "completedAt": "2025-12-25T14:32:06.743Z",
+          "issueNumber": 97
+        }
+      ]
     },
     {
       "platform": "leetcode",
@@ -565,5 +579,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-25T14:30:56.872Z"
+  "lastUpdated": "2025-12-25T14:32:06.744Z"
 }
