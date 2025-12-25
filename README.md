@@ -70,6 +70,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 ### Topic Guides
 
 - [AI/LLM-Oriented Problems](./docs/topics/ai-llm.md) - Algorithms that map to generative AI fundamentals
+- [Gradient Descent](./docs/techniques/ai-ml/GRADIENT_DESCENT.md) - Optimization technique for machine learning
 - [Math Problems](./docs/topics/math.md) - Number theory and mathematical algorithms
 - More topic guides coming soon...
 
