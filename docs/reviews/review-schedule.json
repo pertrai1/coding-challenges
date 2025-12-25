@@ -444,7 +444,8 @@
           "scheduledDate": "2025-12-25",
           "interval": 3,
           "completed": false,
-          "issueNumber": null
+          "issueNumber": 104,
+          "issueCreatedAt": "2025-12-25T09:05:34.575Z"
         },
         {
           "reviewNumber": 3,
@@ -536,7 +537,8 @@
           "scheduledDate": "2025-12-25",
           "interval": 1,
           "completed": false,
-          "issueNumber": null
+          "issueNumber": 105,
+          "issueCreatedAt": "2025-12-25T09:05:34.576Z"
         }
       ],
       "reviewsCompleted": []
@@ -549,5 +551,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-24T22:14:30.087Z"
+  "lastUpdated": "2025-12-25T09:05:34.576Z"
 }
