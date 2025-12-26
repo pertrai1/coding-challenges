@@ -1,8 +1,8 @@
 /**
-* @time - O(m * n) where each character in n is iterated for each character in m
-* @space - O(m * n) because of the 2D array of size (m + 1) * (n + 1)
-*/
-function longestCommonSubsequence(text1: string, text2: string): number {
+ * @time - O(m * n) where each character in n is iterated for each character in m
+ * @space - O(m * n) because of the 2D array of size (m + 1) * (n + 1)
+ */
+export function longestCommonSubsequence(text1: string, text2: string): number {
   const m = text1.length;
   const n = text2.length;
 

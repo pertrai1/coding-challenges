@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                         | Focus Area                   | Problems Solved |
 | -------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 166             |
+| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 167             |
 | [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 8               |
 
 ## 🎯 Platforms
@@ -18,7 +18,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 **Progress**:
 
 - Easy: 80 problems
-- Medium: 72 problems
+- Medium: 73 problems
 - Hard: 14 problems
 
 **Quick Links**:
@@ -182,7 +182,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 </details>
 
 <details>
-<summary>🟡 Medium Problems (71 solved)</summary>
+<summary>🟡 Medium Problems (73 solved)</summary>
 
 ### Stack & Design
 
@@ -240,6 +240,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 - [0198 - House Robber](./leetcode/medium/0198-house-robber) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0413 - Arithmetic Slices](./leetcode/medium/0413-arithmetic-slices) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0718 - Maximum Length of Repeated Subarray](./leetcode/medium/0718-maximum-length-of-repeated-subarray) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [1250 - Longest Common Subsequence](./leetcode/medium/1250-longest-common-subsequence) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Math & Number Theory
 
