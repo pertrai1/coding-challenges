@@ -13,8 +13,8 @@
  *   JSON object with env variables for the issue template
  */
 
-const https = require('https');
-const { parseString } = require('xml2js');
+import https from 'https';
+import { parseString } from 'xml2js';
 
 // Configuration
 const ARXIV_API = 'http://export.arxiv.org/api/query';
@@ -229,8 +229,8 @@ async function generateTopic() {
 }
 
 // Run if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   generateTopic();
 }
 
-module.exports = { generateTopic, fetchPapers };
+export { generateTopic, fetchPapers };
