@@ -3,7 +3,7 @@ name: Daily Learning Recall (LLM/Agents)
 about: Active recall with expert evaluation — dynamically sourced from recent arXiv research
 title: 'Active Recall Session: {{ env.BUCKET }} — {{ env.FOCUS }}'
 labels: ['daily-learning', 'llm', 'agents']
-assignees: []
+assignees: ['pertrai1']
 ---
 
 <!--
@@ -23,8 +23,6 @@ date: {{ env.DATE }}
 -->
 
 ## Learning Objective
-
-> "What do I currently believe, and how could that belief be wrong?"
 
 **Bucket:** {{ env.BUCKET }}  
 **Focus:** {{ env.FOCUS }}  
@@ -57,12 +55,26 @@ date: {{ env.DATE }}
 
 ### 3. Mental Model
 
+(Reconstruct the system architecture, data flow, or conceptual framework from memory)
+
+(Include: components, interactions, feedback loops, uncertainty points)
+
+#### Option 1: Mermaid Diagram
+
 ```mermaid
-# Reconstruct the system architecture, data flow, or conceptual framework
-# Include: components, interactions, feedback loops, uncertainty points
+graph TD
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
 ```
 
-(Alternative: ASCII diagram showing the mechanism)
+#### Option 2: ASCII Diagram
+
+```text
+[Input] --> [Process] --> [Output]
+            ^      |
+            |      v
+         [Feedback]
+```
 
 ---
 
@@ -80,7 +92,7 @@ date: {{ env.DATE }}
 
 ### 5. Constraints & Trade-offs
 
-**Computational Constraints:**
+- **Computational Constraints:**
 
 - **Architectural Constraints:**
 
@@ -88,7 +100,7 @@ date: {{ env.DATE }}
 
 - **Chosen trade-off and justification:**
 
-  ***
+---
 
 ### 6. Transfer Test
 
@@ -136,10 +148,9 @@ date: {{ env.DATE }}
 **Related work mentioned in paper:**
 
 -
--
 - **Open questions from the paper:**
 
-- ***
+-
 
 ### Carry-Forward Insight
 
