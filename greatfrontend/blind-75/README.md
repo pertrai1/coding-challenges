@@ -4,20 +4,7 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 ## 📊 Progress Tracker
 
-### Status: 3 / 75 problems completed
-
-### Progress by Category
-
-| Category            | Completed | Total | Percentage |
-| ------------------- | --------- | ----- | ---------- |
-| Arrays              | 2         | 15    | 13.33%     |
-| Strings             | 0         | 10    | 0%         |
-| Stack & Queue       | 1         | 8     | 12.5%      |
-| Linked Lists        | 0         | 8     | 0%         |
-| Trees               | 0         | 12    | 0%         |
-| Dynamic Programming | 0         | 15    | 0%         |
-| Graphs              | 0         | 10    | 0%         |
-| Other               | 0         | 5     | 0%         |
+### Status: 4 / 75 problems completed
 
 ## ✅ Completed Problems
 
@@ -38,9 +25,9 @@ No problems completed yet
 
 No problems completed yet
 
-### Trees (0/12)
+### Trees (1/12)
 
-No problems completed yet
+- [Binary Search Tree Kth Smallest Element](./trees/bst-kth-smallest/) - Medium
 
 ### Dynamic Programming (0/15)
 
