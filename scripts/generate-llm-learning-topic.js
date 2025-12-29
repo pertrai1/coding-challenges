@@ -17,7 +17,7 @@ import https from 'https';
 import { parseString } from 'xml2js';
 
 // Configuration
-const ARXIV_API = 'http://export.arxiv.org/api/query';
+const ARXIV_API = 'https://export.arxiv.org/api/query';
 const CATEGORIES = ['cs.CL', 'cs.AI', 'cs.LG'];
 const SEARCH_TERMS = [
   'LLM OR "large language model"',
