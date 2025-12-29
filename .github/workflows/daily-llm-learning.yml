@@ -54,6 +54,9 @@ jobs:
             // Read the template
             let template = fs.readFileSync('.github/ISSUE_TEMPLATES/daily-learning-llm.md', 'utf8');
 
+            // Strip frontmatter (everything between the first two ---)
+            template = template.replace(/^---[\s\S]*?---\n/, '');
+
             // Replace all template variables
             const replacements = {
               'TOPIC': '${{ steps.topic.outputs.TOPIC }}',
@@ -80,7 +83,8 @@ jobs:
               repo: context.repo.repo,
               title: `Active Recall Session: ${{ steps.topic.outputs.BUCKET }} — ${{ steps.topic.outputs.FOCUS }}`,
               body: template,
-              labels: ['daily-learning', 'llm', 'agents']
+              labels: ['daily-learning', 'llm', 'agents'],
+              assignees: ['pertrai1']
             });
 
             console.log(`Created issue #${issue.data.number}`);
