@@ -691,6 +691,27 @@
           "issueNumber": 112
         }
       ]
+    },
+    {
+      "platform": "greatfrontend",
+      "problemNumber": "GFE-960f",
+      "problemName": "Bst Kth Smallest",
+      "problemSlug": "bst-kth-smallest",
+      "difficulty": "blind-75/trees",
+      "prNumber": "121",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/121",
+      "filePath": "greatfrontend/blind-75/trees/bst-kth-smallest/bst-kth-smallest.ts",
+      "solvedDate": "2025-12-29T14:43:40Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2025-12-30",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -700,5 +721,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-29T09:07:54.998Z"
+  "lastUpdated": "2025-12-29T14:43:50.721Z"
 }
