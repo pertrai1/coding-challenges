@@ -806,6 +806,27 @@
           "issueNumber": 128
         }
       ]
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0340",
+      "problemName": "Longest Substring With At Most K Distinct Characters",
+      "problemSlug": "longest-substring-with-at-most-k-distinct-characters",
+      "difficulty": "medium",
+      "prNumber": "131",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/131",
+      "filePath": "leetcode/medium/0340-longest-substring-with-at-most-k-distinct-characters/longest-substring-with-at-most-k-distinct-characters.ts",
+      "solvedDate": "2025-12-30T13:40:40Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2025-12-31",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -815,5 +836,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-30T12:46:06.803Z"
+  "lastUpdated": "2025-12-30T13:40:48.552Z"
 }
