@@ -328,6 +328,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 - [0003 - Longest Substring Without Repeating Characters](./leetcode/medium/0003-longest-substring-without-repeating-characters) - Medium
 - [0159 - Longest Substring with At Most Two Distinct Characters](./leetcode/medium/0159-longest-substring-with-at-most-two-distinct-characters) - Medium
 - [0209 - Minimum Size Subarray Sum](./leetcode/medium/0209-minimum-size-subarray-sum) - Medium
+- [0340 - Longest Substring with At Most K Distinct Characters](./leetcode/medium/0340-longest-substring-with-at-most-k-distinct-characters) - Medium
 - [More in docs →](./docs/techniques/SLIDING_WINDOW.md)
 
 ### Hash Table / Hash Map
