@@ -1,30 +1,24 @@
+# [Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
 
-# [Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters) ![](https://img.shields.io/badge/Medium-orange)
+Given a string `s` and an integer `k`, return _the length of the longest **substring** of_ `s` _that contains at most_ `k` _**distinct** characters_.
 
-<p>Given a string <code>s</code> and an integer <code>k</code>, return <em>the length of the longest </em><span data-keyword="substring-nonempty"><em>substring</em></span><em> of</em> <code>s</code> <em>that contains at most</em> <code>k</code> <em><strong>distinct</strong> characters</em>.</p>
+## Example 1
 
-<p>&nbsp;</p>
-<p><strong class="example">Example 1:</strong></p>
+```text
+Input: s = "eceba", k = 2
+Output: 3
+Explanation: The substring is "ece" with length 3.
+```
 
-<pre>
-<strong>Input:</strong> s = &quot;eceba&quot;, k = 2
-<strong>Output:</strong> 3
-<strong>Explanation:</strong> The substring is &quot;ece&quot; with length 3.</pre>
+## Example 2
 
-<p><strong class="example">Example 2:</strong></p>
+```text
+Input: s = "aa", k = 1
+Output: 2
+Explanation: The substring is "aa" with length 2.
+```
 
-<pre>
-<strong>Input:</strong> s = &quot;aa&quot;, k = 1
-<strong>Output:</strong> 2
-<strong>Explanation:</strong> The substring is &quot;aa&quot; with length 2.
-</pre>
+## Constraints
 
-<p>&nbsp;</p>
-<p><strong>Constraints:</strong></p>
-
-<ul>
-	<li><code>1 &lt;= s.length &lt;= 5 * 10<sup>4</sup></code></li>
-	<li><code>0 &lt;= k &lt;= 50</code></li>
-</ul>
-
-        
+- `1 <= s.length <= 5 * 10^4`
+- `0 <= k <= 50`
