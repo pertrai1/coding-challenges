@@ -14,28 +14,63 @@ _Describe the problem in your own words._
 
 - **Time to design the algorithm:**
 - **Time to code:**
+- **Time debugging/fixing:**
 
 ---
 
 ## Solution Exploration
 
-### What solutions did I consider or miss?
+### What approaches did I consider?
+
+_List all approaches you considered, including brute force and optimized solutions._
 
 -
 
-### Analysis
+### Final Solution Analysis
 
-_Explain why certain approaches worked or didn’t._
+- **Time Complexity:**
+- **Space Complexity:**
+- **Is it optimal?** (Yes/No, and why)
+
+### Why this approach worked (or didn't)
+
+_Explain the trade-offs and why certain approaches were better than others._
 
 -
 
-### Was my final solution optimal?
+## Pattern Recognition
+
+### What algorithmic pattern does this problem use?
+
+_e.g., Two Pointers, Sliding Window, DFS/BFS, Dynamic Programming, Backtracking, Binary Search, etc._
 
 -
 
-### What triggers or patterns did I find or miss?
+### Key Insight
 
-- ***
+_What's the "aha moment" or core concept that makes this solution work?_
+
+-
+
+### Related Problems
+
+_List 2-3 similar problems that use the same pattern._
+
+-
+
+## Edge Cases & Verification
+
+### What clarifying questions did I ask?
+
+-
+
+### Edge cases handled
+
+-
+
+### Edge cases missed
+
+-
 
 ## Mistakes & Bugs
 
@@ -45,21 +80,21 @@ _Explain why certain approaches worked or didn’t._
 
 ### Bugs to add to the Bug List
 
-- ***
+-
 
 ## Retrospective
 
-### What could I have done differently?
+### Key Takeaways & Lessons Learned
+
+_What did I learn? What would I do differently next time?_
 
 -
 
-### Takeaways
+### Add to Cheat Sheet
+
+_Templates, formulas, or patterns to remember._
 
 -
-
-### Anything to add to my cheat sheet?
-
-- ***
 
 ## Rubric Self-Rating (1–5)
 

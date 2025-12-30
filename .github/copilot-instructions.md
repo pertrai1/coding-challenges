@@ -1,17 +1,37 @@
 # GitHub Copilot Instructions for Coding Challenges Repository
 
+> **For comprehensive agent guidelines, see [AGENTS.md](../AGENTS.md)**
+> **For code review focus, see [CLAUDE.md](../CLAUDE.md)**
+
+This file contains GitHub Copilot-specific instructions for inline suggestions and chat interactions.
+
 ## Repository Overview
 
-This repository contains solutions to various LeetCode problems and coding challenges, organized by problem number and topic. Solutions are primarily written in JavaScript and TypeScript.
+This repository contains coding challenge solutions from multiple platforms for learning and practicing:
+
+- **LeetCode**: Data structures and algorithms (167 problems: 80 easy, 73 medium, 14 hard)
+- **GreatFrontEnd**: Frontend engineering and JavaScript fundamentals (9 problems)
+- **System Design**: Architecture patterns and scalable system design
+- **Interviews**: Mock interview sessions and practice scenarios
+
+Solutions are primarily written in JavaScript/TypeScript with comprehensive testing using Vitest.
 
 ## Repository Structure
 
-- **Problem Directories**: Named as `[number]-[problem-name]` (e.g., `0001-two-sum`)
-  - Each directory contains:
-    - `README.md`: Problem description from LeetCode (HTML format)
-    - Solution file(s): `[problem-name].js` or `[problem-name].ts`
-- **Additional Projects**: Directories like `blog`, `load-balancer`, `netcat`, `notion`
-- **SOLUTION_TEMPLATE.md**: Template for documenting solution approaches
+- **leetcode/**: LeetCode problems organized by difficulty (easy/medium/hard)
+  - Problem directories: `[number]-[problem-name]` (e.g., `0001-two-sum`)
+  - Each contains: `README.md`, solution file(s), test file(s)
+- **greatfrontend/**: GreatFrontEnd problems (gfe-75, blind-75)
+- **system-design/**: System design problems, solutions, and templates
+- **docs/**: Comprehensive documentation
+  - `analysis/`: Detailed problem breakdowns and pattern analysis
+  - `techniques/`: Algorithmic technique guides (Hash Lookup, Two Pointers, etc.)
+  - `topics/`: Topic-specific guides (AI/LLM, Math, Graphs, etc.)
+  - `interviews/`: Interview workflow and rubrics
+  - `platforms/`: Platform-specific guides (LeetCode, GreatFrontEnd)
+- **scripts/**: Quality automation scripts (complexity analyzer, LLM review, etc.)
+- **AGENTS.md**: Comprehensive AI agent guidelines
+- **CLAUDE.md**: Code review guidelines
 
 ## Code Style and Conventions
 
@@ -22,6 +42,7 @@ This repository contains solutions to various LeetCode problems and coding chall
 - Use ES6+ features: `const`, `let`, arrow functions, Map, Set
 - Keep solutions concise and focused on the algorithm
 - Example:
+
   ```javascript
   /**
    * @param {number[]} nums
@@ -39,6 +60,7 @@ This repository contains solutions to various LeetCode problems and coding chall
 - Follow strict TypeScript configuration (defined in `tsconfig.json`)
 - Target ES2020 with CommonJS modules
 - Example:
+
   ```typescript
   function createCounter(n: number): () => number {
     return function () {
@@ -76,9 +98,68 @@ When creating new solutions:
 
 ## Testing
 
-- Solutions are primarily designed to be submitted to LeetCode
-- Manual testing through LeetCode platform
-- No automated testing framework in place (tests are implicit via LeetCode)
+This repository uses [Vitest](https://vitest.dev/) for testing:
+
+- **Test Files**: Use `*.test.ts` or `*.test.js` naming convention
+- **When to Test**:
+  - Complex algorithms with helper functions
+  - Data structure implementations (linked lists, trees, graphs)
+  - Solutions with multiple edge cases
+  - GreatFrontEnd API implementations
+  - Reusable utility functions
+- **Note**: Not all LeetCode solutions require tests (validated on platform)
+
+### Test Commands
+
+```bash
+npm test              # Run tests in watch mode
+npm run test:run      # Run tests once (CI mode)
+npm run test:ui       # Run tests with interactive UI
+npm run test:coverage # Generate coverage report
+```
+
+See [docs/TESTING.md](../docs/TESTING.md) for detailed instructions.
+
+## Quality Automation
+
+### Quick Commands
+
+```bash
+npm run quality:check      # Quick quality check
+npm run quality:fix        # Fix common issues
+npm test                   # Run tests in watch mode
+npm run test:ui            # Interactive test UI
+npm run complexity:leetcode # Analyze complexity
+```
+
+**For comprehensive quality guidelines, see [docs/CODE_QUALITY.md](../docs/CODE_QUALITY.md)**
+
+## AI Agent Collaboration
+
+Multiple specialized agents work on this repository. When collaborating:
+
+- Reference files using markdown links: `[file.ts](file.ts#L10)`
+- Use consistent terminology from documentation
+- Coordinate to avoid duplication in `docs/analysis/`
+
+**Available agents:**
+
+- DSA Code Reviewer: Algorithm solutions and complexity analysis
+- Test Case Generator: Comprehensive test cases
+- Algorithmic Pattern Spotter: Pattern identification
+
+**For detailed agent guidelines, see [AGENTS.md](../AGENTS.md)**
+
+## Documentation Standard
+
+Each problem directory should include:
+
+- `README.md`: Problem description, examples, constraints, platform link
+- Solution file: Well-commented code with complexity analysis
+- Test file (when applicable): Using Vitest
+- Analysis file (in `docs/analysis/`): Detailed breakdown with patterns and insights
+
+**For detailed documentation standards, see [AGENTS.md](../AGENTS.md#documentation-maintenance-standards)**
 
 ## Language-Specific Notes
 
@@ -97,6 +178,8 @@ When creating new solutions:
 
 ## Common Problem Categories
 
+### LeetCode (DSA Focus)
+
 - **Arrays & Strings**: Two pointers, sliding window, hash maps
 - **Trees**: DFS, BFS, recursion
 - **Graphs**: Adjacency lists, union-find, topological sort
@@ -104,16 +187,30 @@ When creating new solutions:
 - **Math & Bit Manipulation**: Number theory, bitwise operations
 - **Hash Tables**: Frequency counting, lookups
 
-## Additional Projects
+### GreatFrontEnd (Frontend Focus)
 
-The repository also contains standalone projects:
+- **Browser APIs**: DOM manipulation, Fetch, Storage, Events
+- **JavaScript Fundamentals**: Closures, async/await, Promises
+- **Frontend Performance**: Debouncing, throttling, efficient rendering
+- **API Design**: Public APIs, error handling, parameter validation
+- **Code Organization**: Functional patterns, separation of concerns
 
-- `blog`: Blog application
-- `load-balancer`: Load balancing implementation
-- `netcat`: Network utility (Node.js)
-- `notion`: Notion-related projects
+## System Design
 
-These follow similar code quality standards but may have their own specific patterns and requirements.
+The `system-design/` directory contains:
+
+- **problems/**: System design problem descriptions
+- **solutions/**: Detailed architecture solutions
+- **templates/**: Reusable design templates and patterns
+- **practice-log/**: Practice session logs and reviews
+
+System design solutions should include:
+
+- Architecture diagrams
+- Component descriptions
+- Trade-off analysis
+- Scalability considerations
+- Technology choices and justifications
 
 ## General Preferences
 
@@ -135,6 +232,17 @@ Provide educational feedback that helps understand:
 5. **Interview Context**: How would you explain this solution in an interview?
 6. **Common Mistakes**: What are typical mistakes people make with this pattern?
 
+## Learning Resources
+
+Key documentation:
+
+- [Pólya-Inspired Quickstart](../docs/CODING_QUICKSTART.md): Problem-solving framework
+- [Testing Guide](../docs/TESTING.md): Vitest testing
+- [Code Quality Guide](../docs/CODE_QUALITY.md): Quality automation
+- [Interview Workflow](../docs/interviews/INTERVIEW_WORKFLOW.md): AI-assisted interviews
+
+**For comprehensive learning resources, see [AGENTS.md](../AGENTS.md#learning-resources)**
+
 ## What NOT to Do
 
 - Don't add unnecessary dependencies or imports
@@ -142,3 +250,7 @@ Provide educational feedback that helps understand:
 - Don't ignore time/space complexity considerations
 - Don't use deprecated JavaScript features
 - Don't deviate from LeetCode's expected function signatures
+- Don't flag console.log statements (used for learning/debugging)
+- Don't require tests for all LeetCode solutions (validated on platform)
+- Don't block code for having ESLint warnings (allowed for learning)
+- Don't suggest changes without explaining WHY

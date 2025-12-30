@@ -1,12 +1,20 @@
 # CLAUDE.md - Code Review Guidelines
 
+> **For comprehensive agent guidelines and repository maintenance, see [AGENTS.md](./AGENTS.md)**  
+> **For GitHub Copilot instructions, see [.github/copilot-instructions.md](./.github/copilot-instructions.md)**
+
+This file focuses on code review standards and educational feedback for algorithmic solutions.
+
 ## Repository Purpose
 
 This repository contains coding challenge solutions from multiple platforms for learning and practicing:
-- **LeetCode**: Data structures and algorithms
-- **GreatFrontEnd**: Frontend engineering and JavaScript fundamentals
 
-Solutions are primarily written in JavaScript/TypeScript.
+- **LeetCode**: Data structures and algorithms (167 problems)
+- **GreatFrontEnd**: Frontend engineering and JavaScript fundamentals (9 problems)
+- **System Design**: Architecture patterns and scalable system design
+- **Interviews**: Mock interview sessions and practice scenarios
+
+Solutions are primarily written in JavaScript/TypeScript with comprehensive testing using Vitest.
 
 ## Code Review Focus
 
@@ -73,30 +81,35 @@ LeetCode solutions focus on algorithmic problem-solving and data structures. Fol
 When reviewing GreatFrontEnd solutions, focus on frontend-specific considerations:
 
 #### Browser & JavaScript APIs
+
 - Verify correct usage of browser APIs (DOM, Fetch, Storage, etc.)
 - Check for browser compatibility considerations
 - Validate event handling patterns (delegation, cleanup)
 - Ensure proper async/await and Promise usage
 
 #### Frontend Performance
+
 - Check for unnecessary re-renders or DOM manipulations
 - Verify efficient data structure usage for UI updates
 - Look for debouncing/throttling where appropriate
 - Consider memory leaks (event listeners, timers, closures)
 
 #### API Design
+
 - Evaluate the public API for clarity and usability
 - Check for consistent naming conventions
 - Verify parameter validation and error handling
 - Consider edge cases specific to browser environments
 
 #### Code Organization
+
 - Prefer functional patterns where appropriate
 - Keep functions small and focused
 - Use modern ES6+ features (optional chaining, nullish coalescing, etc.)
 - Consider separation of concerns (logic vs. presentation)
 
 #### Testing Considerations
+
 - Solutions should handle edge cases (empty inputs, invalid types, etc.)
 - Consider async operation handling
 - Verify cleanup logic (removing event listeners, clearing timeouts)
@@ -137,11 +150,51 @@ When reviewing algorithmic solutions, provide educational feedback that helps wi
 - Example: "A common mistake with sliding window is forgetting to clean up the frequency map when elements leave the window"
 - Example: "A common mistake with two pointers is not handling duplicates correctly"
 
+## Quality Automation
+
+The repository uses automated quality checks (ESLint, Prettier, Vitest, Complexity Analyzer).
+
+### Quick Commands
+
+```bash
+npm run quality:check      # Quick check
+npm run quality:fix        # Auto-fix issues
+npm test                   # Run tests
+npm run complexity:leetcode # Analyze complexity
+```
+
+**For detailed quality automation, see [docs/CODE_QUALITY.md](./docs/CODE_QUALITY.md)**
+
+## Testing
+
+Use Vitest for complex solutions, data structures, and GreatFrontEnd implementations. Not all LeetCode solutions require tests (validated on platform).
+
+**For comprehensive testing guide, see [docs/TESTING.md](./docs/TESTING.md)**
+
+## Agent Collaboration
+
+Multiple specialized agents work on this repository (DSA Code Reviewer, Test Case Generator, Algorithmic Pattern Spotter).
+
+**For detailed agent guidelines and coordination, see [AGENTS.md](./AGENTS.md)**
+
+## Documentation Standards
+
+Each problem directory should include:
+
+- README.md with problem description and constraints
+- Well-commented solution file with complexity analysis
+- Test file (when applicable)
+- Analysis file in `docs/analysis/` with patterns, insights, and trade-offs
+
+**For comprehensive documentation standards, see [AGENTS.md](./AGENTS.md#documentation-maintenance-standards)**
+
 ## What NOT to Flag
 
 - Multiple solution approaches (exploratory learning is encouraged)
 - Console.log statements (used for debugging/learning)
 - Less optimal solutions if clearly marked as alternative approaches
+- Missing tests for simple LeetCode solutions (validated on platform)
+- ESLint warnings (allowed for educational complexity)
 
 ## Tone
 

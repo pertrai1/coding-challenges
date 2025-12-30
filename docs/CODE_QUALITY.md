@@ -232,27 +232,77 @@ trailingComma: 'none'
 
 ### CI/CD Pipeline
 
+Multiple GitHub Actions workflows maintain quality:
+
+- **Code Quality** (`.github/workflows/code-quality.yml`): Runs ESLint, Prettier, and complexity analysis on PRs
+- **Test** (`.github/workflows/test.yml`): Runs Vitest on all commits
+- **Daily Learning** (`.github/workflows/daily-learning.yml`): Creates daily learning issues
+- **LLM Learning** (`.github/workflows/daily-llm-learning.yml`): Creates LLM/agent research issues
+- **PR Review** (multiple workflows): Automated code reviews using Claude, GPT-4, and Gemini
+
+Pipeline stages:
+
 1. **Quality Gate**: ESLint + Prettier validation
-2. **Complexity Analysis**: Full repository analysis
-3. **Security Scan**: NPM audit + secret detection
-4. **Code Metrics**: Generate comprehensive metrics
-5. **Report Generation**: Unified quality report
+2. **Test Suite**: Vitest with coverage reporting
+3. **Complexity Analysis**: Full repository analysis
+4. **Security Scan**: NPM audit + secret detection
+5. **Code Metrics**: Generate comprehensive metrics
+6. **Report Generation**: Unified quality report
 
 ### Pull Request Integration
 
-- **Automated Comments**: Quality results posted to PR
+- **Automated Comments**: Quality results and AI reviews posted to PR
 - **Artifact Storage**: Detailed reports saved
 - **Quality Gates**: Prevent merging if critical issues
 - **Trend Analysis**: Track quality over time
+- **Multi-Agent Reviews**: Claude, GPT-4, and Gemini provide feedback
+
+## 🤖 AI-Powered Quality
+
+### Agent Integration
+
+Multiple specialized AI agents assist with code quality:
+
+- **DSA Code Reviewer** (`.github/agents/dsa-reviewer.agent.md`): Reviews algorithm solutions
+- **Test Case Generator** (`.github/agents/test-case-generator.agent.md`): Creates test cases
+- **Algorithmic Pattern Spotter** (`.github/agents/algorithmic-pattern-spotter.agent.md`): Identifies patterns
+
+See [AGENTS.md](../AGENTS.md) for detailed agent guidelines.
+
+### Automated Reviews
+
+PR reviews automatically include:
+
+- **Correctness**: Verification of algorithm logic
+- **Complexity**: Time and space complexity analysis
+- **Patterns**: Identification of algorithmic patterns
+- **Optimization**: Suggestions for improvement
+- **Best Practices**: Language-specific recommendations
+- **Related Problems**: Links to similar problems
+
+### Quality Commands with AI Context
+
+```bash
+# Generate LLM-assisted code review
+node scripts/llm-review.js <file>
+
+# Generate learning topics from research papers
+node scripts/generate-llm-learning-topic.js
+
+# Start AI-assisted interview
+python3 scripts/start_interview.py
+```
 
 ## 📚 Best Practices
 
 ### Algorithm Development
 
 1. **Write First**: Focus on solving the problem
-2. **Analyze**: Use complexity analyzer to verify Big O
-3. **Optimize**: Apply suggestions from quality reports
-4. **Document**: Add comments explaining complex logic
+2. **Test**: Write Vitest tests for complex solutions
+3. **Analyze**: Use complexity analyzer to verify Big O
+4. **Optimize**: Apply suggestions from quality reports
+5. **Document**: Add comments explaining complex logic
+6. **Review**: Run quality checks before committing
 
 ### Code Quality
 
@@ -260,6 +310,8 @@ trailingComma: 'none'
 2. **Review Warnings**: Consider ESLint warnings for improvements
 3. **Format Consistently**: Use Prettier for consistent style
 4. **Validate Security**: Review security audit results
+5. **Test Coverage**: Aim for high coverage on reusable code
+6. **Agent Feedback**: Review AI agent suggestions in PRs
 
 ### Educational Use
 
@@ -267,31 +319,40 @@ trailingComma: 'none'
 2. **Compare Complexities**: Verify expected vs actual performance
 3. **Learn from Reports**: Read recommendations and explanations
 4. **Track Progress**: Monitor quality improvements over time
+5. **Active Recall**: Use daily learning issues for spaced repetition
+6. **Mock Interviews**: Practice with AI-assisted interview system
 
 ## 🚨 Troubleshooting
 
 ### Common Issues
 
-**"ESLint errors prevent commit"**
+#### ESLint errors prevent commit
 
 ```bash
 npm run lint:fix  # Auto-fix many issues
 npm run lint      # See remaining issues
 ```
 
-**"Prettier formatting required"**
+#### Prettier formatting required
 
 ```bash
 npm run format    # Auto-format all files
 ```
 
-**"Complexity analysis failed"**
+#### Tests failing
+
+```bash
+npm test          # Run in watch mode to debug
+npm run test:ui   # Use visual UI for debugging
+```
+
+#### Complexity analysis failed
 
 ```bash
 node scripts/complexity-analyzer.js <file>  # Test specific file
 ```
 
-**"Pre-commit hooks not working"**
+#### Pre-commit hooks not working
 
 ```bash
 npx husky install         # Reinstall hooks
@@ -309,8 +370,9 @@ DEBUG=true npm run quality:full
 - **VS Code**: ESLint and Prettier extensions for real-time feedback
 - **GitHub Actions**: Automated quality checks on every push/PR
 - **Pre-commit**: Local quality gates before commits
-- **SonarQube**: Advanced code quality analysis (optional)
-- **Performance Dashboard**: Links to benchmark results
+- **Vitest**: Fast unit testing with watch mode and UI
+- **AI Agents**: Multi-agent code reviews on pull requests
+- **Performance Dashboard**: Links to benchmark results (future)
 
 ## 📈 Future Enhancements
 
@@ -319,6 +381,7 @@ DEBUG=true npm run quality:full
 - **AI Insights**: ML-powered code improvement suggestions
 - **Interactive Learning**: Guided tutorials based on code analysis
 - **Competition Mode**: Compare solutions with community
+- **System Design**: Quality checks for architecture patterns
 
 ---
 
@@ -326,9 +389,12 @@ DEBUG=true npm run quality:full
 
 - [ ] Run `npm install` to install dependencies
 - [ ] Run `npm run quality:check` to verify setup
+- [ ] Run `npm test` to verify tests work
 - [ ] Run `npm run complexity:leetcode` to analyze algorithms
-- [ ] Check `.github/workflows/code-quality.yml` is enabled
+- [ ] Check `.github/workflows/` for enabled workflows
 - [ ] Review generated `quality-report.md`
 - [ ] Setup pre-commit hooks (optional): `npx husky install`
+- [ ] Review [AGENTS.md](../AGENTS.md) for agent guidelines
+- [ ] Check [TESTING.md](./TESTING.md) for testing guide
 
 The system is now ready to help improve your code quality and algorithm understanding! 🚀

@@ -356,7 +356,7 @@ Each problem directory contains:
 
 - `README.md` - Problem description and examples
 - Solution file(s) in JavaScript/TypeScript
-- Test files (where applicable)
+- Test files (where applicable) using Vitest
 - Auto-generated analysis files in `docs/analysis/`
 
 ### Running Solutions
@@ -367,6 +367,9 @@ cd leetcode/easy/0001-two-sum
 
 # Run the solution
 node two-sum.js
+
+# Or with TypeScript
+npx ts-node two-sum.ts
 ```
 
 ### Running Tests
@@ -375,12 +378,70 @@ node two-sum.js
 # Install dependencies
 npm install
 
-# Run all tests
+# Run all tests in watch mode
 npm test
 
+# Run tests once (CI mode)
+npm run test:run
+
+# Run tests with interactive UI
+npm run test:ui
+
+# Generate coverage report
+npm run test:coverage
+
 # Run specific test
-npm test -- two-sum.test.js
+npm test -- two-sum.test
 ```
+
+### Quality Checks
+
+```bash
+# Quick quality check (lint + format check)
+npm run quality:check
+
+# Fix linting and formatting issues
+npm run quality:fix
+
+# Comprehensive quality analysis
+npm run quality:full
+
+# Analyze algorithm complexity
+npm run complexity:leetcode
+```
+
+## 🧪 Testing
+
+This repository uses [Vitest](https://vitest.dev/) for fast, modern testing:
+
+- **Watch Mode**: Automatically re-runs tests on file changes
+- **UI Mode**: Visual interface for viewing and debugging tests
+- **Coverage**: Built-in code coverage with v8
+- **TypeScript**: First-class TypeScript support
+
+See [Testing Guide](./docs/TESTING.md) for detailed instructions.
+
+## 📊 Code Quality
+
+Automated quality system includes:
+
+- **ESLint**: Code style and quality enforcement
+- **Prettier**: Consistent code formatting
+- **Complexity Analyzer**: Automated Big O analysis
+- **Pre-commit Hooks**: Quality gates (optional)
+- **CI/CD Workflows**: Automated checks on PRs
+
+See [Code Quality Guide](./docs/CODE_QUALITY.md) for details.
+
+## 🤖 AI Agents
+
+Multiple specialized AI agents maintain code quality and create educational documentation:
+
+- **DSA Code Reviewer**: Reviews algorithm solutions and provides complexity analysis
+- **Test Case Generator**: Creates comprehensive test cases
+- **Algorithmic Pattern Spotter**: Identifies and documents patterns
+
+See [AGENTS.md](./AGENTS.md) for comprehensive agent guidelines.
 
 ## 🤝 Contributing
 
@@ -394,6 +455,7 @@ All solutions in this repository follow strict review guidelines. See [CLAUDE.md
 - Complexity analysis standards
 - Code quality expectations
 - DSA learning focus areas
+- Platform-specific guidelines (LeetCode, GreatFrontEnd)
 
 ## 🔄 Spaced Repetition System
 
