@@ -894,6 +894,27 @@
           "issueNumber": 134
         }
       ]
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0142",
+      "problemName": "Linked List Cycle Ii",
+      "problemSlug": "linked-list-cycle-ii",
+      "difficulty": "medium",
+      "prNumber": "139",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/139",
+      "filePath": "leetcode/medium/0142-linked-list-cycle-ii/linked-list-cycle-ii.ts",
+      "solvedDate": "2026-01-02T01:50:07Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-01-03",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -903,5 +924,5 @@
     14,
     30
   ],
-  "lastUpdated": "2025-12-31T20:27:04.604Z"
+  "lastUpdated": "2026-01-02T01:50:21.796Z"
 }
