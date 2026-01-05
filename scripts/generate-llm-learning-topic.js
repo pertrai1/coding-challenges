@@ -92,9 +92,29 @@ function fetchPapers(query, maxResults = 20) {
 }
 
 /**
+ * Strip LaTeX formatting from text
+ */
+function stripLatex(text) {
+  return text
+    .replace(/\\textit\{([^}]+)\}/g, '$1')
+    .replace(/\\textbf\{([^}]+)\}/g, '$1')
+    .replace(/\\emph\{([^}]+)\}/g, '$1')
+    .replace(/\\text\{([^}]+)\}/g, '$1')
+    .replace(/\\mathbf\{([^}]+)\}/g, '$1')
+    .replace(/\\mathrm\{([^}]+)\}/g, '$1')
+    .replace(/\$([^$]+)\$/g, '$1')
+    .replace(/\\[a-zA-Z]+/g, '')
+    .replace(/[{}]/g, '')
+    .trim();
+}
+
+/**
  * Extract key concept from paper abstract
  */
 function extractConcept(abstract) {
+  // Strip LaTeX first
+  const cleanAbstract = stripLatex(abstract);
+
   // Simple extraction heuristics
   const patterns = [
     /we (propose|present|introduce) ([^,.]+)/i,
@@ -103,15 +123,15 @@ function extractConcept(abstract) {
   ];
 
   for (const pattern of patterns) {
-    const match = abstract.match(pattern);
+    const match = cleanAbstract.match(pattern);
     if (match) {
-      return match[2] || match[1];
+      return stripLatex(match[2] || match[1]);
     }
   }
 
   // Fallback: extract first capitalized technical term
   const technicalTerms =
-    abstract.match(/\b[A-Z][a-z]+(?:-[A-Z][a-z]+)*\b/g) || [];
+    cleanAbstract.match(/\b[A-Z][a-z]+(?:-[A-Z][a-z]+)*\b/g) || [];
   return technicalTerms[0] || 'Core Mechanism';
 }
 
@@ -144,18 +164,23 @@ function classifyBucket(title, abstract) {
  * Extract research question from abstract
  */
 function extractResearchQuestion(abstract) {
+  // Strip LaTeX first
+  const cleanAbstract = stripLatex(abstract);
+
   // Look for question patterns
-  const questionMatch = abstract.match(/(?:How|What|Why|Can|Does) [^.?]+\?/);
+  const questionMatch = cleanAbstract.match(
+    /(?:How|What|Why|Can|Does) [^.?]+\?/
+  );
   if (questionMatch) return questionMatch[0];
 
   // Look for problem statements
-  const problemMatch = abstract.match(
+  const problemMatch = cleanAbstract.match(
     /(?:challenge|problem|question) (?:is|of) ([^.]+)/i
   );
   if (problemMatch) return `How to address: ${problemMatch[1].trim()}?`;
 
   // Fallback: extract first sentence as implicit question
-  const firstSentence = abstract.split(/[.!?]/)[0];
+  const firstSentence = cleanAbstract.split(/[.!?]/)[0];
   return `${firstSentence.trim()}?`;
 }
 
@@ -181,7 +206,8 @@ async function generateTopic() {
     const paper =
       papers[Math.floor(Math.random() * Math.min(papers.length, 10))];
 
-    const title = paper.title[0].replace(/\s+/g, ' ').trim();
+    const rawTitle = paper.title[0].replace(/\s+/g, ' ').trim();
+    const title = stripLatex(rawTitle);
     const abstract = paper.summary[0].replace(/\s+/g, ' ').trim();
     const url = paper.id[0];
     const published = paper.published[0].split('T')[0];
