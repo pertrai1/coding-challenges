@@ -47,6 +47,18 @@ jobs:
 
       - name: Create GitHub Issue
         uses: actions/github-script@v7
+        env:
+          TOPIC: ${{ steps.topic.outputs.TOPIC }}
+          PAPER_TITLE: ${{ steps.topic.outputs.PAPER_TITLE }}
+          PAPER_URL: ${{ steps.topic.outputs.PAPER_URL }}
+          PAPER_DATE: ${{ steps.topic.outputs.PAPER_DATE }}
+          BUCKET: ${{ steps.topic.outputs.BUCKET }}
+          FOCUS: ${{ steps.topic.outputs.FOCUS }}
+          CONCEPT: ${{ steps.topic.outputs.CONCEPT }}
+          RESEARCH_QUESTION: ${{ steps.topic.outputs.RESEARCH_QUESTION }}
+          SYSTEM_TYPE: ${{ steps.topic.outputs.SYSTEM_TYPE }}
+          CONFIDENCE: ${{ steps.topic.outputs.CONFIDENCE }}
+          DATE: ${{ steps.topic.outputs.DATE }}
         with:
           script: |
             const fs = require('fs');
@@ -57,19 +69,19 @@ jobs:
             // Strip frontmatter (everything between the first two ---)
             template = template.replace(/^---[\s\S]*?---\n/, '');
 
-            // Replace all template variables
+            // Replace all template variables using environment variables
             const replacements = {
-              'TOPIC': '${{ steps.topic.outputs.TOPIC }}',
-              'PAPER_TITLE': '${{ steps.topic.outputs.PAPER_TITLE }}',
-              'PAPER_URL': '${{ steps.topic.outputs.PAPER_URL }}',
-              'PAPER_DATE': '${{ steps.topic.outputs.PAPER_DATE }}',
-              'BUCKET': '${{ steps.topic.outputs.BUCKET }}',
-              'FOCUS': '${{ steps.topic.outputs.FOCUS }}',
-              'CONCEPT': '${{ steps.topic.outputs.CONCEPT }}',
-              'RESEARCH_QUESTION': '${{ steps.topic.outputs.RESEARCH_QUESTION }}',
-              'SYSTEM_TYPE': '${{ steps.topic.outputs.SYSTEM_TYPE }}',
-              'CONFIDENCE': '${{ steps.topic.outputs.CONFIDENCE }}',
-              'DATE': '${{ steps.topic.outputs.DATE }}'
+              'TOPIC': process.env.TOPIC,
+              'PAPER_TITLE': process.env.PAPER_TITLE,
+              'PAPER_URL': process.env.PAPER_URL,
+              'PAPER_DATE': process.env.PAPER_DATE,
+              'BUCKET': process.env.BUCKET,
+              'FOCUS': process.env.FOCUS,
+              'CONCEPT': process.env.CONCEPT,
+              'RESEARCH_QUESTION': process.env.RESEARCH_QUESTION,
+              'SYSTEM_TYPE': process.env.SYSTEM_TYPE,
+              'CONFIDENCE': process.env.CONFIDENCE,
+              'DATE': process.env.DATE
             };
 
             for (const [key, value] of Object.entries(replacements)) {
@@ -81,7 +93,7 @@ jobs:
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `Active Recall Session: ${{ steps.topic.outputs.BUCKET }} — ${{ steps.topic.outputs.FOCUS }}`,
+              title: `Active Recall Session: ${process.env.BUCKET} — ${process.env.FOCUS}`,
               body: template,
               labels: ['daily-learning', 'llm', 'agents'],
               assignees: ['pertrai1']
