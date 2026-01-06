@@ -15,17 +15,11 @@
 
 import https from 'https';
 import http from 'http';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import OpenAI from 'openai';
-import pdfParse from 'pdf-parse';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const MAX_OUTPUT_TOKENS = 1000;
+const SUMMARY_MAX_TOKENS = 1000;
 const MAX_PDF_TEXT_LENGTH = 50000; // Limit text to avoid token limits
+const MAX_REDIRECTS = 5; // Prevent infinite redirect loops
 
 /**
  * Convert arXiv abstract URL to PDF URL
@@ -35,9 +29,13 @@ function convertToPdfUrl(url) {
 }
 
 /**
- * Download PDF from URL
+ * Download PDF from URL with redirect handling
  */
-async function downloadPdf(url) {
+async function downloadPdf(url, redirectCount = 0) {
+  if (redirectCount >= MAX_REDIRECTS) {
+    throw new Error('Too many redirects');
+  }
+
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https') ? https : http;
 
@@ -45,7 +43,9 @@ async function downloadPdf(url) {
       .get(url, (res) => {
         // Handle redirects
         if (res.statusCode === 301 || res.statusCode === 302) {
-          downloadPdf(res.headers.location).then(resolve).catch(reject);
+          downloadPdf(res.headers.location, redirectCount + 1)
+            .then(resolve)
+            .catch(reject);
           return;
         }
 
@@ -67,6 +67,8 @@ async function downloadPdf(url) {
  */
 async function extractTextFromPdf(pdfBuffer) {
   try {
+    // Dynamic import for pdf-parse (CommonJS module)
+    const pdfParse = (await import('pdf-parse')).default;
     const data = await pdfParse(pdfBuffer);
     return data.text;
   } catch (error) {
@@ -133,7 +135,7 @@ ${paperText}
           content: prompt
         }
       ],
-      max_tokens: MAX_OUTPUT_TOKENS,
+      max_tokens: SUMMARY_MAX_TOKENS,
       temperature: 0.3
     });
 

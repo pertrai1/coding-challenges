@@ -25,6 +25,8 @@ jobs:
   summarize:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+    # Only respond to pertrai1's commands for security
+    # Scheduled and manual triggers are not restricted
     if: |
       (github.event_name == 'issue_comment' &&
        github.actor == 'pertrai1' &&
@@ -168,7 +170,7 @@ jobs:
         run: |
           # Get count of summaries posted today
           TODAY=$(date -u +%Y-%m-%d)
-          COUNT=$(gh api "/repos/pertrai1/coding-challenges/issues/comments?since=${TODAY}T00:00:00Z&per_page=100" \
+          COUNT=$(gh api "/repos/${{ github.repository }}/issues/comments?since=${TODAY}T00:00:00Z&per_page=100" \
             --jq "[.[] | select(.body | contains(\"Paper Summary\")) | select(.created_at | startswith(\"$TODAY\"))] | length")
 
           if [ "$COUNT" -ge 3 ]; then
