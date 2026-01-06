@@ -6,6 +6,12 @@ on:
   schedule:
     # Run daily at 10 AM UTC to check for stale active recall issues
     - cron: '0 10 * * *'
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to summarize (optional, for testing)'
+        required: false
+        type: number
 
 permissions:
   issues: write
@@ -24,7 +30,8 @@ jobs:
        github.actor == 'pertrai1' &&
        contains(github.event.comment.body, 'summary') &&
        contains(github.event.comment.body, '@learning-review-bot')) ||
-      github.event_name == 'schedule'
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,22 +53,26 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "issue_comment" ]; then
             echo "ISSUE_NUMBER=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ -n "${{ inputs.issue_number }}" ]; then
+            echo "ISSUE_NUMBER=${{ inputs.issue_number }}" >> $GITHUB_OUTPUT
           else
             echo "ISSUE_NUMBER=" >> $GITHUB_OUTPUT
           fi
 
       # For comment trigger: process the current issue
-      - name: Fetch issue details (comment trigger)
-        if: github.event_name == 'issue_comment'
+      - name: Fetch issue details (comment trigger or manual)
+        if: github.event_name == 'issue_comment' || (github.event_name == 'workflow_dispatch' && inputs.issue_number != '')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh issue view ${{ github.event.issue.number }} \
+          ISSUE_NUM="${{ steps.issue-number.outputs.ISSUE_NUMBER }}"
+          gh issue view "$ISSUE_NUM" \
             --json body,comments,labels,createdAt \
             > issue.json
 
       # For scheduled trigger: find issues that need summaries
       - name: Find issues needing summaries (scheduled)
+        id: find-issues
         if: github.event_name == 'schedule'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -97,10 +108,10 @@ jobs:
             
             console.log(`Found issue #${oldestIssue.number} needing summary`);
             fs.writeFileSync('issue.json', JSON.stringify(oldestIssue, null, 2));
-            fs.writeFileSync(process.env.GITHUB_OUTPUT, `ISSUE_NUMBER=${oldestIssue.number}\n`, { flag: 'a' });
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `ISSUE_NUMBER=${oldestIssue.number}\n`);
           } else {
             console.log('No issues need summaries');
-            fs.writeFileSync(process.env.GITHUB_OUTPUT, 'ISSUE_NUMBER=\n', { flag: 'a' });
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'ISSUE_NUMBER=\n');
           }
           EOF
 
