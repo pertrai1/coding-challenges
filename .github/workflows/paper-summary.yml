@@ -147,7 +147,7 @@ jobs:
       - name: Extract paper URL from issue
         id: extract-url
         run: |
-          PAPER_URL=$(jq -r '.body' issue.json | grep -oP 'http://arxiv\.org/abs/[^\s\)]+' | head -1)
+          PAPER_URL=$(jq -r '.body' issue.json | grep -oP 'http://arxiv\.org/abs/[0-9]{4}\.[0-9]{4,5}(v[0-9]+)?' | head -1)
 
           if [ -z "$PAPER_URL" ]; then
             echo "No arXiv paper URL found in issue body"

@@ -64,12 +64,17 @@ async function downloadPdf(url, redirectCount = 0) {
 
 /**
  * Extract text from PDF buffer
+ * Uses dynamic import for CommonJS pdf-parse module
  */
+let pdfParseModule = null;
+
 async function extractTextFromPdf(pdfBuffer) {
   try {
-    // Dynamic import for pdf-parse (CommonJS module)
-    const pdfParse = (await import('pdf-parse')).default;
-    const data = await pdfParse(pdfBuffer);
+    // Cache the pdf-parse module after first import
+    if (!pdfParseModule) {
+      pdfParseModule = (await import('pdf-parse')).default;
+    }
+    const data = await pdfParseModule(pdfBuffer);
     return data.text;
   } catch (error) {
     throw new Error(`Failed to parse PDF: ${error.message}`);
