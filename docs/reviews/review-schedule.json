@@ -960,6 +960,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0692",
+      "problemName": "Top K Frequent Words",
+      "problemSlug": "top-k-frequent-words",
+      "difficulty": "medium",
+      "prNumber": "156",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/156",
+      "filePath": "leetcode/medium/0692-top-k-frequent-words/top-k-frequent-words.ts",
+      "solvedDate": "2026-01-06T01:49:28Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-01-07",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -969,5 +990,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-01-05T14:05:12.274Z"
+  "lastUpdated": "2026-01-06T01:49:40.445Z"
 }
