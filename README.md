@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                         | Focus Area                   | Problems Solved |
 | -------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 168             |
+| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 169             |
 | [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 9               |
 
 ## 🎯 Platforms
@@ -18,7 +18,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 **Progress**:
 
 - Easy: 80 problems
-- Medium: 74 problems
+- Medium: 75 problems
 - Hard: 14 problems
 
 **Quick Links**:
@@ -182,7 +182,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 </details>
 
 <details>
-<summary>🟡 Medium Problems (74 solved)</summary>
+<summary>🟡 Medium Problems (75 solved)</summary>
 
 ### Stack & Design
 
@@ -230,6 +230,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 - [0395 - Longest Substring with At Least K Repeating Characters](./leetcode/medium/0395-longest-substring-with-at-least-k-repeating-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0438 - Find All Anagrams in a String](./leetcode/medium/0438-find-all-anagrams-in-a-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0616 - Add Bold Tag in String](./leetcode/medium/0616-add-bold-tag-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0692 - Top K Frequent Words](./leetcode/medium/0692-top-k-frequent-words) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0760 - Bold Words in String](./leetcode/medium/0760-bold-words-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2487 - Optimal Partition of String](./leetcode/medium/2487-optimal-partition-of-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 
