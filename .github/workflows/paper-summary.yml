@@ -135,7 +135,7 @@ jobs:
         id: extract-url
         run: |
           PAPER_URL=$(jq -r '.body' issue.json | grep -oP 'http://arxiv\.org/abs/[^\s\)]+' | head -1)
-          
+
           if [ -z "$PAPER_URL" ]; then
             echo "No arXiv paper URL found in issue body"
             echo "SKIP=true" >> $GITHUB_ENV
@@ -185,7 +185,7 @@ jobs:
           if [ -z "$ISSUE_NUM" ]; then
             ISSUE_NUM=$(jq -r '.number' issue.json)
           fi
-          
+
           gh issue comment "$ISSUE_NUM" --body-file summary.md
 
       - name: Summary complete

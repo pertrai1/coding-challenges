@@ -45,9 +45,7 @@ async function downloadPdf(url) {
       .get(url, (res) => {
         // Handle redirects
         if (res.statusCode === 301 || res.statusCode === 302) {
-          downloadPdf(res.headers.location)
-            .then(resolve)
-            .catch(reject);
+          downloadPdf(res.headers.location).then(resolve).catch(reject);
           return;
         }
 
@@ -163,7 +161,9 @@ async function main() {
   try {
     if (process.argv.length < 3) {
       console.error('Usage: node summarize-paper.js <paper_url>');
-      console.error('Example: node summarize-paper.js http://arxiv.org/abs/2601.00698v1');
+      console.error(
+        'Example: node summarize-paper.js http://arxiv.org/abs/2601.00698v1'
+      );
       process.exit(1);
     }
 
