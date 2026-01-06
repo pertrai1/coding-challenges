@@ -20,6 +20,7 @@ import OpenAI from 'openai';
 const SUMMARY_MAX_TOKENS = 1000;
 const MAX_PDF_TEXT_LENGTH = 50000; // Limit text to avoid token limits
 const MAX_REDIRECTS = 5; // Prevent infinite redirect loops
+const REQUEST_TIMEOUT = 60000; // 60 seconds
 
 /**
  * Convert arXiv abstract URL to PDF URL
@@ -39,26 +40,30 @@ async function downloadPdf(url, redirectCount = 0) {
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https') ? https : http;
 
-    protocol
-      .get(url, (res) => {
-        // Handle redirects
-        if (res.statusCode === 301 || res.statusCode === 302) {
-          downloadPdf(res.headers.location, redirectCount + 1)
-            .then(resolve)
-            .catch(reject);
-          return;
-        }
+    const request = protocol.get(url, { timeout: REQUEST_TIMEOUT }, (res) => {
+      // Handle redirects
+      if (res.statusCode === 301 || res.statusCode === 302) {
+        downloadPdf(res.headers.location, redirectCount + 1)
+          .then(resolve)
+          .catch(reject);
+        return;
+      }
 
-        if (res.statusCode !== 200) {
-          reject(new Error(`Failed to download PDF: HTTP ${res.statusCode}`));
-          return;
-        }
+      if (res.statusCode !== 200) {
+        reject(new Error(`Failed to download PDF: HTTP ${res.statusCode}`));
+        return;
+      }
 
-        const chunks = [];
-        res.on('data', (chunk) => chunks.push(chunk));
-        res.on('end', () => resolve(Buffer.concat(chunks)));
-      })
-      .on('error', reject);
+      const chunks = [];
+      res.on('data', (chunk) => chunks.push(chunk));
+      res.on('end', () => resolve(Buffer.concat(chunks)));
+    });
+
+    request.on('error', reject);
+    request.on('timeout', () => {
+      request.destroy();
+      reject(new Error('Request timeout'));
+    });
   });
 }
 

@@ -4,8 +4,7 @@ on:
   issue_comment:
     types: [created]
   schedule:
-    # Run daily at 10 AM UTC to check for stale active recall issues
-    - cron: '0 10 * * *'
+    - cron: '0 12 * * *' # Run daily at 7 AM EST (12 PM UTC)
   workflow_dispatch:
     inputs:
       issue_number:
@@ -25,8 +24,6 @@ jobs:
   summarize:
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    # Only respond to pertrai1's commands for security
-    # Scheduled and manual triggers are not restricted
     if: |
       (github.event_name == 'issue_comment' &&
        github.actor == 'pertrai1' &&
@@ -144,10 +141,14 @@ jobs:
           echo "Issue already has a summary."
           exit 0
 
+      - name: Check arXiv availability
+        run: |
+          curl -f --max-time 10 https://arxiv.org/ > /dev/null || exit 1
+
       - name: Extract paper URL from issue
         id: extract-url
         run: |
-          PAPER_URL=$(jq -r '.body' issue.json | grep -oP 'http://arxiv\.org/abs/[0-9]{4}\.[0-9]{4,5}(v[0-9]+)?' | head -1)
+          PAPER_URL=$(jq -r '.body' issue.json | grep -oP 'https?://arxiv\.org/abs/[0-9]{4}\.[0-9]{4,5}(v[0-9]+)?' | head -1)
 
           if [ -z "$PAPER_URL" ]; then
             echo "No arXiv paper URL found in issue body"
@@ -204,3 +205,10 @@ jobs:
       - name: Summary complete
         run: |
           echo "✅ Successfully generated and posted paper summary"
+
+      - name: Notify failure
+        if: failure() && github.event_name == 'issue_comment'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --body "⚠️ Failed to generate paper summary. Please check the workflow logs for details."
