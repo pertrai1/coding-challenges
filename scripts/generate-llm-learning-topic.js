@@ -76,9 +76,33 @@ function fetchPapers(query, maxResults = 20) {
         });
 
         res.on('end', () => {
+          // Check HTTP status
+          if (res.statusCode !== 200) {
+            reject(
+              new Error(
+                `arXiv API returned status ${res.statusCode}: ${data.substring(0, 200)}`
+              )
+            );
+            return;
+          }
+
+          // Check if response looks like XML
+          const trimmedData = data.trim();
+          if (
+            !trimmedData.startsWith('<?xml') &&
+            !trimmedData.startsWith('<')
+          ) {
+            reject(
+              new Error(
+                `arXiv API returned non-XML response: ${trimmedData.substring(0, 200)}`
+              )
+            );
+            return;
+          }
+
           parseString(data, (err, result) => {
             if (err) {
-              reject(err);
+              reject(new Error(`XML parsing failed: ${err.message}`));
             } else {
               resolve(result);
             }
@@ -188,70 +212,91 @@ function extractResearchQuestion(abstract) {
  * Select a paper and generate topic metadata
  */
 async function generateTopic() {
-  try {
-    const query = buildQuery();
-    console.error(`Searching arXiv: ${query}`);
+  const maxRetries = 3;
+  let lastError;
 
-    const result = await fetchPapers(query);
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const query = buildQuery();
+      console.error(
+        `Searching arXiv (attempt ${attempt}/${maxRetries}): ${query}`
+      );
 
-    if (!result.feed || !result.feed.entry) {
-      throw new Error('No papers found');
+      const result = await fetchPapers(query);
+
+      if (!result.feed || !result.feed.entry) {
+        throw new Error('No papers found in arXiv response');
+      }
+
+      const papers = Array.isArray(result.feed.entry)
+        ? result.feed.entry
+        : [result.feed.entry];
+
+      // Select a random recent paper
+      const paper =
+        papers[Math.floor(Math.random() * Math.min(papers.length, 10))];
+
+      const rawTitle = paper.title[0].replace(/\s+/g, ' ').trim();
+      const title = stripLatex(rawTitle);
+      const abstract = paper.summary[0].replace(/\s+/g, ' ').trim();
+      const url = paper.id[0];
+      const published = paper.published[0].split('T')[0];
+
+      const concept = extractConcept(abstract);
+      const bucket = classifyBucket(title, abstract);
+      const researchQuestion = extractResearchQuestion(abstract);
+
+      // Determine system type
+      const systemTypes = [
+        'Agent System',
+        'Training Pipeline',
+        'Inference System',
+        'Evaluation Framework'
+      ];
+      const systemType =
+        systemTypes[Math.floor(Math.random() * systemTypes.length)];
+
+      // Generate output
+      const output = {
+        TOPIC: title.substring(0, 100),
+        PAPER_TITLE: title,
+        PAPER_URL: url,
+        PAPER_DATE: published,
+        BUCKET: bucket,
+        FOCUS: concept,
+        CONCEPT: concept,
+        RESEARCH_QUESTION: researchQuestion,
+        SYSTEM_TYPE: systemType,
+        CONFIDENCE: '50',
+        DATE: new Date().toISOString().split('T')[0]
+      };
+
+      console.log(JSON.stringify(output, null, 2));
+
+      // Also output as env format for GitHub Actions
+      console.error('\n--- GitHub Actions format ---');
+      for (const [key, value] of Object.entries(output)) {
+        console.error(`${key}=${value}`);
+      }
+
+      // Success - exit the retry loop
+      return;
+    } catch (error) {
+      lastError = error;
+      console.error(`Attempt ${attempt} failed: ${error.message}`);
+
+      if (attempt < maxRetries) {
+        const delay = attempt * 2000; // Exponential backoff: 2s, 4s
+        console.error(`Retrying in ${delay}ms...`);
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
     }
-
-    const papers = Array.isArray(result.feed.entry)
-      ? result.feed.entry
-      : [result.feed.entry];
-
-    // Select a random recent paper
-    const paper =
-      papers[Math.floor(Math.random() * Math.min(papers.length, 10))];
-
-    const rawTitle = paper.title[0].replace(/\s+/g, ' ').trim();
-    const title = stripLatex(rawTitle);
-    const abstract = paper.summary[0].replace(/\s+/g, ' ').trim();
-    const url = paper.id[0];
-    const published = paper.published[0].split('T')[0];
-
-    const concept = extractConcept(abstract);
-    const bucket = classifyBucket(title, abstract);
-    const researchQuestion = extractResearchQuestion(abstract);
-
-    // Determine system type
-    const systemTypes = [
-      'Agent System',
-      'Training Pipeline',
-      'Inference System',
-      'Evaluation Framework'
-    ];
-    const systemType =
-      systemTypes[Math.floor(Math.random() * systemTypes.length)];
-
-    // Generate output
-    const output = {
-      TOPIC: title.substring(0, 100),
-      PAPER_TITLE: title,
-      PAPER_URL: url,
-      PAPER_DATE: published,
-      BUCKET: bucket,
-      FOCUS: concept,
-      CONCEPT: concept,
-      RESEARCH_QUESTION: researchQuestion,
-      SYSTEM_TYPE: systemType,
-      CONFIDENCE: '50',
-      DATE: new Date().toISOString().split('T')[0]
-    };
-
-    console.log(JSON.stringify(output, null, 2));
-
-    // Also output as env format for GitHub Actions
-    console.error('\n--- GitHub Actions format ---');
-    for (const [key, value] of Object.entries(output)) {
-      console.error(`${key}=${value}`);
-    }
-  } catch (error) {
-    console.error('Error generating topic:', error.message);
-    process.exit(1);
   }
+
+  // All retries failed
+  console.error(`\nAll ${maxRetries} attempts failed.`);
+  console.error('Last error:', lastError.message);
+  process.exit(1);
 }
 
 // Run if called directly
