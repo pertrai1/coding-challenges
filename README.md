@@ -2,16 +2,24 @@
 
 A comprehensive collection of coding challenges from multiple platforms for learning data structures, algorithms, and frontend engineering.
 
-## 📊 Overview
+## Overview
 
-| Platform                         | Focus Area                   | Problems Solved |
-| -------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#-leetcode)           | Data Structures & Algorithms | 169             |
-| [GreatFrontEnd](#-greatfrontend) | Frontend Engineering         | 9               |
+| Platform                        | Focus Area                   | Problems Solved |
+| ------------------------------- | ---------------------------- | --------------- |
+| [LeetCode](#leetcode)           | Data Structures & Algorithms | 169             |
+| [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 9               |
 
-## 🎯 Platforms
+## Platforms
 
-### 🟢 LeetCode
+Various places where I enjoy practicing solving coding challenges:
+
+- [LeetCode](https://leetcode.com/u/warlhord/)
+- [greatfrontend](https://www.greatfrontend.com/)
+- [FrontendMasters](https://frontendmasters.com/u/pertrai1/)
+- [Frontend Mentor](https://www.frontendmentor.io/profile/pertrai1)
+- [exercism](https://exercism.org/profiles/pertrai1)
+
+### LeetCode
 
 **Focus**: Data structures, algorithms, and problem-solving patterns
 
@@ -25,8 +33,8 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 - [Browse LeetCode Solutions →](./leetcode/)
 - [LeetCode Platform Guide →](./docs/platforms/leetcode.md)
-- [Problems by Difficulty](#-problems-by-difficulty)
-- [Problems by Pattern](#-problems-by-pattern)
+- [Problems by Difficulty](#problems-by-difficulty)
+- [Problems by Pattern](#problems-by-pattern)
 
 **Resources**:
 
@@ -37,7 +45,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 ---
 
-### 🎨 GreatFrontEnd
+### GreatFrontEnd
 
 **Focus**: Frontend engineering, JavaScript fundamentals, and system design
 
@@ -59,7 +67,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 ---
 
-## 📚 Learning Resources
+## Learning Resources
 
 ### Algorithmic Patterns
 
@@ -79,10 +87,10 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 - [Interview Workflow](./docs/interviews/INTERVIEW_WORKFLOW.md) - Conduct AI-assisted technical interviews
 - [Code Review Guidelines](./CLAUDE.md) - Standards for this repository
 
-## 🔍 Problems by Difficulty
+## Problems by Difficulty
 
 <details>
-<summary>🟢 Easy Problems (80 solved)</summary>
+<summary>Easy Problems (80 solved)</summary>
 
 ### Array & String
 
@@ -182,7 +190,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 </details>
 
 <details>
-<summary>🟡 Medium Problems (75 solved)</summary>
+<summary>Medium Problems (75 solved)</summary>
 
 ### Stack & Design
 
@@ -289,7 +297,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 </details>
 
 <details>
-<summary>🔴 Hard Problems (14 solved)</summary>
+<summary>Hard Problems (14 solved)</summary>
 
 ### Array & Dynamic Programming
 
@@ -316,7 +324,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 </details>
 
-## 📈 Problems by Pattern
+## Problems by Pattern
 
 ### Two Pointers
 
@@ -351,7 +359,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 - [0207 - Course Schedule](./leetcode/medium/0207-course-schedule) - Medium
 - [0210 - Course Schedule II](./leetcode/medium/0210-course-schedule-ii) - Medium
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Structure
 
@@ -413,7 +421,7 @@ npm run quality:full
 npm run complexity:leetcode
 ```
 
-## 🧪 Testing
+## Testing
 
 This repository uses [Vitest](https://vitest.dev/) for fast, modern testing:
 
@@ -424,7 +432,7 @@ This repository uses [Vitest](https://vitest.dev/) for fast, modern testing:
 
 See [Testing Guide](./docs/TESTING.md) for detailed instructions.
 
-## 📊 Code Quality
+## Code Quality
 
 Automated quality system includes:
 
@@ -436,7 +444,7 @@ Automated quality system includes:
 
 See [Code Quality Guide](./docs/CODE_QUALITY.md) for details.
 
-## 🤖 AI Agents
+## AI Agents
 
 Multiple specialized AI agents maintain code quality and create educational documentation:
 
@@ -446,11 +454,11 @@ Multiple specialized AI agents maintain code quality and create educational docu
 
 See [AGENTS.md](./AGENTS.md) for comprehensive agent guidelines.
 
-## 🤝 Contributing
+## Contributing
 
 This is a personal learning repository, but suggestions and improvements are welcome! Please follow the guidelines in [CLAUDE.md](./CLAUDE.md) when contributing.
 
-## 📝 Code Review
+## Code Review
 
 All solutions in this repository follow strict review guidelines. See [CLAUDE.md](./CLAUDE.md) for:
 
@@ -460,7 +468,7 @@ All solutions in this repository follow strict review guidelines. See [CLAUDE.md
 - DSA learning focus areas
 - Platform-specific guidelines (LeetCode, GreatFrontEnd)
 
-## 🔄 Spaced Repetition System
+## Spaced Repetition System
 
 This repository includes an automated spaced repetition system for problem review:
 
