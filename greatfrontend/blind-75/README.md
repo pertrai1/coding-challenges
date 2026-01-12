@@ -4,7 +4,7 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 ## 📊 Progress Tracker
 
-### Status: 4 / 75 problems completed
+### Status: 5 / 75 problems completed
 
 ## ✅ Completed Problems
 
@@ -12,10 +12,11 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 - [Valid Parentheses / Balanced Brackets](./stack-queue/balanced-brackets/) - Easy
 
-### Arrays (2/15)
+### Arrays (3/15)
 
 - [Find Element in Rotated Array](./array/array-rotated-find/) - Medium
 - [Most Common Elements](./array/most-common-elements/) - Medium
+- [Array Product Excluding Current](./array/array-product-excluding-current/) - Medium
 
 ### Strings (0/10)
 
