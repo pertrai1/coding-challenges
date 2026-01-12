@@ -1015,6 +1015,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "greatfrontend",
+      "problemNumber": "GFE-022a",
+      "problemName": "Array Product Excluding Current",
+      "problemSlug": "array-product-excluding-current",
+      "difficulty": "blind-75/array",
+      "prNumber": "182",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/182",
+      "filePath": "greatfrontend/blind-75/array/array-product-excluding-current/array-product-excluding-current.ts",
+      "solvedDate": "2026-01-12T14:09:00Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-01-13",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1024,5 +1045,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-01-10T09:04:03.642Z"
+  "lastUpdated": "2026-01-12T14:09:10.385Z"
 }
