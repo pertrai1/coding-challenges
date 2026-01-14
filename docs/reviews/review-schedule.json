@@ -1038,6 +1038,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "greatfrontend",
+      "problemNumber": "GFE-fd79",
+      "problemName": "Event Emitter",
+      "problemSlug": "event-emitter",
+      "difficulty": "gfe-75/javascript-utilities",
+      "prNumber": "187",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/187",
+      "filePath": "greatfrontend/gfe-75/javascript-utilities/event-emitter/event-emitter.ts",
+      "solvedDate": "2026-01-14T12:33:15Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-01-15",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1047,5 +1068,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-01-14T09:07:51.455Z"
+  "lastUpdated": "2026-01-14T12:33:24.396Z"
 }
