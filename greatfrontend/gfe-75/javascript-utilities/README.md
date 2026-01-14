@@ -10,6 +10,7 @@ Essential JavaScript utility functions that are commonly asked in frontend inter
 - [Flatten](./flatten/) - Medium
 - [Throttle](./throttle/) - Medium
 - [Deep Clone](./deep-clone/) - Medium
+- [EventEmitter](./event-emitter/) - Medium
 
 ### To Do 📝
 

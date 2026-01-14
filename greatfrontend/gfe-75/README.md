@@ -4,7 +4,7 @@ The GFE 75 is GreatFrontEnd's curated collection of 75 essential frontend coding
 
 ## 📊 Progress Tracker
 
-### Status: 5 / 75 problems completed
+### Status: 6 / 75 problems completed
 
 ## ✅ Completed Problems
 
@@ -14,6 +14,7 @@ The GFE 75 is GreatFrontEnd's curated collection of 75 essential frontend coding
 - [Flatten](./javascript-utilities/flatten/) - Medium
 - [Throttle](./javascript-utilities/throttle/) - Medium
 - [Deep Clone](./javascript-utilities/deep-clone/) - Medium
+- [EventEmitter](./javascript-utilities/event-emitter/) - Medium
 
 ### DOM Manipulation
 
