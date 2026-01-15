@@ -2,7 +2,7 @@
  * @time - O(n) where n is the length of nums
  * @space - O(1) because we only have variables that get set constant numbers
  */
-function longestOnes(nums: number[], k: number): number {
+export function longestOnes(nums: number[], k: number): number {
   const n = nums.length;
 
   let maxLength = 0;
@@ -27,4 +27,4 @@ function longestOnes(nums: number[], k: number): number {
   }
 
   return maxLength;
-};
+}
