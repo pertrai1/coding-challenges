@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                        | Focus Area                   | Problems Solved |
 | ------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#leetcode)           | Data Structures & Algorithms | 169             |
+| [LeetCode](#leetcode)           | Data Structures & Algorithms | 170             |
 | [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 11              |
 
 ## Platforms
@@ -26,7 +26,7 @@ Various places where I enjoy practicing solving coding challenges:
 **Progress**:
 
 - Easy: 80 problems
-- Medium: 75 problems
+- Medium: 76 problems
 - Hard: 14 problems
 
 **Quick Links**:
@@ -190,7 +190,7 @@ Various places where I enjoy practicing solving coding challenges:
 </details>
 
 <details>
-<summary>Medium Problems (75 solved)</summary>
+<summary>Medium Problems (76 solved)</summary>
 
 ### Stack & Design
 
@@ -212,6 +212,7 @@ Various places where I enjoy practicing solving coding challenges:
 - [0324 - Wiggle Sort II](./leetcode/medium/0324-wiggle-sort-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0487 - Max Consecutive Ones II](./leetcode/medium/0487-max-consecutive-ones-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0658 - Find K Closest Elements](./leetcode/medium/0658-find-k-closest-elements) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [1046 - Max Consecutive Ones III](./leetcode/medium/1046-max-consecutive-ones-iii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2868 - Continuous Subarrays](./leetcode/medium/2868-continuous-subarrays) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [3241 - Divide Array Into Arrays With Max Difference](./leetcode/medium/3241-divide-array-into-arrays-with-max-difference) ![Medium](https://img.shields.io/badge/Medium-orange)
 
