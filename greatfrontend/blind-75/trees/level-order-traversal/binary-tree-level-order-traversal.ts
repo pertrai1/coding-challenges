@@ -4,6 +4,12 @@ export interface TreeNode {
   right: TreeNode | null;
 }
 
+/**
+ * @param {TreeNode | null} root
+ * @return {number[][]}
+ * @time - O(n) where n is the number of nodes (visits each node once)
+ * @space - O(h) for the recursion stack where h is the tree height, plus O(n) for the output array
+ */
 export function binaryTreeLevelOrderTraversal(
   root: TreeNode | null
 ): number[][] {

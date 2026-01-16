@@ -1,6 +1,6 @@
 # Binary Tree Level Order Traversal
 
-Given the root `node` of a binary tree, return an array of arrays, where each inner array represents the values of nodes at each level of the tree, traversed from left to right.
+Given the root node of a binary tree, return an array of arrays, where each inner array represents the values of nodes at each level of the tree, traversed from left to right.
 
 The binary tree is represented by a collection of `TreeNode`s, where each node has optional `left` and `right` child nodes, which are also `TreeNode`s.
 
