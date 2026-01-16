@@ -4,41 +4,40 @@ The Blind 75 is a curated collection of the most important coding interview ques
 
 ## 📊 Progress Tracker
 
-### Status: 5 / 75 problems completed
-
 ## ✅ Completed Problems
 
-### Stack & Queue (1/8)
+### Stack & Queue
 
 - [Valid Parentheses / Balanced Brackets](./stack-queue/balanced-brackets/) - Easy
 
-### Arrays (3/15)
+### Arrays
 
 - [Find Element in Rotated Array](./array/array-rotated-find/) - Medium
 - [Most Common Elements](./array/most-common-elements/) - Medium
 - [Array Product Excluding Current](./array/array-product-excluding-current/) - Medium
 
-### Strings (0/10)
+### Strings
 
 No problems completed yet
 
-### Linked Lists (0/8)
+### Linked Lists
 
 No problems completed yet
 
-### Trees (1/12)
+### Trees
 
 - [Binary Search Tree Kth Smallest Element](./trees/bst-kth-smallest/) - Medium
+- [Binary Tree Level Order Traversal](./trees/level-order-traversal/) - Medium
 
-### Dynamic Programming (0/15)
-
-No problems completed yet
-
-### Graphs (0/10)
+### Dynamic Programming
 
 No problems completed yet
 
-### Other (0/5)
+### Graphs
+
+No problems completed yet
+
+### Other
 
 No problems completed yet
 
