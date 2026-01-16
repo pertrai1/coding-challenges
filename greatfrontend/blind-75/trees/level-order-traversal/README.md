@@ -1,4 +1,6 @@
-# Binary Tree Level Order Traversal
+# Binary Tree Level Order Traversal ![Medium](https://img.shields.io/badge/Medium-orange)
+
+[GreatFrontEnd Problem Link](https://www.greatfrontend.com/interviews/study/blind75/questions/algo/binary-tree-level-order-traversal)
 
 Given the root node of a binary tree, return an array of arrays, where each inner array represents the values of nodes at each level of the tree, traversed from left to right.
 
