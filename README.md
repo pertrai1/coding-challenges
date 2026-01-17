@@ -7,7 +7,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 | Platform                        | Focus Area                   | Problems Solved |
 | ------------------------------- | ---------------------------- | --------------- |
 | [LeetCode](#leetcode)           | Data Structures & Algorithms | 170             |
-| [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 11              |
+| [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 12              |
 
 ## Platforms
 
@@ -49,21 +49,12 @@ Various places where I enjoy practicing solving coding challenges:
 
 **Focus**: Frontend engineering, JavaScript fundamentals, and system design
 
-**Progress**:
-
-- GFE 75: 5/75 problems
-- Blind 75: 4/75 problems
-
 **Quick Links**:
 
 - [Browse GreatFrontEnd Solutions →](./greatfrontend/)
 - [GreatFrontEnd Platform Guide →](./docs/platforms/greatfrontend.md)
 - [GFE 75 Progress →](./greatfrontend/gfe-75/)
 - [Blind 75 Progress →](./greatfrontend/blind-75/)
-
-**Coming Soon**:
-
-- Frontend System Design
 
 ---
 
