@@ -500,9 +500,10 @@
           "reviewNumber": 5,
           "scheduledDate": "2026-01-18",
           "interval": 30,
-          "completed": false,
+          "completed": true,
           "issueNumber": 200,
-          "issueCreatedAt": "2026-01-18T09:04:16.042Z"
+          "issueCreatedAt": "2026-01-18T09:04:16.042Z",
+          "completedAt": "2026-01-18T15:39:50.674Z"
         },
         {
           "reviewNumber": 4,
@@ -551,6 +552,11 @@
           "reviewNumber": 4,
           "completedAt": "2026-01-09T12:57:49.561Z",
           "issueNumber": 172
+        },
+        {
+          "reviewNumber": 5,
+          "completedAt": "2026-01-18T15:39:50.674Z",
+          "issueNumber": 200
         }
       ]
     },
@@ -1123,5 +1129,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-01-18T15:39:20.858Z"
+  "lastUpdated": "2026-01-18T15:39:50.675Z"
 }
