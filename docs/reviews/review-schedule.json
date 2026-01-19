@@ -1121,6 +1121,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "1065",
+      "problemName": "Binary String With Substrings Representing 1 To N",
+      "problemSlug": "binary-string-with-substrings-representing-1-to-n",
+      "difficulty": "medium",
+      "prNumber": "204",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/204",
+      "filePath": "leetcode/medium/1065-binary-string-with-substrings-representing-1-to-n/binary-string-with-substrings-representing-1-to-n.ts",
+      "solvedDate": "2026-01-19T14:29:08Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-01-20",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1130,5 +1151,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-01-19T09:10:02.381Z"
+  "lastUpdated": "2026-01-19T14:29:19.551Z"
 }
