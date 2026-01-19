@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                        | Focus Area                   | Problems Solved |
 | ------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#leetcode)           | Data Structures & Algorithms | 170             |
+| [LeetCode](#leetcode)           | Data Structures & Algorithms | 171             |
 | [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 12              |
 
 ## Platforms
@@ -26,7 +26,7 @@ Various places where I enjoy practicing solving coding challenges:
 **Progress**:
 
 - Easy: 80 problems
-- Medium: 76 problems
+- Medium: 77 problems
 - Hard: 14 problems
 
 **Quick Links**:
@@ -181,7 +181,7 @@ Various places where I enjoy practicing solving coding challenges:
 </details>
 
 <details>
-<summary>Medium Problems (76 solved)</summary>
+<summary>Medium Problems (77 solved)</summary>
 
 ### Stack & Design
 
@@ -233,6 +233,10 @@ Various places where I enjoy practicing solving coding challenges:
 - [0692 - Top K Frequent Words](./leetcode/medium/0692-top-k-frequent-words) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0760 - Bold Words in String](./leetcode/medium/0760-bold-words-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2487 - Optimal Partition of String](./leetcode/medium/2487-optimal-partition-of-string) ![Medium](https://img.shields.io/badge/Medium-orange)
+
+### Binary & Bit Manipulation
+
+- [1065 - Binary String With Substrings Representing 1 To N](./leetcode/medium/1065-binary-string-with-substrings-representing-1-to-n) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Dynamic Programming
 
