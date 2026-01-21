@@ -6,10 +6,6 @@ export function getElementsByStyle(
   const elements: Element[] = [];
 
   function traverseDOM(el: Element) {
-    if (el === null) {
-      return;
-    }
-
     const computedStyle = getComputedStyle(el);
 
     if (computedStyle.getPropertyValue(property) === value) {
