@@ -4,7 +4,7 @@ The GFE 75 is GreatFrontEnd's curated collection of 75 essential frontend coding
 
 ## 📊 Progress Tracker
 
-### Status: 6 / 75 problems completed
+### Status: 7 / 75 problems completed
 
 ## ✅ Completed Problems
 
@@ -18,7 +18,7 @@ The GFE 75 is GreatFrontEnd's curated collection of 75 essential frontend coding
 
 ### DOM Manipulation
 
-No problems completed yet
+- [getElementsByStyle](./dom-manipulation/getElementsByStyle/) - Medium
 
 ### Async Programming
 
