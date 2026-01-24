@@ -1199,6 +1199,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0359",
+      "problemName": "Logger Rate Limiter",
+      "problemSlug": "logger-rate-limiter",
+      "difficulty": "easy",
+      "prNumber": "210",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/210",
+      "filePath": "leetcode/easy/0359-logger-rate-limiter/logger-rate-limiter.ts",
+      "solvedDate": "2026-01-24T12:48:06Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-01-25",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1208,5 +1229,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-01-23T09:07:54.376Z"
+  "lastUpdated": "2026-01-24T12:48:16.021Z"
 }
