@@ -1220,6 +1220,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "greatfrontend",
+      "problemNumber": "GFE-5951",
+      "problemName": "Flip Binary Tree",
+      "problemSlug": "flip-binary-tree",
+      "difficulty": "blind-75/trees",
+      "prNumber": "212",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/212",
+      "filePath": "greatfrontend/blind-75/trees/flip-binary-tree/flip-binary-tree.ts",
+      "solvedDate": "2026-01-24T13:16:10Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-01-25",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1229,5 +1250,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-01-24T12:48:16.021Z"
+  "lastUpdated": "2026-01-24T13:16:23.019Z"
 }
