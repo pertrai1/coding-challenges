@@ -7,7 +7,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 | Platform                        | Focus Area                   | Problems Solved |
 | ------------------------------- | ---------------------------- | --------------- |
 | [LeetCode](#leetcode)           | Data Structures & Algorithms | 171             |
-| [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 13              |
+| [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 14              |
 
 ## Platforms
 
@@ -22,12 +22,6 @@ Various places where I enjoy practicing solving coding challenges:
 ### LeetCode
 
 **Focus**: Data structures, algorithms, and problem-solving patterns
-
-**Progress**:
-
-- Easy: 80 problems
-- Medium: 77 problems
-- Hard: 14 problems
 
 **Quick Links**:
 
