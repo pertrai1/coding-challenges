@@ -29,6 +29,7 @@ No problems completed yet
 - [Binary Search Tree Kth Smallest Element](./trees/bst-kth-smallest/) - Medium
 - [Binary Tree Level Order Traversal](./trees/level-order-traversal/) - Medium
 - [Flip Binary Tree](./trees/flip-binary-tree/) - Easy
+- [Binary Tree Maximum Depth](./trees/binary-max-depth/) - Easy
 
 ### Dynamic Programming
 
