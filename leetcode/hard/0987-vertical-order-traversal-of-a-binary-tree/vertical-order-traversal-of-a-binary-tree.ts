@@ -1,18 +1,15 @@
-/**
- * Definition for a binary tree node.
- * class TreeNode {
- *     val: number
- *     left: TreeNode | null
- *     right: TreeNode | null
- *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.left = (left===undefined ? null : left)
- *         this.right = (right===undefined ? null : right)
- *     }
- * }
- */
+export class TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+    this.val = val === undefined ? 0 : val;
+    this.left = left === undefined ? null : left;
+    this.right = right === undefined ? null : right;
+  }
+}
 
-function verticalTraversal(root: TreeNode | null): number[][] {
+export function verticalTraversal(root: TreeNode | null): number[][] {
   // initialize a map where:
   // key = column index
   // value = array of [row, node.val]
@@ -32,13 +29,13 @@ function verticalTraversal(root: TreeNode | null): number[][] {
   }
 
   traverse(root, 0, 0);
-  
+
   // sort columns left -> right
   const sortedCols = Array.from(valueMap.keys()).sort((a, b) => a - b);
 
   return sortedCols.map((col) => {
     // sort column entries: row -> value
-    const sortedNodes = valueMap.get(col).sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    const sortedNodes = valueMap.get(col)!.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
     return sortedNodes.map((n) => n[1]);
   });
-};
+}
