@@ -297,7 +297,7 @@ Various places where I enjoy practicing solving coding challenges:
 
 ### Tree Problems
 
-- [1029 - Vertical Order Traversal of a Binary Tree](./leetcode/hard/1029-vertical-order-traversal-of-a-binary-tree) ![Hard](https://img.shields.io/badge/Hard-red)
+- [0987 - Vertical Order Traversal of a Binary Tree](./leetcode/hard/0987-vertical-order-traversal-of-a-binary-tree) ![Hard](https://img.shields.io/badge/Hard-red)
 
 ### Backtracking & Trie
 
