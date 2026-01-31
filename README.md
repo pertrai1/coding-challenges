@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                        | Focus Area                   | Problems Solved |
 | ------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#leetcode)           | Data Structures & Algorithms | 171             |
+| [LeetCode](#leetcode)           | Data Structures & Algorithms | 172             |
 | [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 15              |
 
 ## Platforms
@@ -287,13 +287,17 @@ Various places where I enjoy practicing solving coding challenges:
 </details>
 
 <details>
-<summary>Hard Problems (14 solved)</summary>
+<summary>Hard Problems (15 solved)</summary>
 
 ### Array & Dynamic Programming
 
 - [0115 - Distinct Subsequences](./leetcode/hard/0115-distinct-subsequences) ![Hard](https://img.shields.io/badge/Hard-red)
 - [0689 - Maximum Sum of 3 Non-Overlapping Subarrays](./leetcode/hard/0689-maximum-sum-of-3-non-overlapping-subarrays) ![Hard](https://img.shields.io/badge/Hard-red)
 - [1034 - Subarrays with K Different Integers](./leetcode/hard/1034-subarrays-with-k-different-integers) ![Hard](https://img.shields.io/badge/Hard-red)
+
+### Tree Problems
+
+- [1029 - Vertical Order Traversal of a Binary Tree](./leetcode/hard/1029-vertical-order-traversal-of-a-binary-tree) ![Hard](https://img.shields.io/badge/Hard-red)
 
 ### Backtracking & Trie
 
