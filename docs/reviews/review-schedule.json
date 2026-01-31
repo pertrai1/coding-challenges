@@ -1258,6 +1258,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0987",
+      "problemName": "Vertical Order Traversal Of A Binary Tree",
+      "problemSlug": "vertical-order-traversal-of-a-binary-tree",
+      "difficulty": "hard",
+      "prNumber": "220",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/220",
+      "filePath": "leetcode/hard/0987-vertical-order-traversal-of-a-binary-tree/vertical-order-traversal-of-a-binary-tree.ts",
+      "solvedDate": "2026-01-31T15:54:29Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-02-01",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1267,5 +1288,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-01-30T09:12:46.494Z"
+  "lastUpdated": "2026-01-31T15:54:39.569Z"
 }
