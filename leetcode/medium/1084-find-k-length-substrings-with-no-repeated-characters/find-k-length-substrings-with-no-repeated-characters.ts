@@ -1,8 +1,8 @@
 /**
-  * @time - O(n) where n is the length of s
-  * @space - O(n) where n is the length of s
+ * @time - O(n) where n is the length of s
+ * @space - O(n) where n is the length of s
  */
-function numKLenSubstrNoRepeats(s: string, k: number): number {
+export function numKLenSubstrNoRepeats(s: string, k: number): number {
   const n = s.length;
 
   if (k > n) {
@@ -40,5 +40,5 @@ function numKLenSubstrNoRepeats(s: string, k: number): number {
     }
   }
 
-  return count; 
-};
+  return count;
+}

@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                        | Focus Area                   | Problems Solved |
 | ------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#leetcode)           | Data Structures & Algorithms | 172             |
+| [LeetCode](#leetcode)           | Data Structures & Algorithms | 173             |
 | [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 15              |
 
 ## Platforms
@@ -226,6 +226,7 @@ Various places where I enjoy practicing solving coding challenges:
 - [0616 - Add Bold Tag in String](./leetcode/medium/0616-add-bold-tag-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0692 - Top K Frequent Words](./leetcode/medium/0692-top-k-frequent-words) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0760 - Bold Words in String](./leetcode/medium/0760-bold-words-in-string) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [1084 - Find K-Length Substrings With No Repeated Characters](./leetcode/medium/1084-find-k-length-substrings-with-no-repeated-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [2487 - Optimal Partition of String](./leetcode/medium/2487-optimal-partition-of-string) ![Medium](https://img.shields.io/badge/Medium-orange)
 
 ### Binary & Bit Manipulation
@@ -333,6 +334,7 @@ Various places where I enjoy practicing solving coding challenges:
 - [0159 - Longest Substring with At Most Two Distinct Characters](./leetcode/medium/0159-longest-substring-with-at-most-two-distinct-characters) - Medium
 - [0209 - Minimum Size Subarray Sum](./leetcode/medium/0209-minimum-size-subarray-sum) - Medium
 - [0340 - Longest Substring with At Most K Distinct Characters](./leetcode/medium/0340-longest-substring-with-at-most-k-distinct-characters) - Medium
+- [1084 - Find K-Length Substrings With No Repeated Characters](./leetcode/medium/1084-find-k-length-substrings-with-no-repeated-characters) - Medium
 - [More in docs →](./docs/techniques/SLIDING_WINDOW.md)
 
 ### Hash Table / Hash Map
