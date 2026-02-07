@@ -14,4 +14,9 @@ describe('Container With Most Water', () => {
     // All heights are 3, widest container is 0 to 3 = width 3, height 3 = area 9
     expect(maxArea([3, 3, 3, 3])).toBe(9);
   });
+
+  it('should handle increasing heights [1,2,3,4,5]', () => {
+    // Best container is 0 to 4: min(1,5) × 4 = 1 × 4 = 4
+    expect(maxArea([1, 2, 3, 4, 5])).toBe(6);
+  });
 });
