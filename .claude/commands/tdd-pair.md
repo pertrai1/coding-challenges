@@ -82,6 +82,12 @@ Delegate to the Navigator agent (use `delegate_task` with the `tdd-navigator` ag
 - **Context to provide**: Driver's HANDOFF, implementation file path, test file path, researcher findings (if any), and cycle number
 - **Expected output**: A HANDOFF block with Phase=GREEN, the implementation change, and vitest PASS output
 - **Verify**: ALL tests pass. If any test fails, send the Navigator back to fix it before proceeding.
+- **Commit**: Immediately commit the progress to enable "TDD Playback" in the PR:
+
+  ```bash
+  git add .
+  git commit -m "test: cycle {cycle_number} (Green)"
+  ```
 
 #### Step D: Loop Decision
 
@@ -183,6 +189,18 @@ Update the root `README.md` to reflect the new problem:
    - **Tests**: {number of test cases}
    - **Key Insight**: {the aha moment from the post-mortem}
 
+   ## 🧠 Self-Review Questions
+   1. {Question about key logic or trade-off}
+   <details>
+     <summary>Answer</summary>
+     {Answer}
+   </details>
+   2. {Question about edge case or complexity}
+   <details>
+     <summary>Answer</summary>
+     {Answer}
+   </details>
+
    ## Files
    - \`README.md\` — Problem statement
    - \`{name}.ts\` — Solution
@@ -191,7 +209,17 @@ Update the root `README.md` to reflect the new problem:
      --label "code challenge"
    ```
 
-5. Report the PR URL to the user.
+5. **Add Educational Annotations (Agent-Annotated PR)**:
+   - Act as the **DSA Code Reviewer** agent.
+   - Analyze the final solution code in `{name}.ts`.
+   - Identify 2-3 specific blocks of code that demonstrate the "Key Insight" or interesting patterns.
+   - For each block, post a review comment on the PR (or a general comment if line-targeting is difficult):
+
+     ```bash
+     gh pr comment {PR_URL} --body "💡 **Educational Note**: {Explanation of why this code is written this way, complexity analysis, or pattern info}"
+     ```
+
+6. Report the PR URL to the user.
 
 ## Important Notes
 
