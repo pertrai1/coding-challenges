@@ -11,7 +11,7 @@ Execute these phases in order. Do not skip any phase.
 ### Phase 1: Problem Selection & Setup
 
 1. **Select a problem.** If the user provided a specific problem, use that. Otherwise:
-   - Ask the user for difficulty preference (easy / medium / hard / random) and category preference (Arrays, Strings, Trees, Graphs, DP, or random)
+   - Ask the user for difficulty preference (easy / medium / hard / random) and category preference (Two Pointers, Sliding Window, Breadth-First Search, Depth-First Search, Backtracking, Heap, Binary Search, Dynamic Programming, Divide and Conquer, Trie, Union Find, Greedy, or random)
    - Search the web for a LeetCode problem matching the criteria
    - Cross-reference against existing directories in `leetcode/` to confirm it's not already solved
    - If the problem is already solved, pick another one
@@ -219,7 +219,19 @@ Update the root `README.md` to reflect the new problem:
      gh pr comment {PR_URL} --body "💡 **Educational Note**: {Explanation of why this code is written this way, complexity analysis, or pattern info}"
      ```
 
-6. Report the PR URL to the user.
+6. **Add Engaging Code Explanation Comment**:
+   - Analyze the final solution code in `{name}.ts`.
+   - Write a comment that explains the code in the function and how it solves the problem.
+   - The explanation should be very engaging to read — don't make it sound like boring technical documentation or a textbook. Where appropriate, use analogies and anecdotes to make it more understandable and memorable.
+   - Post the explanation as a PR comment:
+
+     ```bash
+     gh pr comment {PR_URL} --body "## 🎯 How This Solution Works
+
+     {Engaging explanation of the code — use analogies, anecdotes, and a conversational tone to make the algorithm come alive}"
+     ```
+
+7. Report the PR URL to the user.
 
 ## Important Notes
 
