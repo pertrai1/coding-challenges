@@ -6,7 +6,7 @@ A comprehensive collection of coding challenges from multiple platforms for lear
 
 | Platform                        | Focus Area                   | Problems Solved |
 | ------------------------------- | ---------------------------- | --------------- |
-| [LeetCode](#leetcode)           | Data Structures & Algorithms | 174             |
+| [LeetCode](#leetcode)           | Data Structures & Algorithms | 175             |
 | [GreatFrontEnd](#greatfrontend) | Frontend Engineering         | 15              |
 
 ## Platforms
@@ -175,7 +175,7 @@ Various places where I enjoy practicing solving coding challenges:
 </details>
 
 <details>
-<summary>Medium Problems (78 solved)</summary>
+<summary>Medium Problems (79 solved)</summary>
 
 ### Stack & Design
 
@@ -185,6 +185,7 @@ Various places where I enjoy practicing solving coding challenges:
 ### Array & Two Pointers
 
 - [0003 - Longest Substring Without Repeating Characters](./leetcode/medium/0003-longest-substring-without-repeating-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0011 - Container With Most Water](./leetcode/medium/0011-container-with-most-water) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0016 - 3Sum Closest](./leetcode/medium/0016-3sum-closest) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0018 - 4Sum](./leetcode/medium/0018-4sum) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0031 - Next Permutation](./leetcode/medium/0031-next-permutation) ![Medium](https://img.shields.io/badge/Medium-orange)
@@ -324,6 +325,7 @@ Various places where I enjoy practicing solving coding challenges:
 
 ### Two Pointers
 
+- [0011 - Container With Most Water](./leetcode/medium/0011-container-with-most-water) - Medium
 - [0016 - 3Sum Closest](./leetcode/medium/0016-3sum-closest) - Medium
 - [0018 - 4Sum](./leetcode/medium/0018-4sum) - Medium
 - [0080 - Remove Duplicates from Sorted Array II](./leetcode/medium/0080-remove-duplicates-from-sorted-array-ii) - Medium
