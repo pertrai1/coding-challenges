@@ -124,34 +124,26 @@ If criteria aren't met, continue the loop.
    - `npx markdownlint leetcode/{difficulty}/{number}-{name}/POST_MORTEM.md` — verify markdown quality, fix any violations
    - `npx vitest run {test-file}` — final confirmation all tests pass
 
-### Phase 4: Update Root README
+### Phase 4: Update Problem Index
 
-Update the root `README.md` to reflect the new problem:
+Update `docs/PROBLEMS.md` to include the new problem:
 
-1. **Increment the problem count** in the Overview table (line ~9):
-   - Update the LeetCode "Problems Solved" number (currently the total of easy + medium + hard)
-
-2. **Increment the difficulty count** in the appropriate collapsible section:
-   - Easy: update `Easy Problems (N solved)` in the `<summary>` tag
-   - Medium: update `Medium Problems (N solved)` in the `<summary>` tag
-   - Hard: update `Hard Problems (N solved)` in the `<summary>` tag
-
-3. **Add the problem link** to the correct difficulty section, in the appropriate category subsection:
-   - Format: `- [{number} - {Problem Name}](./leetcode/{difficulty}/{number}-{name}) ![{Difficulty}](https://img.shields.io/badge/{Difficulty}-{color})`
+1. **Add the problem link** to the correct difficulty section, in the appropriate category subsection:
+   - Format: `- [{number} - {Problem Name}](../leetcode/{difficulty}/{number}-{name}) ![{Difficulty}](https://img.shields.io/badge/{Difficulty}-{color})`
    - Colors: Easy=green, Medium=orange, Hard=red
    - Place alphabetically or by problem number within the subsection
    - If no existing subsection fits, add it to the most relevant one or create a new subsection
 
-4. **If the problem matches a pattern** listed in "Problems by Pattern", add it there too.
+2. **If the problem matches a pattern** listed in "Problems by Pattern", add it there too.
 
-5. **Run markdownlint on the root README**: `npx markdownlint README.md` — fix any violations before proceeding.
+3. **Run markdownlint**: `npx markdownlint docs/PROBLEMS.md` — fix any violations before proceeding.
 
 ### Phase 5: Pull Request
 
 1. Stage all changed files:
 
    ```bash
-   git add leetcode/{difficulty}/{number}-{name}/ README.md
+   git add leetcode/{difficulty}/{number}-{name}/ docs/PROBLEMS.md
    ```
 
 2. Commit:
@@ -243,4 +235,4 @@ Update the root `README.md` to reflect the new problem:
 - **No external dependencies**: Solutions must be self-contained (no lodash, etc.)
 - **Markdown only**: All `.md` files must use pure markdown formatting — no HTML elements like `<p>`, `<code>`, `<strong>`, `<em>`, `<pre>`, `<ul>`, `<li>`. The markdownlint config (`.markdownlint.json`) allows only `<details>`, `<summary>`, `<sup>`, `<sub>`, `<br>`, `<img>`.
 - **markdownlint**: Run `npx markdownlint {file}` on every markdown file created or modified. Fix violations before committing.
-- **README updates**: The root `README.md` must be updated with the new problem count and link every time a new problem is solved.
+- **Problem index updates**: `docs/PROBLEMS.md` must be updated with the new problem link every time a new problem is solved.
