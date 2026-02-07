@@ -1323,6 +1323,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0011",
+      "problemName": "Container With Most Water",
+      "problemSlug": "container-with-most-water",
+      "difficulty": "medium",
+      "prNumber": "226",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/226",
+      "filePath": "leetcode/medium/0011-container-with-most-water/container-with-most-water.ts",
+      "solvedDate": "2026-02-07T22:36:18Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-02-08",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1332,5 +1353,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-07T02:14:58.249Z"
+  "lastUpdated": "2026-02-07T22:36:29.419Z"
 }
