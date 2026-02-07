@@ -22,7 +22,15 @@ Execute these phases in order. Do not skip any phase.
 3. **Create the problem directory and files:**
    - Determine the difficulty folder: `leetcode/easy/`, `leetcode/medium/`, or `leetcode/hard/`
    - Create the directory: `leetcode/{difficulty}/{4-digit-number}-{kebab-case-name}/`
-   - Create `README.md` with the problem statement formatted like existing READMEs (see `leetcode/easy/0001-two-sum/README.md` for the format: title with link, difficulty badge, HTML problem description)
+   - Create `README.md` with the problem statement using **pure markdown formatting** (no HTML elements). Convert the LeetCode HTML to markdown:
+     - Use `#` headings instead of `<p><strong>`
+     - Use `**bold**` instead of `<strong>`, `*italic*` instead of `<em>`
+     - Use `` `backticks` `` instead of `<code>`
+     - Use markdown code blocks (```) instead of `<pre>`
+     - Use markdown lists (`-`) instead of `<ul><li>`
+     - Use `^` for superscripts where needed (e.g., `10^4` instead of `<sup>4</sup>`)
+     - Format: title with LeetCode link, difficulty badge, markdown problem description, examples, constraints
+     - Run `npx markdownlint {README-file}` to verify — fix any violations before proceeding
    - Create the implementation file `{name}.ts` with a stub export:
 
      ```typescript
@@ -103,17 +111,41 @@ If criteria aren't met, continue the loop.
    - **Edge Cases**: What was handled, what was missed
    - **Retrospective**: Key takeaways from the TDD process
    - **Rubric**: Self-rate the solution (1-5 scale)
-3. Run quality checks on the implementation file:
+3. Run quality checks on all files in the problem directory:
    - `npx eslint {implementation-file}` — fix any issues
    - `npx prettier --write {implementation-file} {test-file}` — format code
+   - `npx markdownlint leetcode/{difficulty}/{number}-{name}/README.md` — verify markdown quality, fix any violations
+   - `npx markdownlint leetcode/{difficulty}/{number}-{name}/POST_MORTEM.md` — verify markdown quality, fix any violations
    - `npx vitest run {test-file}` — final confirmation all tests pass
 
-### Phase 4: Pull Request
+### Phase 4: Update Root README
 
-1. Stage all files in the problem directory:
+Update the root `README.md` to reflect the new problem:
+
+1. **Increment the problem count** in the Overview table (line ~9):
+   - Update the LeetCode "Problems Solved" number (currently the total of easy + medium + hard)
+
+2. **Increment the difficulty count** in the appropriate collapsible section:
+   - Easy: update `Easy Problems (N solved)` in the `<summary>` tag
+   - Medium: update `Medium Problems (N solved)` in the `<summary>` tag
+   - Hard: update `Hard Problems (N solved)` in the `<summary>` tag
+
+3. **Add the problem link** to the correct difficulty section, in the appropriate category subsection:
+   - Format: `- [{number} - {Problem Name}](./leetcode/{difficulty}/{number}-{name}) ![{Difficulty}](https://img.shields.io/badge/{Difficulty}-{color})`
+   - Colors: Easy=green, Medium=orange, Hard=red
+   - Place alphabetically or by problem number within the subsection
+   - If no existing subsection fits, add it to the most relevant one or create a new subsection
+
+4. **If the problem matches a pattern** listed in "Problems by Pattern", add it there too.
+
+5. **Run markdownlint on the root README**: `npx markdownlint README.md` — fix any violations before proceeding.
+
+### Phase 5: Pull Request
+
+1. Stage all changed files:
 
    ```bash
-   git add leetcode/{difficulty}/{number}-{name}/
+   git add leetcode/{difficulty}/{number}-{name}/ README.md
    ```
 
 2. Commit:
@@ -169,3 +201,6 @@ If criteria aren't met, continue the loop.
 - **Vitest globals**: The config has `globals: true`, but still import `describe`, `it`, `expect` explicitly for clarity
 - **Existing conventions**: Match the naming pattern of existing problems (4-digit number, kebab-case)
 - **No external dependencies**: Solutions must be self-contained (no lodash, etc.)
+- **Markdown only**: All `.md` files must use pure markdown formatting — no HTML elements like `<p>`, `<code>`, `<strong>`, `<em>`, `<pre>`, `<ul>`, `<li>`. The markdownlint config (`.markdownlint.json`) allows only `<details>`, `<summary>`, `<sup>`, `<sub>`, `<br>`, `<img>`.
+- **markdownlint**: Run `npx markdownlint {file}` on every markdown file created or modified. Fix violations before committing.
+- **README updates**: The root `README.md` must be updated with the new problem count and link every time a new problem is solved.
