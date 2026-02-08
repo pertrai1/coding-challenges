@@ -501,8 +501,8 @@
           "scheduledDate": "2026-01-18",
           "interval": 30,
           "completed": true,
-          "issueNumber": 222,
-          "issueCreatedAt": "2026-02-02T09:17:14.554Z",
+          "issueNumber": 227,
+          "issueCreatedAt": "2026-02-08T09:08:25.316Z",
           "completedAt": "2026-01-18T15:39:50.674Z"
         },
         {
@@ -1319,7 +1319,8 @@
           "scheduledDate": "2026-02-08",
           "interval": 1,
           "completed": false,
-          "issueNumber": null
+          "issueNumber": 228,
+          "issueCreatedAt": "2026-02-08T09:08:25.317Z"
         }
       ],
       "reviewsCompleted": []
@@ -1340,7 +1341,8 @@
           "scheduledDate": "2026-02-08",
           "interval": 1,
           "completed": false,
-          "issueNumber": null
+          "issueNumber": 229,
+          "issueCreatedAt": "2026-02-08T09:08:25.317Z"
         }
       ],
       "reviewsCompleted": []
@@ -1353,5 +1355,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-07T22:36:29.419Z"
+  "lastUpdated": "2026-02-08T09:08:25.317Z"
 }
