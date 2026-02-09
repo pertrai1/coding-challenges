@@ -22,4 +22,10 @@ describe('3Sum', () => {
     const result = threeSum(nums);
     expect(result).toEqual([[0, 0, 0]]);
   });
+
+  it('should return empty array for empty input', () => {
+    const nums: number[] = [];
+    const result = threeSum(nums);
+    expect(result).toEqual([]);
+  });
 });
