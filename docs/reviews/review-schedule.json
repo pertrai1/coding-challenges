@@ -1340,12 +1340,26 @@
           "reviewNumber": 1,
           "scheduledDate": "2026-02-08",
           "interval": 1,
-          "completed": false,
+          "completed": true,
           "issueNumber": 229,
-          "issueCreatedAt": "2026-02-08T09:08:25.317Z"
+          "issueCreatedAt": "2026-02-08T09:08:25.317Z",
+          "completedAt": "2026-02-09T13:49:29.636Z"
+        },
+        {
+          "reviewNumber": 2,
+          "scheduledDate": "2026-02-12",
+          "interval": 3,
+          "completed": false,
+          "issueNumber": null
         }
       ],
-      "reviewsCompleted": []
+      "reviewsCompleted": [
+        {
+          "reviewNumber": 1,
+          "completedAt": "2026-02-09T13:49:29.636Z",
+          "issueNumber": 229
+        }
+      ]
     }
   ],
   "reviewIntervals": [
@@ -1355,5 +1369,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-08T09:08:25.317Z"
+  "lastUpdated": "2026-02-09T13:49:29.636Z"
 }
