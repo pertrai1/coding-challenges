@@ -34,4 +34,10 @@ describe('3Sum', () => {
     const result = threeSum(nums);
     expect(result).toEqual([]);
   });
+
+  it('should return empty array for all positive numbers', () => {
+    const nums = [1, 2, 3];
+    const result = threeSum(nums);
+    expect(result).toEqual([]);
+  });
 });
