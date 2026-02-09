@@ -16,4 +16,10 @@ describe('3Sum', () => {
     const result = threeSum(nums);
     expect(result).toEqual([]);
   });
+
+  it('should handle array of all zeros', () => {
+    const nums = [0, 0, 0];
+    const result = threeSum(nums);
+    expect(result).toEqual([[0, 0, 0]]);
+  });
 });
