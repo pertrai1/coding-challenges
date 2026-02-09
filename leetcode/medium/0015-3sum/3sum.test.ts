@@ -40,4 +40,10 @@ describe('3Sum', () => {
     const result = threeSum(nums);
     expect(result).toEqual([]);
   });
+
+  it('should return multiple arrays with same value', () => {
+    const nums = [1, 2, 0, 1, 0, 0, 0, 0];
+    const result = threeSum(nums);
+    expect(result).toEqual([[0, 0, 0]]);
+  });
 });

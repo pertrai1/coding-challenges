@@ -30,6 +30,14 @@ export function threeSum(nums: number[]): number[][] {
         result.push([sortedArray[i], sortedArray[left], sortedArray[right]]);
         left++;
         right--;
+        // Skip duplicate values for left pointer
+        while (left < right && sortedArray[left] === sortedArray[left - 1]) {
+          left++;
+        }
+        // Skip duplicate values for right pointer
+        while (left < right && sortedArray[right] === sortedArray[right + 1]) {
+          right--;
+        }
       } else if (sum < 0) {
         left++;
       } else {
