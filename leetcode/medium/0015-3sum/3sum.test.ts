@@ -10,4 +10,10 @@ describe('3Sum', () => {
       [-1, 0, 1]
     ]);
   });
+
+  it('should return empty array when no triplets sum to zero', () => {
+    const nums = [0, 1, 1];
+    const result = threeSum(nums);
+    expect(result).toEqual([]);
+  });
 });
