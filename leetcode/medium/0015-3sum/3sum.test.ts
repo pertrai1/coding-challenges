@@ -28,4 +28,10 @@ describe('3Sum', () => {
     const result = threeSum(nums);
     expect(result).toEqual([]);
   });
+
+  it('should return empty array for array with fewer than 3 elements', () => {
+    const nums = [1, 2];
+    const result = threeSum(nums);
+    expect(result).toEqual([]);
+  });
 });
