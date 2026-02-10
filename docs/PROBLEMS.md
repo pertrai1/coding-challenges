@@ -122,6 +122,7 @@ Complete list of all solved problems, organized by difficulty and topic.
 
 - [0003 - Longest Substring Without Repeating Characters](../leetcode/medium/0003-longest-substring-without-repeating-characters) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0011 - Container With Most Water](../leetcode/medium/0011-container-with-most-water) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0015 - 3Sum](../leetcode/medium/0015-3sum) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0016 - 3Sum Closest](../leetcode/medium/0016-3sum-closest) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0018 - 4Sum](../leetcode/medium/0018-4sum) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0031 - Next Permutation](../leetcode/medium/0031-next-permutation) ![Medium](https://img.shields.io/badge/Medium-orange)
@@ -261,6 +262,7 @@ Complete list of all solved problems, organized by difficulty and topic.
 ### Two Pointers
 
 - [0011 - Container With Most Water](../leetcode/medium/0011-container-with-most-water) - Medium
+- [0015 - 3Sum](../leetcode/medium/0015-3sum) - Medium
 - [0016 - 3Sum Closest](../leetcode/medium/0016-3sum-closest) - Medium
 - [0018 - 4Sum](../leetcode/medium/0018-4sum) - Medium
 - [0080 - Remove Duplicates from Sorted Array II](../leetcode/medium/0080-remove-duplicates-from-sorted-array-ii) - Medium
