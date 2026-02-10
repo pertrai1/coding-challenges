@@ -1360,6 +1360,27 @@
           "issueNumber": 229
         }
       ]
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0015",
+      "problemName": "3sum",
+      "problemSlug": "3sum",
+      "difficulty": "medium",
+      "prNumber": "230",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/230",
+      "filePath": "leetcode/medium/0015-3sum/3sum.ts",
+      "solvedDate": "2026-02-10T00:22:26Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-02-11",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1369,5 +1390,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-09T13:49:29.636Z"
+  "lastUpdated": "2026-02-10T00:22:35.233Z"
 }
