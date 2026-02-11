@@ -250,6 +250,7 @@ After every interaction, output exactly this:
 
 - **Phase**: COACH
 - **Cycle**: {number}
+- **Cycle type**: {feature | debugging | refactoring}
 - **Mode**: continue | feedback
 - **Implementation file**: {path}
 - **TODOs inserted**: {list of TODO descriptions added this cycle, or "none — fixing previous"}
@@ -258,11 +259,13 @@ After every interaction, output exactly this:
 - **Learner test contribution**: {none | proposed case/output | assertion sketch | authored full `it()` block}
 - **Hint level used**: {0 (no hints needed) | 1 | 2 | 3}
 - **Pattern checkpoint**: {PASS — learner stated pattern correctly | FAIL — needed guidance | SKIP — not applicable this cycle}
+- **Complexity check**: {learner's answer to "what's the time/space complexity?" or "not asked this cycle"}
 - **Learning objective**: {what pattern/concept this cycle teaches}
 - **Test output**: {vitest output summary — PASS or FAIL with details}
 - **All tests passing**: YES | NO
 - **Interview evidence**: {1-2 concrete observations from this cycle tied to code, tests, or checkpoint responses}
-- **No-hire triggers observed**: {none | list trigger names with cycle evidence}
+- **No-hire triggers observed this cycle**: {none | list what happened}
+- **Trigger recovery status**: {N/A | recovered independently | recovered with hints | unresolved}
 - **Next step**: {what the learner should implement next | waiting for learner response | DONE}
 - **Research needed**: {question for Researcher, or "none"}
 ```

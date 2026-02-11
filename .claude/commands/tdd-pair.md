@@ -148,6 +148,8 @@ In coach mode, the learner writes all implementation code. Test ownership progre
 - **Level 1 — Test intent (cycles 1-2):** Learner proposes the next test case and expected output. Driver writes the full Vitest `it()` block.
 - **Level 2 — Assertion sketch (cycles 3-4):** Learner provides concrete input/output and assertion shape. Driver finalizes syntax and structure.
 - **Level 3 — Learner-authored test (cycle 5+):** Learner writes the full `it()` block. Driver only reviews for clarity and runs RED.
+- **Progression rule:** Advance to next level when (a) cycle number reaches threshold AND (b) learner has shown confidence at current level
+- **Stay-at-level indicators:** Learner struggled significantly at current level, or session will end before reaching cycle 5
 - **De-escalation rule:** If the learner is stuck or severely time-boxed, drop one level for a single cycle, then resume progression.
 
 ##### Step A: Driver Turn (RED)
@@ -171,17 +173,36 @@ Delegate to the Coach agent (use `delegate_task` with the `tdd-coach` agent defi
   1. Insert 1-3 TODO comments in the implementation file describing what must become true
   2. Ask the learner the **pattern checkpoint question**: "What pattern are you using, what are the key state variables, and what invariant must hold?"
   3. Wait for the learner to respond with their pattern statement
-  4. If the pattern statement is correct, tell the learner to go ahead and implement
-  5. If incorrect, guide them with questions (do NOT give the answer)
-  6. Record the test-ownership level and learner test contribution for the cycle in Coach HANDOFF notes
+  4. Evaluate the pattern statement:
+     - **If correct and complete:** Tell the learner to go ahead and implement
+     - **If partially correct:** Use targeted follow-up questions:
+       - "You mentioned [X]. What about [Y state variable]?"
+       - "That's the right pattern. What specific data do you need to track?"
+       - "Good start. What property must remain true at each step?"
+     - **If incorrect:** Guide them with questions (do NOT give the answer)
+  5. Record the test-ownership level and learner test contribution for the cycle in Coach HANDOFF notes
 
 ##### Step D: Learner Codes
 
 **The learner writes the implementation code** (and, on Level 3 cycles, has already authored the new test in Step A). The orchestrator waits for the learner to respond with one of:
 
 - **"continue"** — The Coach reviews their code, runs tests, and either:
-  - Advances to the next TODOs (if tests pass) and commits progress
-  - Shows the failure and asks a guiding question (if tests fail)
+  - **If tests pass:**
+    - Remove completed TODO comments from the implementation file
+    - Acknowledge what was done well (1 sentence max)
+    - **Ask complexity question:** "What's the time/space complexity of what you just implemented and why?"
+    - Record their answer in HANDOFF for interview evidence (don't correct if slightly off, but note it for the debrief)
+    - **Optionally suggest refinements** (only if code works correctly):
+      - Combining related loops (e.g., initialization + counting in same pass)
+      - Removing unused data from structures (e.g., extra fields in queue items)
+      - Adding early returns for base cases
+      - **Rule:** Never make the learner feel their working code is "wrong" — these are optional improvements
+    - Commit progress immediately
+    - Set/confirm the next cycle's test-ownership level and tell the learner what test contribution is expected next
+    - Insert the next 1-3 TODO comments for the next behavioral step
+    - Ask the pattern checkpoint question
+  - **If tests fail:**
+    - Show the failure and ask a guiding question (if tests fail)
 - **"feedback"** — The Coach reads the learner's code changes first, runs tests, then pauses progression and delivers interview-style evaluation based on what the learner actually wrote:
   - Scores 5 categories (Problem Solving, Coding, Verification, Communication, Complexity Analysis) on a 1-5 scale
   - Provides concrete observations quoting specific lines from the learner's code
@@ -196,6 +217,13 @@ Check Coach's HANDOFF:
 - If `Next step` indicates more TODOs needed → go to Step A (next test is created per active ownership level)
 - If `Next step` says "DONE" → check completion criteria below
 
+**Debugging Cycles:** When a cycle is primarily fixing a bug (not adding new behavior):
+
+- Use hint level 1 (guiding questions about what variables should be)
+- Don't advance test-ownership level (stay at current L1/L2/L3)
+- In HANDOFF, mark cycle type as "debugging cycle" in notes
+- Still commit progress after fix with descriptive message (e.g., "fix freshCount initialization")
+
 **Completion criteria** (ALL must be true):
 
 - All example cases from the problem have tests
@@ -207,12 +235,25 @@ Check Coach's HANDOFF:
 
 ##### Coach Mode Commit Strategy
 
-After each successful "continue" (tests pass), commit progress:
+**Commit immediately after tests pass:**
 
 ```bash
 git add .
 git commit -m "learn: cycle {cycle_number} - {brief description of what learner implemented}"
 ```
+
+**Why this matters:**
+
+- Creates a "Learning Playback" history showing incremental progress
+- Prevents lost work if issues arise
+- Demonstrates TDD rhythm (test → implement → commit)
+- Provides restore points if learner wants to try different approaches
+
+**Commit message tips:**
+
+- Cycle 1: "count fresh oranges and return 0 if none"
+- Cycle 3: "implement BFS with level-by-level processing"
+- Cycle 4 (debugging): "fix freshCount initialization to count fresh oranges"
 
 This enables "Learning Playback" in the PR — reviewers can see how the learner built the solution step by step.
 
@@ -243,8 +284,15 @@ Create `POST_MORTEM.md` in the problem directory with this structure:
 
 **Date:** {date}
 **Problem:** [{Problem Name}](https://leetcode.com/problems/{slug}/) — {Difficulty}
-**Duration:** ~{estimated time based on cycles} minutes
+**Duration:** ~{estimated time} minutes
 **Mode:** Guided TDD (Coach Mode)
+
+**Duration Estimation:**
+
+- If you tracked cycle timestamps, use actual duration
+- Otherwise estimate: (number of cycles × 15-25 minutes per cycle)
+- Coach mode typically takes longer than auto-solve due to teaching pauses
+- Note the duration is for the coding session, not including problem reading/setup
 
 ---
 
