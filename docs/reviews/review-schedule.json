@@ -1377,7 +1377,8 @@
           "scheduledDate": "2026-02-11",
           "interval": 1,
           "completed": false,
-          "issueNumber": null
+          "issueNumber": 232,
+          "issueCreatedAt": "2026-02-11T09:18:30.595Z"
         }
       ],
       "reviewsCompleted": []
@@ -1411,5 +1412,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-11T01:54:58.503Z"
+  "lastUpdated": "2026-02-11T09:18:30.597Z"
 }
