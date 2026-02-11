@@ -1381,6 +1381,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0994",
+      "problemName": "Rotting Oranges",
+      "problemSlug": "rotting-oranges",
+      "difficulty": "medium",
+      "prNumber": "231",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/231",
+      "filePath": "leetcode/medium/0994-rotting-oranges/rotting-oranges.ts",
+      "solvedDate": "2026-02-11T01:54:47Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-02-12",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1390,5 +1411,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-10T00:22:35.233Z"
+  "lastUpdated": "2026-02-11T01:54:58.503Z"
 }
