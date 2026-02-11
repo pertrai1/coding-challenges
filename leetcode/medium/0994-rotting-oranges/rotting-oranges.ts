@@ -2,7 +2,7 @@ export function orangesRotting(grid: number[][]): number {
   let freshCount: number = 0;
   let minutes = 0;
 
-  const queue: number[][] = [];
+  const queue: [number, number][] = [];
 
   // Initialize queue with all initially rotten oranges and count fresh oranges
   for (let row = 0; row < grid.length; row++) {
