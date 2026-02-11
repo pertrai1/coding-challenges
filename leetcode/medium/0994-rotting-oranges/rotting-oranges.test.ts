@@ -11,4 +11,13 @@ describe('Rotting Oranges', () => {
     const grid = [[2]];
     expect(orangesRotting(grid)).toBe(0);
   });
+
+  it('should return correct minutes for basic rotting scenario', () => {
+    const grid = [
+      [2, 1, 1],
+      [1, 1, 0],
+      [0, 1, 1]
+    ];
+    expect(orangesRotting(grid)).toBe(4);
+  });
 });
