@@ -210,6 +210,7 @@ Complete list of all solved problems, organized by difficulty and topic.
 - [0881 - Loud and Rich](../leetcode/medium/0881-loud-and-rich) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0922 - Possible Bipartition](../leetcode/medium/0922-possible-bipartition) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0984 - Most Stones Removed with Same Row or Column](../leetcode/medium/0984-most-stones-removed-with-same-row-or-column) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0994 - Rotting Oranges](../leetcode/medium/0994-rotting-oranges) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1100 - Connecting Cities With Minimum Cost](../leetcode/medium/1100-connecting-cities-with-minimum-cost) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1101 - Parallel Courses](../leetcode/medium/1101-parallel-courses) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1120 - Flower Planting With No Adjacent](../leetcode/medium/1120-flower-planting-with-no-adjacent) ![Medium](https://img.shields.io/badge/Medium-orange)
@@ -299,3 +300,4 @@ Complete list of all solved problems, organized by difficulty and topic.
 - [0210 - Course Schedule II](../leetcode/medium/0210-course-schedule-ii) - Medium
 - [0269 - Alien Dictionary](../leetcode/hard/0269-alien-dictionary) - Hard
 - [0329 - Longest Increasing Path in a Matrix](../leetcode/hard/0329-longest-increasing-path-in-a-matrix) - Hard
+- [0994 - Rotting Oranges](../leetcode/medium/0994-rotting-oranges) - Medium
