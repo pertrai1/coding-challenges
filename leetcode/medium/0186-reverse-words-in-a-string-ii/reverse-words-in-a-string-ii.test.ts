@@ -20,4 +20,11 @@ describe('Reverse Words in a String II', () => {
     reverseWords(input);
     expect(input).toEqual(expected);
   });
+
+  it('should handle single word (no spaces)', () => {
+    const input = ['s', 'i', 'n', 'g', 'l', 'e'];
+    const expected = ['s', 'i', 'n', 'g', 'l', 'e'];
+    reverseWords(input);
+    expect(input).toEqual(expected);
+  });
 });
