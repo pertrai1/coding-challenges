@@ -130,6 +130,7 @@ Complete list of all solved problems, organized by difficulty and topic.
 - [0073 - Set Matrix Zeroes](../leetcode/medium/0073-set-matrix-zeroes) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0080 - Remove Duplicates from Sorted Array II](../leetcode/medium/0080-remove-duplicates-from-sorted-array-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0090 - Subsets II](../leetcode/medium/0090-subsets-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0186 - Reverse Words in a String II](../leetcode/medium/0186-reverse-words-in-a-string-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0209 - Minimum Size Subarray Sum](../leetcode/medium/0209-minimum-size-subarray-sum) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0287 - Find the Duplicate Number](../leetcode/medium/0287-find-the-duplicate-number) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0324 - Wiggle Sort II](../leetcode/medium/0324-wiggle-sort-ii) ![Medium](https://img.shields.io/badge/Medium-orange)
@@ -267,6 +268,7 @@ Complete list of all solved problems, organized by difficulty and topic.
 - [0016 - 3Sum Closest](../leetcode/medium/0016-3sum-closest) - Medium
 - [0018 - 4Sum](../leetcode/medium/0018-4sum) - Medium
 - [0080 - Remove Duplicates from Sorted Array II](../leetcode/medium/0080-remove-duplicates-from-sorted-array-ii) - Medium
+- [0186 - Reverse Words in a String II](../leetcode/medium/0186-reverse-words-in-a-string-ii) - Medium
 - [More in technique guide](./techniques/TWO_POINTERS.md)
 
 ### Sliding Window
