@@ -7,4 +7,10 @@ describe('Reverse Words in a String II', () => {
     reverseWords(input);
     expect(input).toEqual([]);
   });
+
+  it('should reverse two single-character words', () => {
+    const input = ['b', ' ', 'a'];
+    reverseWords(input);
+    expect(input).toEqual(['a', ' ', 'b']);
+  });
 });
