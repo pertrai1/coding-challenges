@@ -13,4 +13,11 @@ describe('Reverse Words in a String II', () => {
     reverseWords(input);
     expect(input).toEqual(['a', ' ', 'b']);
   });
+
+  it('should reverse multiple multi-character words', () => {
+    const input = ['c', 'a', 't', ' ', 'd', 'o', 'g'];
+    const expected = ['d', 'o', 'g', ' ', 'c', 'a', 't'];
+    reverseWords(input);
+    expect(input).toEqual(expected);
+  });
 });
