@@ -503,7 +503,7 @@
           "completed": true,
           "issueNumber": 227,
           "issueCreatedAt": "2026-02-08T09:08:25.316Z",
-          "completedAt": "2026-01-18T15:39:50.674Z"
+          "completedAt": "2026-02-12T02:27:57.057Z"
         },
         {
           "reviewNumber": 4,
@@ -557,6 +557,11 @@
           "reviewNumber": 5,
           "completedAt": "2026-01-18T15:39:50.674Z",
           "issueNumber": 200
+        },
+        {
+          "reviewNumber": 5,
+          "completedAt": "2026-02-12T02:27:57.057Z",
+          "issueNumber": 227
         }
       ]
     },
@@ -1412,5 +1417,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-11T09:18:30.597Z"
+  "lastUpdated": "2026-02-12T02:27:57.057Z"
 }
