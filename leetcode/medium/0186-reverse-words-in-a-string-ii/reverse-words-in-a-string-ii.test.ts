@@ -27,4 +27,11 @@ describe('Reverse Words in a String II', () => {
     reverseWords(input);
     expect(input).toEqual(expected);
   });
+
+  it('should handle more than 2 words', () => {
+    const input = ['t', 'h', 'e', ' ', 's', 'k', 'y', ' ', 'i', 's', ' ', 'b', 'l', 'u', 'e'];
+    const expected = ['b', 'l', 'u', 'e', ' ', 'i', 's', ' ', 's', 'k', 'y', ' ', 't', 'h', 'e'];
+    reverseWords(input);
+    expect(input).toEqual(expected);
+  });
 });
