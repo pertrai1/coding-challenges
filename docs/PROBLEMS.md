@@ -179,6 +179,7 @@ Complete list of all solved problems, organized by difficulty and topic.
 - [0072 - Edit Distance](../leetcode/medium/0072-edit-distance) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0139 - Word Break](../leetcode/medium/0139-word-break) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0198 - House Robber](../leetcode/medium/0198-house-robber) ![Medium](https://img.shields.io/badge/Medium-orange)
+- [0322 - Coin Change](../leetcode/medium/0322-coin-change) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0413 - Arithmetic Slices](../leetcode/medium/0413-arithmetic-slices) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [0718 - Maximum Length of Repeated Subarray](../leetcode/medium/0718-maximum-length-of-repeated-subarray) ![Medium](https://img.shields.io/badge/Medium-orange)
 - [1250 - Longest Common Subsequence](../leetcode/medium/1250-longest-common-subsequence) ![Medium](https://img.shields.io/badge/Medium-orange)
@@ -294,6 +295,7 @@ Complete list of all solved problems, organized by difficulty and topic.
 - [0072 - Edit Distance](../leetcode/medium/0072-edit-distance) - Medium
 - [0139 - Word Break](../leetcode/medium/0139-word-break) - Medium
 - [0198 - House Robber](../leetcode/medium/0198-house-robber) - Medium
+- [0322 - Coin Change](../leetcode/medium/0322-coin-change) - Medium
 
 ### Graphs (BFS/DFS)
 
