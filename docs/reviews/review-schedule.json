@@ -1432,6 +1432,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0322",
+      "problemName": "Coin Change",
+      "problemSlug": "coin-change",
+      "difficulty": "medium",
+      "prNumber": "237",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/237",
+      "filePath": "leetcode/medium/0322-coin-change/coin-change.ts",
+      "solvedDate": "2026-02-13T14:23:55Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-02-14",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1441,5 +1462,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-13T09:16:17.443Z"
+  "lastUpdated": "2026-02-13T14:24:05.060Z"
 }
