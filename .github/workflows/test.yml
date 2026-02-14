@@ -1,6 +1,8 @@
 name: Run Tests
 
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main, develop]
     paths:
@@ -25,6 +27,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
@@ -47,9 +51,11 @@ jobs:
           retention-days: 30
 
       - name: SonarQube Scan
+        if: always()
         uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 # v7.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: Comment PR with test results
         if: github.event_name == 'pull_request' && always()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
@@ -66,7 +72,7 @@ jobs:
               if (fs.existsSync(coverageFile)) {
                 const coverage = JSON.parse(fs.readFileSync(coverageFile, 'utf8'));
                 const total = coverage.total;
-                
+
                 coverageSummary = `
             ## 📊 Coverage Summary
 
