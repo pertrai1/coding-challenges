@@ -26,7 +26,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          track_progress: true
+          track_progress: ${{ github.event.action != 'labeled' }}
 
           prompt: |
             Review this PR as a coding challenge learning exercise. This repository contains solutions from multiple platforms (LeetCode, GreatFrontEnd, etc.).
