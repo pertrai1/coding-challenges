@@ -21,6 +21,7 @@ Options:
 
 import argparse
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -32,6 +33,9 @@ from typing import Optional, Tuple
 VALID_MODES = ["coding", "systems", "behavioral", "full"]
 FULL_SEQUENCE = ["coding", "systems", "behavioral"]
 
+MAX_CANDIDATE_LENGTH = 64
+SAFE_CANDIDATE_PATTERN = re.compile(r"[^A-Za-z0-9_-]")
+
 REPO_ROOT = Path(__file__).parent.parent
 AGENTS_DIR = REPO_ROOT / ".claude" / "agents"
 INTERVIEWS_DIR = REPO_ROOT / "interviews"
@@ -42,41 +46,58 @@ def get_agent_prompt_path(mode: str) -> Path:
     return AGENTS_DIR / f"{mode}-interview.md"
 
 
+def normalize_candidate_name(candidate: str) -> str:
+    cleaned = SAFE_CANDIDATE_PATTERN.sub("_", candidate.strip())
+    if not cleaned:
+        return "candidate"
+    return cleaned[:MAX_CANDIDATE_LENGTH]
+
+
+def ensure_within_directory(path: Path, base_dir: Path) -> Path:
+    resolved_path = path.resolve()
+    base_resolved = base_dir.resolve()
+    try:
+        resolved_path.relative_to(base_resolved)
+    except ValueError as exc:
+        raise ValueError(f"Path traversal attempt detected: {resolved_path}") from exc
+    return resolved_path
+
+
 def get_transcript_path(candidate: str, interview_type: str) -> Path:
     """Generate transcript path with date and candidate name."""
     date_str = datetime.now().strftime("%Y-%m-%d")
     filename = f"transcript-{date_str}-{candidate}-{interview_type}.txt"
-    return INTERVIEWS_DIR / filename
+    return ensure_within_directory(INTERVIEWS_DIR / filename, INTERVIEWS_DIR)
 
 
 def get_rubric_path(candidate: str, interview_type: str) -> Path:
     """Generate rubric path with date and candidate name."""
     date_str = datetime.now().strftime("%Y-%m-%d")
     filename = f"interview-rubric-{date_str}-{candidate}-{interview_type}.md"
-    return INTERVIEWS_DIR / filename
+    return ensure_within_directory(INTERVIEWS_DIR / filename, INTERVIEWS_DIR)
 
 
 def find_llm_runner() -> Optional[str]:
     """
     Find an available LLM runner.
-    
+
     Checks:
     1. CLAUDE_RUNNER environment variable
     2. 'claude-code' CLI
     3. 'claude' CLI
-    
+
     Returns the runner command or None if not found.
     """
     # Check environment variable first
     env_runner = os.environ.get("CLAUDE_RUNNER")
     if env_runner and shutil.which(env_runner):
         return env_runner
-    
+
     # Check common CLIs
     for cli in ["claude-code", "claude"]:
         if shutil.which(cli):
             return cli
-    
+
     return None
 
 
@@ -89,35 +110,33 @@ def read_prompt_file(mode: str) -> str:
 
 
 def run_interview(
-    mode: str,
-    candidate: str,
-    auto_eval: bool = False,
-    runner: Optional[str] = None
+    mode: str, candidate: str, auto_eval: bool = False, runner: Optional[str] = None
 ) -> Tuple[bool, str]:
     """
     Run an interview session.
-    
+
     Args:
         mode: Interview type (coding, systems, behavioral)
         candidate: Candidate name
         auto_eval: Whether to auto-evaluate after interview (creates placeholder rubric)
         runner: LLM runner command to use
-    
+
     Returns:
         Tuple of (success, message)
     """
     prompt_content = read_prompt_file(mode)
-    transcript_path = get_transcript_path(candidate, mode)
-    
+    safe_candidate = normalize_candidate_name(candidate)
+    transcript_path = get_transcript_path(safe_candidate, mode)
+
     # Ensure interviews directory exists
     INTERVIEWS_DIR.mkdir(parents=True, exist_ok=True)
-    
+
     if runner is None:
         # No runner found - return prompt contents with simulated-run note
         simulated_output = f"""=== SIMULATED RUN (No LLM runner found) ===
 
 Interview Type: {mode}
-Candidate: {candidate}
+Candidate: {safe_candidate}
 Transcript would be saved to: {transcript_path}
 
 Agent Prompt Contents:
@@ -133,37 +152,31 @@ To run this interview for real, either:
         # Save simulated transcript
         transcript_path.write_text(simulated_output)
         return True, f"Simulated run complete. Transcript saved to: {transcript_path}"
-    
+
     # Run the actual interview with the LLM runner
     try:
         # Write prompt to a temp file to avoid exposing in process list
         with tempfile.NamedTemporaryFile(
-            mode='w',
-            suffix='.md',
-            delete=False,
-            prefix='interview_prompt_'
+            mode="w", suffix=".md", delete=False, prefix="interview_prompt_"
         ) as prompt_file:
             prompt_file.write(prompt_content)
             prompt_file_path = prompt_file.name
-        
+
         try:
             # Build command using file path instead of prompt content
             cmd = [runner, "--prompt-file", prompt_file_path]
-            
+
             result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                cwd=str(REPO_ROOT)
+                cmd, capture_output=True, text=True, cwd=str(REPO_ROOT)
             )
         finally:
             # Clean up temp file
             os.unlink(prompt_file_path)
-        
+
         # Save transcript
         transcript_content = f"""=== Interview Transcript ===
 Interview Type: {mode}
-Candidate: {candidate}
+Candidate: {safe_candidate}
 Date: {datetime.now().isoformat()}
 
 --- Output ---
@@ -173,12 +186,12 @@ Date: {datetime.now().isoformat()}
 {result.stderr}
 """
         transcript_path.write_text(transcript_content)
-        
+
         # Handle auto-evaluation
         if auto_eval and result.returncode == 0:
-            rubric_path = get_rubric_path(candidate, mode)
+            rubric_path = get_rubric_path(safe_candidate, mode)
             # Create a placeholder rubric that would be filled by evaluation
-            rubric_content = f"""# Interview Rubric - {candidate}
+            rubric_content = f"""# Interview Rubric - {safe_candidate}
 
 ## Interview Details
 - **Type**: {mode}
@@ -193,10 +206,13 @@ with the transcript to complete this rubric.*
 See: `.claude/commands/evaluate-interview.md`
 """
             rubric_path.write_text(rubric_content)
-            return True, f"Interview complete. Transcript: {transcript_path}, Rubric: {rubric_path}"
-        
+            return (
+                True,
+                f"Interview complete. Transcript: {transcript_path}, Rubric: {rubric_path}",
+            )
+
         return True, f"Interview complete. Transcript saved to: {transcript_path}"
-        
+
     except Exception as e:
         return False, f"Error running interview: {e}"
 
@@ -205,61 +221,58 @@ def main():
     parser = argparse.ArgumentParser(
         description="Interview Orchestrator - Run technical interviews with AI agents",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=__doc__
+        epilog=__doc__,
     )
-    
+
     parser.add_argument(
         "mode",
         nargs="?",
         default="coding",
         choices=VALID_MODES,
-        help="Interview mode (default: coding)"
+        help="Interview mode (default: coding)",
     )
-    
+
     parser.add_argument(
         "--candidate",
         default="candidate",
-        help="Candidate name for transcript filename"
+        help="Candidate name for transcript filename",
     )
-    
+
     parser.add_argument(
         "--auto-eval",
         action="store_true",
         default=False,
-        help="Enable automatic evaluation after interview (disabled by default)"
+        help="Enable automatic evaluation after interview (disabled by default)",
     )
-    
+
     args = parser.parse_args()
-    
+
     # Find LLM runner
     runner = find_llm_runner()
     if runner:
         print(f"Using LLM runner: {runner}")
     else:
         print("No LLM runner found. Will simulate run and return prompt contents.")
-    
+
     # Determine which interviews to run
     modes_to_run = FULL_SEQUENCE if args.mode == "full" else [args.mode]
-    
+
     results = []
     for mode in modes_to_run:
         print(f"\n{'=' * 50}")
         print(f"Starting {mode} interview for {args.candidate}")
         print(f"{'=' * 50}\n")
-        
+
         success, message = run_interview(
-            mode=mode,
-            candidate=args.candidate,
-            auto_eval=args.auto_eval,
-            runner=runner
+            mode=mode, candidate=args.candidate, auto_eval=args.auto_eval, runner=runner
         )
-        
+
         results.append((mode, success, message))
         print(message)
-        
+
         if not success:
             print(f"Warning: {mode} interview failed. Continuing with next...")
-    
+
     # Summary
     print(f"\n{'=' * 50}")
     print("Interview Session Summary")
@@ -267,7 +280,7 @@ def main():
     for mode, success, message in results:
         status = "✓" if success else "✗"
         print(f"  {status} {mode}: {message.split('.')[0]}")
-    
+
     # Return success if all interviews completed
     all_success = all(r[1] for r in results)
     sys.exit(0 if all_success else 1)
