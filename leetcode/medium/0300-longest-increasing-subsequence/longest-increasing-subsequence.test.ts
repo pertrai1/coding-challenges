@@ -17,4 +17,8 @@ describe('Longest Increasing Subsequence', () => {
   it('returns 1 for a single element array', () => {
     expect(lengthOfLIS([42])).toBe(1);
   });
+
+  it('returns the length of the input array when already sorted', () => {
+    expect(lengthOfLIS([1, 2, 3, 4, 5])).toBe(5);
+  });
 });
