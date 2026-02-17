@@ -1454,6 +1454,27 @@
         }
       ],
       "reviewsCompleted": []
+    },
+    {
+      "platform": "leetcode",
+      "problemNumber": "0300",
+      "problemName": "Longest Increasing Subsequence",
+      "problemSlug": "longest-increasing-subsequence",
+      "difficulty": "medium",
+      "prNumber": "241",
+      "prUrl": "https://github.com/pertrai1/coding-challenges/pull/241",
+      "filePath": "leetcode/medium/0300-longest-increasing-subsequence/longest-increasing-subsequence.ts",
+      "solvedDate": "2026-02-17T14:16:04Z",
+      "reviewsDue": [
+        {
+          "reviewNumber": 1,
+          "scheduledDate": "2026-02-18",
+          "interval": 1,
+          "completed": false,
+          "issueNumber": null
+        }
+      ],
+      "reviewsCompleted": []
     }
   ],
   "reviewIntervals": [
@@ -1463,5 +1484,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-14T09:08:10.845Z"
+  "lastUpdated": "2026-02-17T14:16:16.535Z"
 }
