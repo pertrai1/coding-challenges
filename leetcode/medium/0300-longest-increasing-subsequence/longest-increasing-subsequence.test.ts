@@ -9,4 +9,8 @@ describe('Longest Increasing Subsequence', () => {
   it('returns 4 for [0,1,0,3,2,3] (example 2)', () => {
     expect(lengthOfLIS([0, 1, 0, 3, 2, 3])).toBe(4);
   });
+
+  it('returns 1 when all elements are identical', () => {
+    expect(lengthOfLIS([1, 1, 1, 1, 1, 1])).toBe(1);
+  });
 });
