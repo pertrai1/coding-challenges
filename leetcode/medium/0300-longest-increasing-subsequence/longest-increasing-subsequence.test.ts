@@ -21,4 +21,8 @@ describe('Longest Increasing Subsequence', () => {
   it('returns the length of the input array when already sorted', () => {
     expect(lengthOfLIS([1, 2, 3, 4, 5])).toBe(5);
   });
+
+  it('should return 1 when the input is fully descending', () => {
+    expect(lengthOfLIS([5, 4, 3, 2, 1])).toBe(1);
+  });
 });
