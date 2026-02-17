@@ -13,4 +13,8 @@ describe('Longest Increasing Subsequence', () => {
   it('returns 1 when all elements are identical', () => {
     expect(lengthOfLIS([1, 1, 1, 1, 1, 1])).toBe(1);
   });
+
+  it('returns 1 for a single element array', () => {
+    expect(lengthOfLIS([42])).toBe(1);
+  });
 });
