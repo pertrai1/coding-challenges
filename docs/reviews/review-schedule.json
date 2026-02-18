@@ -872,7 +872,8 @@
           "scheduledDate": "2026-02-18",
           "interval": 30,
           "completed": false,
-          "issueNumber": null
+          "issueNumber": 242,
+          "issueCreatedAt": "2026-02-18T09:16:54.469Z"
         }
       ],
       "reviewsCompleted": [
@@ -1471,7 +1472,8 @@
           "scheduledDate": "2026-02-18",
           "interval": 1,
           "completed": false,
-          "issueNumber": null
+          "issueNumber": 243,
+          "issueCreatedAt": "2026-02-18T09:16:54.470Z"
         }
       ],
       "reviewsCompleted": []
@@ -1484,5 +1486,5 @@
     14,
     30
   ],
-  "lastUpdated": "2026-02-17T14:16:16.535Z"
+  "lastUpdated": "2026-02-18T09:16:54.470Z"
 }
